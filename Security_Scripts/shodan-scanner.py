@@ -1,7 +1,3 @@
- Portfolio Entry Template (Per Script)
-markdown
-Copy
-Edit
 ## Script: `shodan-scanner.py`
 
 **Function:**  
