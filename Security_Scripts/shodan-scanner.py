@@ -1,41 +1,64 @@
-## Script: `shodan-scanner.py`
+#!/usr/bin/env python3
+"""
+shodan-scanner.py
+Uses the Shodan API to scan a list of IP addresses and retrieve service banners and vulnerability info.
+Requires a valid Shodan API key.
+"""
 
-**Function:**  
-Uses the Shodan API to scan specified hosts for exposed services, open ports, and retrieve service banners.
+import shodan
+import argparse
+import json
+import time
+from typing import List
 
-**Primary Use Cases:**  
-- Reconnaissance during vulnerability assessments  
-- Identifying potentially exposed IoT/OT systems  
-- Validating perimeter security of client infrastructure  
+# Initialize argument parser
+parser = argparse.ArgumentParser(description="Scan targets with Shodan API and retrieve exposed services.")
+parser.add_argument("-k", "--apikey", required=True, help="Your Shodan API key")
+parser.add_argument("-i", "--input", required=True, help="Path to file with list of target IPs")
+parser.add_argument("-o", "--output", required=False, help="Output JSON file", default="shodan_output.json")
 
-**Key Features:**  
-- Takes a list of target IPs  
-- Queries Shodan for each and pulls relevant host data  
-- Extracts port, banner, and known vulnerability info  
-- Output in JSON and Markdown-ready format  
+args = parser.parse_args()
 
-**Technologies Used:**  
-- Python  
-- `shodan` library  
-- `argparse`, `json`, and custom output formatting
+# Initialize Shodan API
+api = shodan.Shodan(args.apikey)
 
-**Sample Command:**
-```bash
-python3 shodan-scanner.py -i targets.txt -o results.json
-Output Example:
+# Read target IPs
+with open(args.input, "r") as f:
+    targets = [line.strip() for line in f if line.strip()]
 
-makefile
-Copy
-Edit
-Host: 198.51.100.14
-Ports: 22, 80, 443
-Banner: Apache 2.4.41 (Ubuntu)
-Vulns: CVE-2020-11984, CVE-2021-41773
-Security Context:
-Useful for identifying low-hanging fruit in public-facing infrastructure, ensuring organizations aren’t unknowingly exposing high-risk services.
+results = {}
 
-Cautions:
-API usage is rate-limited. Requires valid Shodan API key. Intended only for infrastructure you own or have authorization to scan.
+for ip in targets:
+    try:
+        print(f"[+] Querying Shodan for {ip}...")
+        host = api.host(ip)
+        result = {
+            "ip": host.get("ip_str"),
+            "org": host.get("org", "N/A"),
+            "os": host.get("os", "N/A"),
+            "ports": host.get("ports", []),
+            "data": [],
+            "vulns": host.get("vulns", [])
+        }
 
-Next Steps:
-Integrates well with vuln_check.py and exploit_checker.py for full workflow analysis.
+        for item in host.get("data", []):
+            result["data"].append({
+                "port": item.get("port"),
+                "transport": item.get("transport"),
+                "product": item.get("product"),
+                "version": item.get("version"),
+                "banner": item.get("data", "")[:100]  # Limit banner size
+            })
+
+        results[ip] = result
+        time.sleep(1)  # Avoid hitting rate limits
+
+    except shodan.APIError as e:
+        print(f"[-] Error retrieving data for {ip}: {e}")
+        results[ip] = {"error": str(e)}
+
+# Save results
+with open(args.output, "w") as out:
+    json.dump(results, out, indent=2)
+
+print(f"[+] Scan complete. Results saved to {args.output}")
