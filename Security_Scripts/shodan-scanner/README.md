@@ -40,8 +40,6 @@ Edit
 192.0.2.88
 Example Output (Truncated):
 json
-Copy
-Edit
 {
   "198.51.100.23": {
     "ip": "198.51.100.23",
@@ -60,7 +58,8 @@ Edit
     "vulns": ["CVE-2021-41773", "CVE-2020-11984"]
   }
 }
-Security Context
+
+# Security Context
 This script helps identify:
 
 Misconfigured or exposed services
