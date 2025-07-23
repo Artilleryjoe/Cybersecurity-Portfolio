@@ -53,32 +53,32 @@ Shodan API Key
 Set your API key for shodan-scanner.py in your environment:
 
 bash
-Copy
-Edit
-export SHODAN_API_KEY=your_api_key_here
-Setup
-Clone the repo:
+  Copy
+  Edit
+  export SHODAN_API_KEY=your_api_key_here
+  Setup
+  Clone the repo:
 
 bash
-Copy
-Edit
-git clone https://github.com/your-username/security-scripts-toolkit.git
-cd security-scripts-toolkit
-Create and activate a virtual environment:
+  Copy
+  Edit
+  git clone https://github.com/your-username/security-scripts-toolkit.git
+  cd security-scripts-toolkit
+  Create and activate a virtual environment:
 
 bash
-Copy
-Edit
-python3 -m venv venv
-source venv/bin/activate   # Termux/Linux
-Install required modules:
+  Copy
+  Edit
+  python3 -m venv venv
+  source venv/bin/activate   # Termux/Linux
+  Install required modules:
 
 bash
-Copy
-Edit
-pip install -r requirements.txt
-Tested Environments
-Ubuntu 22.04 LTS
+  Copy
+  Edit
+  pip install -r requirements.txt
+  Tested Environments
+  Ubuntu 22.04 LTS
 
 Termux (Pixel 9a)
 
