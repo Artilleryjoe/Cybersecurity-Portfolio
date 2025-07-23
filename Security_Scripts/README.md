@@ -89,25 +89,7 @@ Use these tools only on systems you own or have explicit written permission to t
 Unauthorized use is illegal and unethical.
 This toolkit is intended for learning, research, and authorized security assessment only.
 
-Folder Structure (Reference)
-pgsql
-Copy
-Edit
-security-scripts-toolkit/
-├── cert_grabber.py
-├── csv_json_export.py
-├── dns_enum.py
-├── email_head_tool.py
-├── exploit_checker.py
-├── markdown_html_gen.py
-├── meta_extract.py
-├── password_spray.py
-├── port_scanner.py
-├── requirements.txt
-├── shodan-scanner.py
-├── vuln_check.py
-├── who_geo.py
-└── README.md
+
 Author
 Kristopher McCoy
 Cybersecurity Professional | Portfolio Project — July 2025
