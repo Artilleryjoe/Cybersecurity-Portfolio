@@ -1,6 +1,7 @@
 # Security Scripts Toolkit
 
-A collection of modular Python scripts for reconnaissance, vulnerability scanning, and security reporting. Built for educational purposes, portfolio demonstration, and authorized security assessments only.
+A collection of modular Python scripts for reconnaissance, vulnerability scanning, and security reporting.  
+Built for educational purposes, portfolio demonstration, and authorized security assessments only.
 
 ---
 
@@ -41,44 +42,45 @@ Each script is designed to be modular, standalone, and easily extensible.
 - Python modules:
   ```bash
   pip install -r requirements.txt
-Additional external tools:
+Additional External Tools
+These are required by specific scripts:
 
 hydra — for password_spray.py
 
 exiftool — for meta_extract.py
 
-nmap (optional) — for comparison or local scans
+nmap (optional) — for local port scanning or verification
 
 Shodan API Key
-Set your API key for shodan-scanner.py in your environment:
+Set your Shodan API key as an environment variable:
 
 bash
-  Copy
-  Edit
-  export SHODAN_API_KEY=your_api_key_here
-  Setup
-  Clone the repo:
+Copy
+Edit
+export SHODAN_API_KEY=your_api_key_here
+Setup
+Clone the repository:
 
 bash
-  Copy
-  Edit
-  git clone https://github.com/your-username/security-scripts-toolkit.git
-  cd security-scripts-toolkit
-  Create and activate a virtual environment:
+Copy
+Edit
+git clone https://github.com/your-username/security-scripts-toolkit.git
+cd security-scripts-toolkit
+Create and activate a virtual environment:
 
 bash
-  Copy
-  Edit
-  python3 -m venv venv
-  source venv/bin/activate   # Termux/Linux
-  Install required modules:
+Copy
+Edit
+python3 -m venv venv
+source venv/bin/activate  # For Termux/Linux
+Install Python dependencies:
 
 bash
-  Copy
-  Edit
-  pip install -r requirements.txt
-  Tested Environments
-  Ubuntu 22.04 LTS
+Copy
+Edit
+pip install -r requirements.txt
+Tested Environments
+Ubuntu 22.04 LTS
 
 Termux (Pixel 9a)
 
@@ -89,7 +91,26 @@ Use these tools only on systems you own or have explicit written permission to t
 Unauthorized use is illegal and unethical.
 This toolkit is intended for learning, research, and authorized security assessment only.
 
-
+Folder Structure
+pgsql
+  Copy
+  Edit
+  security-scripts-toolkit/
+  ├── cert_grabber.py
+  ├── csv_json_export.py
+  ├── dns_enum.py
+  ├── email_head_tool.py
+  ├── exploit_checker.py
+  ├── markdown_html_gen.py
+  ├── meta_extract.py
+  ├── password_spray.py
+  ├── port_scanner.py
+  ├── requirements.txt
+  ├── shodan-scanner.py
+  ├── vuln_check.py
+  ├── who_geo.py
+  └── README.md
+  
 Author
 Kristopher McCoy
 Cybersecurity Professional | Portfolio Project — July 2025
