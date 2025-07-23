@@ -45,41 +45,33 @@ Each script is designed to be modular, standalone, and easily extensible.
 Additional External Tools
 These are required by specific scripts:
 
-hydra — for password_spray.py
+# hydra — for password_spray.py
 
-exiftool — for meta_extract.py
+# exiftool — for meta_extract.py
 
-nmap (optional) — for local port scanning or verification
+# nmap (optional) — for local port scanning or verification
 
-Shodan API Key
+# Shodan API Key
 Set your Shodan API key as an environment variable:
 
 bash
-Copy
-Edit
-export SHODAN_API_KEY=your_api_key_here
-Setup
+  export SHODAN_API_KEY=your_api_key_here
+  Setup
 Clone the repository:
 
 bash
-Copy
-Edit
-git clone https://github.com/your-username/security-scripts-toolkit.git
-cd security-scripts-toolkit
+  git clone https://github.com/your-username/security-scripts-toolkit.git
+  cd security-scripts-toolkit
 Create and activate a virtual environment:
 
 bash
-Copy
-Edit
-python3 -m venv venv
-source venv/bin/activate  # For Termux/Linux
+  python3 -m venv venv
+  source venv/bin/activate  # For Termux/Linux
 Install Python dependencies:
 
 bash
-Copy
-Edit
-pip install -r requirements.txt
-Tested Environments
+  pip install -r requirements.txt
+  Tested Environments
 Ubuntu 22.04 LTS
 
 Termux (Pixel 9a)
@@ -93,8 +85,6 @@ This toolkit is intended for learning, research, and authorized security assessm
 
 Folder Structure
 pgsql
-  Copy
-  Edit
   security-scripts-toolkit/
   ├── cert_grabber.py
   ├── csv_json_export.py
