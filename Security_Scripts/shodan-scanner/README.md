@@ -1,38 +1,63 @@
-Usage Instructions
-Run the script with:
+# shodan-scanner.py
 
-bash
+## Purpose
 
-Collapse
+This script queries the Shodan API to retrieve information about IP addresses, including open ports, service banners, and known vulnerabilities. It is useful during reconnaissance and exposure assessments.
 
-Wrap
+## Features
 
-Run
+- Accepts a list of IP addresses from a text file.
+- Retrieves metadata including:
+  - Organization
+  - OS (if known)
+  - Open ports
+  - Service banners
+  - Known vulnerabilities (CVEs)
+- Outputs a structured JSON report.
 
+## Requirements
+
+- Python 3.x
+- `shodan` Python library
+- Valid Shodan API key
+
+## Installation
+
+Install the required Python package:
+
+pip install shodan
+
+shell
 Copy
+Edit
+
+## Usage
+
 python3 shodan-scanner.py -k YOUR_API_KEY -i targets.txt -o results.json
--k: Your Shodan API key (required).
--i: Path to a text file with one IP address per line (required).
--o: Output JSON file path (optional, defaults to shodan_output.json).
-Example Input (targets.txt)
-text
 
-Collapse
-
-Wrap
-
+markdown
 Copy
+Edit
+
+Arguments:
+
+- `-k`, `--apikey` - Your Shodan API key (required)
+- `-i`, `--input` - Path to a file containing IP addresses, one per line (required)
+- `-o`, `--output` - Output file for results in JSON format (default: `shodan_output.json`)
+
+## Example Input: targets.txt
+
 198.51.100.23
 203.0.113.17
 192.0.2.88
-Example Output (results.json)
-json
 
-Collapse
-
-Wrap
-
+bash
 Copy
+Edit
+
+## Example Output (truncated)
+
+```json
 {
   "198.51.100.23": {
     "ip": "198.51.100.23",
@@ -51,11 +76,17 @@ Copy
     "vulns": ["CVE-2021-41773", "CVE-2020-11984"]
   }
 }
-Security Notes
-Purpose: Identifies misconfigured services, exposed ports, and known vulnerabilities for external assessments.
-Caution: Only scan infrastructure you own or have explicit permission to test to avoid legal issues.
-Rate Limits: The script includes a 1-second delay between API calls to respect Shodan’s free API tier limits.
-Integrations
-vuln_check.py: Use to further analyze CVEs from the output.
-markdown_html_gen.py: Convert the JSON output into styled markdown or HTML reports for presentations.
-This script is production-ready and designed for integration into reporting pipelines. Let me know if you need help with the integrations or further customization!
+Security Context
+This script helps identify publicly exposed services and known vulnerabilities associated with those services. It should only be used on networks and systems you own or have explicit authorization to test.
+
+Integration
+The output of this script can be further analyzed using:
+
+vuln_check.py - For matching services against CVE databases
+
+markdown_html_gen.py - To convert results into readable reports
+
+csv_json_export.py - To reformat the data for different pipelines
+
+License
+MIT License. Use at your own risk.
