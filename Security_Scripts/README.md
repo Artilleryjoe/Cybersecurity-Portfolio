@@ -1,12 +1,18 @@
 # Security Scripts Toolkit
 
-A collection of modular Python scripts for reconnaissance, vulnerability scanning, and security reporting. Built for **educational purposes**, **portfolio demonstration**, and **authorized security assessments** only.
+A collection of modular Python scripts for reconnaissance, vulnerability scanning, and security reporting. Built for educational purposes, portfolio demonstration, and authorized security assessments only.
 
 ---
 
 ## Overview
 
-This toolkit serves as a practical foundation for cybersecurity learners, ethical hackers, and professionals conducting **internal or authorized security assessments**. Each script is designed to be **modular, standalone**, and easily extensible.
+This toolkit serves as a practical foundation for:
+
+- Cybersecurity learners  
+- Ethical hackers  
+- Professionals conducting internal or authorized security assessments  
+
+Each script is designed to be modular, standalone, and easily extensible.
 
 ---
 
@@ -31,20 +37,20 @@ This toolkit serves as a practical foundation for cybersecurity learners, ethica
 
 ## Requirements
 
-- **Python** 3.8+
+- Python 3.8+
 - Python modules:
   ```bash
   pip install -r requirements.txt
-Additional external tools (used by specific scripts):
+Additional external tools:
 
 hydra — for password_spray.py
 
 exiftool — for meta_extract.py
 
-nmap (optional, for local port scans or comparison)
+nmap (optional) — for comparison or local scans
 
-Shodan API Key (for shodan-scanner.py):
-Must be stored in your environment:
+Shodan API Key
+Set your API key for shodan-scanner.py in your environment:
 
 bash
 Copy
@@ -64,8 +70,8 @@ bash
 Copy
 Edit
 python3 -m venv venv
-source venv/bin/activate   # On Termux or Linux
-Install required Python modules:
+source venv/bin/activate   # Termux/Linux
+Install required modules:
 
 bash
 Copy
@@ -80,10 +86,11 @@ Local and virtual test lab networks
 
 Disclaimer
 Use these tools only on systems you own or have explicit written permission to test.
-Unauthorized use is illegal and unethical. This toolkit is intended for learning, research, and authorized security assessment purposes only.
+Unauthorized use is illegal and unethical.
+This toolkit is intended for learning, research, and authorized security assessment only.
 
 Folder Structure (Reference)
-plaintext
+pgsql
 Copy
 Edit
 security-scripts-toolkit/
@@ -101,7 +108,6 @@ security-scripts-toolkit/
 ├── vuln_check.py
 ├── who_geo.py
 └── README.md
-
 Author
 Kristopher McCoy
 Cybersecurity Professional | Portfolio Project — July 2025
