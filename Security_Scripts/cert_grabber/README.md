@@ -25,8 +25,8 @@ Fetches SSL/TLS certificate metadata from a remote host.
     "not_before": "2025-05-01T00:00:00",
     "not_after": "2026-05-01T23:59:59",
     "version": 3
-  }```
-  
+  }
+```  
 ## Security Context
 This script is for educational or authorized use only. Interrogating certificate details from unauthorized systems may violate acceptable use policies.
 
