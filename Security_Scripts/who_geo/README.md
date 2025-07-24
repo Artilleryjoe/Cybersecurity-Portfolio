@@ -9,7 +9,8 @@ python3 who_geo.py -t example.com -o who_geo_results.json
 
 -o, --output: Output JSON file path (default: who_geo_results.json).
 
-Example Output (who_geo_results.json)
+## Example Output (who_geo_results.json)
+```json
   {
     "whois": {
       "domain": "example.com",
@@ -28,6 +29,7 @@ Example Output (who_geo_results.json)
       "registry": "arin"
     }
   }
+```
 ## Security Context
 This script is intended for legitimate security research and assessment purposes. Always ensure you have permission to query domains or IPs, especially in automated or large-scale contexts.
 
