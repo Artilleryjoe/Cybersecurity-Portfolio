@@ -29,6 +29,7 @@ python3 dns_enum.py -d example.com -o dns_results.json
 -o, --output: Output JSON file path (default: dns_enum_results.json).
 
 ## Example Output (dns_results.json)
+```json
   {
     "domain": "example.com",
     "dns_records": {
@@ -45,7 +46,7 @@ python3 dns_enum.py -d example.com -o dns_results.json
       "ns2.example.com.": "Zone transfer failed: timed out"
     }
   }
-
+```
 ## Security Context
 Only run this script against domains you own or have explicit permission to test. Unauthorized zone transfers or enumeration may be illegal.
 
