@@ -22,8 +22,6 @@ No external libraries required. Standard Python installation is sufficient.
 
 ## Usage
 ```bash```
-Copy
-Edit
 # Export both CSV and JSON from a file
 python3 csv_json_export.py -i recon_results.json -f both -o exported_data
 
@@ -39,8 +37,6 @@ cat recon_results.json | python3 csv_json_export.py -f csv
 
 ## Example Input (JSON)
 ```json
-Copy
-Edit
 [
   {
     "ip": "192.168.1.1",
