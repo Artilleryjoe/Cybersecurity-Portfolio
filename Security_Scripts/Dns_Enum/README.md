@@ -28,4 +28,33 @@ python3 dns_enum.py -d example.com -o dns_results.json
 
 -o, --output: Output JSON file path (default: dns_enum_results.json).
 
-Example Output (dns_results.json)
+## Example Output (dns_results.json)
+  {
+    "domain": "example.com",
+    "dns_records": {
+      "A": ["93.184.216.34"],
+      "AAAA": [],
+      "MX": ["0 mail.example.com."],
+      "NS": ["ns1.example.com.", "ns2.example.com."],
+      "TXT": ["v=spf1 include:_spf.example.com ~all"],
+      "CNAME": [],
+      "SOA": ["ns1.example.com. hostmaster.example.com. 2021071501 7200 3600 1209600 3600"]
+    },
+    "axfr_zone_transfers": {
+      "ns1.example.com.": "Zone transfer failed: timed out",
+      "ns2.example.com.": "Zone transfer failed: timed out"
+    }
+  }
+
+## Security Context
+Only run this script against domains you own or have explicit permission to test. Unauthorized zone transfers or enumeration may be illegal.
+
+## Notes
+Zone transfers are often disabled; failures are normal.
+
+The script handles exceptions and timeouts gracefully.
+
+## License
+MIT License
+
+  
