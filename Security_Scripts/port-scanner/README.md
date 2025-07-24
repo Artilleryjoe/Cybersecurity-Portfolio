@@ -1,33 +1,16 @@
-# port_scanner.py
-
-## Purpose
-
-A custom TCP port scanner script that scans specified IP addresses and port ranges for open TCP ports. Useful for network reconnaissance and verifying firewall or service configurations.
-
-## Features
-
-- Supports scanning single ports or port ranges (e.g., 1-1024).
-- Uses multi-threading to speed up scanning.
-- Outputs results in JSON format with port numbers and common service names.
-- Simple and lightweight alternative to Nmap for basic scans.
-
-## Requirements
-
-- Python 3.x
-
 ## Usage
 
 ```bash
-  python3 port_scanner.py -t 192.0.2.5 -p 1-1024 -o scan_results.json
-  Arguments:
-  -t, --target: Target IP address to scan (required).
-  
-  -p, --ports: Port or port range to scan, e.g., 22 or 1-1024 (required).
-  
-  -o, --output: Output JSON file path (default: port_scan_results.json).
+python3 port_scanner.py -t 192.0.2.5 -p 1-1024 -o scan_results.json
+
+Arguments:
+-t, --target: Target IP address to scan (required).
+
+-p, --ports: Port or port range to scan, e.g., 22 or 1-1024 (required).
+
+-o, --output: Output JSON file path (default: port_scan_results.json).
 
 Example Output (scan_results.json)
-json
   {
     "host": "192.0.2.5",
     "open_ports": [
