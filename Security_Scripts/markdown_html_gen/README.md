@@ -1,22 +1,22 @@
-markdown_html_gen.py
-Purpose
+# markdown_html_gen.py
+## Purpose
 This script generates a Markdown report from structured scan data and saves it as a .md file. It helps transform raw scan results into a readable Markdown format for easy review or further processing.
 
-Features
+## Features
 Converts nested dictionaries and lists into Markdown sections and bullet points
 
 Supports multiple sections with flexible content types
 
 Saves the output as a .md file
 
-Requirements
+## Requirements
 Python 3.x
 
 No external libraries required for basic Markdown generation
 
 Optional: Install markdown package if you want to extend it for HTML conversion (not included by default)
 
-Installation
+## Installation
 No installation needed for basic usage. For HTML conversion (optional):
 ```bash
 pip install markdown
