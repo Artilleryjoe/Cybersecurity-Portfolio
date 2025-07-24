@@ -29,16 +29,14 @@ Arguments:
 
 Example Output (scan_results.json)
 json
-Copy
-Edit
-{
-  "host": "192.0.2.5",
-  "open_ports": [
-    { "port": 22, "service": "SSH" },
-    { "port": 80, "service": "HTTP" },
-    { "port": 443, "service": "HTTPS" }
-  ]
-}
+  {
+    "host": "192.0.2.5",
+    "open_ports": [
+      { "port": 22, "service": "SSH" },
+      { "port": 80, "service": "HTTP" },
+      { "port": 443, "service": "HTTPS" }
+    ]
+  }
 Security Context
 This script is intended for use on authorized networks only. Port scanning unauthorized systems can be illegal and unethical.
 
