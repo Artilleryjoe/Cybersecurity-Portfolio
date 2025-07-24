@@ -76,10 +76,11 @@ Edit
     "vulns": ["CVE-2021-41773", "CVE-2020-11984"]
   }
 }
-Security Context
+```
+## Security Context
 This script helps identify publicly exposed services and known vulnerabilities associated with those services. It should only be used on networks and systems you own or have explicit authorization to test.
 
-Integration
+## Integration
 The output of this script can be further analyzed using:
 
 vuln_check.py - For matching services against CVE databases
@@ -88,5 +89,5 @@ markdown_html_gen.py - To convert results into readable reports
 
 csv_json_export.py - To reformat the data for different pipelines
 
-License
+## License
 MIT License. Use at your own risk.
