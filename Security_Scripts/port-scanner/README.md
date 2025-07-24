@@ -28,16 +28,14 @@ Arguments:
 
 Example Output (scan_results.json)
 json
-Copy
-Edit
-{
-  "host": "192.0.2.5",
-  "open_ports": [
-    { "port": 22, "service": "SSH" },
-    { "port": 80, "service": "HTTP" },
-    { "port": 443, "service": "HTTPS" }
-  ]
-}```bash
+  {
+    "host": "192.0.2.5",
+    "open_ports": [
+      { "port": 22, "service": "SSH" },
+      { "port": 80, "service": "HTTP" },
+      { "port": 443, "service": "HTTPS" }
+    ]
+  }```bash
 python3 port_scanner.py -t 192.0.2.5 -p 1-1024 -o scan_results.json
 Arguments:
 
