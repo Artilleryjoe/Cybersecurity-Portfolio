@@ -11,6 +11,7 @@ Arguments:
 -o, --output: Output JSON file path (default: port_scan_results.json).
 
 Example Output (scan_results.json)
+json
   {
     "host": "192.0.2.5",
     "open_ports": [
