@@ -45,5 +45,5 @@ Received: from unknown (HELO mail.example.com) (198.51.100.1)`
 ## Security Context
 Intended for email forensic analysis and phishing investigations on emails you have received or are authorized to inspect.
 
-License
+## License
 MIT License. Use at your own risk.
