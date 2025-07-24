@@ -37,7 +37,6 @@ Example Output (scan_results.json)
       { "port": 443, "service": "HTTPS" }
     ]
   }
-
 Security Context
 This script is intended for use on authorized networks only. Port scanning unauthorized systems can be illegal and unethical.
 
