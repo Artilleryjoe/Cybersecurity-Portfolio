@@ -12,7 +12,7 @@ Fetches SSL/TLS certificate metadata from a remote host.
 
 -o, --output: Output file for certificate metadata (default: cert_info.json)
 
-```Example Output (cert_info.json)
+Example Output (cert_info.json)
   {
     "subject": {
       "commonName": "example.com"
@@ -25,8 +25,7 @@ Fetches SSL/TLS certificate metadata from a remote host.
     "not_after": "2026-05-01T23:59:59",
     "version": 3
   }
-
-
+  
 ## Security Context
 This script is for educational or authorized use only. Interrogating certificate details from unauthorized systems may violate acceptable use policies.
 
