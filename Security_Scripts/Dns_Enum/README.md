@@ -18,7 +18,14 @@ A DNS enumeration tool that queries common DNS records and attempts AXFR zone tr
 ## Installation
 
 Install the required Python package:
-
-```bash
   pip install dnspython
 
+## Usage
+python3 dns_enum.py -d example.com -o dns_results.json
+
+## Arguments:
+-d, --domain: Target domain to enumerate (required).
+
+-o, --output: Output JSON file path (default: dns_enum_results.json).
+
+Example Output (dns_results.json)
