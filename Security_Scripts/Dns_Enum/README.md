@@ -22,4 +22,3 @@ Install the required Python package:
 ```bash
   pip install dnspython
 
-
