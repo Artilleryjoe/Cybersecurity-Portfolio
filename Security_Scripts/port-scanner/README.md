@@ -26,7 +26,7 @@ python3 port_scanner.py -t 192.0.2.5 -p 1-1024 -o scan_results.json
 -o, --output: Output JSON file path (default: port_scan_results.json).
 
 ## Example Output (scan_results.json)
-  json
+  ```json
   Copy
   Edit
   {
@@ -37,7 +37,7 @@ python3 port_scanner.py -t 192.0.2.5 -p 1-1024 -o scan_results.json
       { "port": 443, "service": "HTTPS" }
     ]
   }
-
+```
 ## Security Context
 This script is intended for use on authorized networks only. Port scanning unauthorized systems can be illegal and unethical.
 
