@@ -58,7 +58,7 @@ json
     ]
   }
 
-Security Context
+# Security Context
 This script is intended for use on authorized networks only. Port scanning unauthorized systems can be illegal and unethical.
 
 Notes
