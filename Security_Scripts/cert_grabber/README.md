@@ -13,7 +13,7 @@ Fetches SSL/TLS certificate metadata from a remote host.
 -o, --output: Output file for certificate metadata (default: cert_info.json)
 
 ## Example Output (cert_info.json)
-json
+```json
   {
     "subject": {
       "commonName": "example.com"
