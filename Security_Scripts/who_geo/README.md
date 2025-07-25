@@ -2,12 +2,12 @@
 Performs a Whois lookup and GeoIP geolocation query for a given domain or IP address. Outputs the combined result as structured JSON.
 
 ## Usage
-python3 who_geo.py -t example.com -o who_geo_results.json
+```python3 who_geo.py -t example.com -o who_geo_results.json```
 
 ## Arguments
--t, --target: Target domain or IP address to query (required).
+`-t`, --target: Target domain or IP address to query (required).
 
--o, --output: Output JSON file path (default: who_geo_results.json).
+`-o`, --output: Output JSON file path (default: who_geo_results.json).
 
 ## Example Output (who_geo_results.json)
 ```json
