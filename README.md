@@ -100,4 +100,5 @@ source venv/bin/activate
 This toolkit is intended for educational use, authorized testing, and professional development only.
 
 Do not use these scripts or playbooks on networks or systems without explicit written permission.
+
 Unauthorized use of security tools is illegal and unethical.
