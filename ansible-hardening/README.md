@@ -31,13 +31,13 @@ ansible-playbook -i inventory/hosts.yml playbooks/<playbook>.yml --ask-become-pa
 - Replace <playbook> with the desired playbook filename.
 
 ## Requirements
-Ansible 2.16+
+- Ansible 2.16+
 
-Python 3.8+
+- Python 3.8+
 
-SSH key access to target hosts
+- SSH key access to target hosts
 
-Sudo privileges on target hosts
+- Sudo privileges on target hosts
 
 ## Notes
 All playbooks use become: yes for privilege escalation.
