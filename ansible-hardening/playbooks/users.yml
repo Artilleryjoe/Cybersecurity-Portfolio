@@ -1,1 +1,35 @@
+- name: Manage users on Iron Dillo servers
+  hosts: all
+  become: yes
+
+  vars:
+    users_to_manage:
+      - username: jdillo
+        uid: 1001
+        groups: "sudo,docker"
+        shell: /bin/bash
+        ssh_key: "ssh-ed25519 AAAA...yourpublickey... user@host"
+      - username: secadmin
+        uid: 1002
+        groups: "sudo"
+        shell: /bin/bash
+        ssh_key: "ssh-ed25519 AAAA...anotherpublickey... user@host"
+
+  tasks:
+    - name: Ensure users are present
+      ansible.builtin.user:
+        name: "{{ item.username }}"
+        uid: "{{ item.uid }}"
+        groups: "{{ item.groups }}"
+        shell: "{{ item.shell }}"
+        state: present
+        create_home: yes
+      loop: "{{ users_to_manage }}"
+
+    - name: Set authorized SSH keys for users
+      ansible.builtin.authorized_key:
+        user: "{{ item.username }}"
+        key: "{{ item.ssh_key }}"
+        state: present
+      loop: "{{ users_to_manage }}"
 
