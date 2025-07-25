@@ -27,7 +27,7 @@ This section includes custom Python scripts for reconnaissance, scanning, and re
 
 ---
 
-## 🛡️ Ansible Hardening Playbooks
+## Ansible Hardening Playbooks
 
 This section contains **Ansible playbooks** for automating system security hardening tasks. These are modular and reusable for secure deployments.
 
