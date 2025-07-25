@@ -50,30 +50,30 @@ ansible-playbook -i hosts ssh.yml --ask-become-pass
 
 - Sudo password prompt appears unless SSH keys are configured with proper privileges
 
-## Requirements
-Python Scripts
-Python: 3.8+
+# Requirements
+## Python Scripts
+- Python: 3.8+
 
-Modules (install via pip install -r requirements.txt):
+- Modules (install via pip install -r requirements.txt):
 
-requests, dnspython, python-docx, PyPDF2, shodan
+- requests, dnspython, python-docx, PyPDF2, shodan
 
-External Tools:
+- External Tools:
 
-exiftool
+- exiftool
 
-hydra
+- hydra
 
-nmap (optional)
+- nmap (optional)
 
-Ansible Playbooks
-Ansible: 2.10+
+## Ansible Playbooks
+- Ansible: 2.10+
 
 ## Required tools:
 
-sshpass (for password-based SSH connections)
+- sshpass (for password-based SSH connections)
 
-sudo (on target systems)
+- sudo (on target systems)
 
 ## Setup
 ```bash
