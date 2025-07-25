@@ -9,7 +9,7 @@ This repository contains the foundational setup for a custom security dashboard 
 
 - Index: security-scans with fields for host, port, service, vulnerability, and timestamp
 
-#Getting Started
+# Getting Started
 ## Prerequisites
 - Docker & Docker Compose installed
 
