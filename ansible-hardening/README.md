@@ -58,4 +58,8 @@ ansible-hardening/
 │   └── fail2ban.yml
 └── README.md
 ```
+## Author
 
+Kristopher McCoy  
+Cybersecurity Professional | Portfolio Project — July 2025  
+GitHub: [github.com/artilleryjoe](https://github.com/artilleryjoe)
