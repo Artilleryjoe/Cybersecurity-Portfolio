@@ -46,7 +46,7 @@ Inventory and playbooks are modular and extensible for future additions.
 
 Use responsibly and only on systems you own or have explicit permission to manage.
 
-##Folder Structure
+## Folder Structure
 ```
 ansible-hardening/
 ├── inventory/
