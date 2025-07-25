@@ -37,7 +37,7 @@ This section contains **Ansible playbooks** for automating system security harde
 |---------------|-------------------------------------------------------------------------------------------------|
 | `ssh.yml`     | Hardens SSH server settings: disables root login, enforces key-only auth, restarts SSH service. |
 | `users.yml`   | Manages user accounts, groups, SSH keys, and permissions.                                       |
-| `fail2ban.yml`| Baseline OS hardening (users, firewall, updates).                                               |
+| `fail2ban.yml`|	Install and configure Fail2Ban with SSH jail.                                                   |
 | `audit.yml`   | Runs security compliance audits using `auditd`, `oscap`, or custom checks.                      |
 
 
