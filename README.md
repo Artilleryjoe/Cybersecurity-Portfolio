@@ -34,11 +34,11 @@ This section contains **Ansible playbooks** for automating system security harde
 ### Included Playbooks
 
 | Playbook      | Description                                                                                     |
-|---------------|-------------------------------------------------------------------------------------------------|
-| `ssh.yml`     | Hardens SSH server settings: disables root login, enforces key-only auth, restarts SSH service. |
-| `users.yml`   | Manages user accounts, groups, SSH keys, and permissions.                                       |
-| `fail2ban.yml`|	Install and configure Fail2Ban with SSH jail.                                                   |
-| `firewalls.yml' | Configure UFW firewall rules.                      |
+|----------------|-------------------------------------------------------------------------------------------------|
+| `ssh.yml`      | Hardens SSH server settings: disables root login, enforces key-only auth, restarts SSH service. |
+| `users.yml`    | Manages user accounts, groups, SSH keys, and permissions.                                       |
+| `fail2ban.yml` |	Install and configure Fail2Ban with SSH jail.                                                   |
+| `firewalls.yml'| Configure UFW firewall rules.                                                                   |
 
 
 ### Example Usage
