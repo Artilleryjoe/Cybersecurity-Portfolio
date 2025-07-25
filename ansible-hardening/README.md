@@ -28,8 +28,8 @@ Run playbooks with:
 ```bash
 ansible-playbook -i inventory/hosts.yml playbooks/<playbook>.yml --ask-become-pass
 Replace <playbook> with the desired playbook filename.
-
-Requirements
+```
+## Requirements
 Ansible 2.16+
 
 Python 3.8+
@@ -38,16 +38,15 @@ SSH key access to target hosts
 
 Sudo privileges on target hosts
 
-Notes
+## Notes
 All playbooks use become: yes for privilege escalation.
 
 Inventory and playbooks are modular and extensible for future additions.
 
 Use responsibly and only on systems you own or have explicit permission to manage.
 
-Folder Structure
-Copy
-Edit
+##Folder Structure
+```
 ansible-hardening/
 ├── inventory/
 │   └── hosts.yml
@@ -57,7 +56,5 @@ ansible-hardening/
 │   ├── ssh.yml
 │   └── fail2ban.yml
 └── README.md
-Author
-Kristopher McCoy
-Cybersecurity Professional | Portfolio Project — July 2025
-GitHub: github.com/artilleryjoe
+```
+
