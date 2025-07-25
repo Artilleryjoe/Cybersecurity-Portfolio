@@ -22,7 +22,7 @@ This section includes custom Python scripts for reconnaissance, scanning, and re
 | `exploit_checker.py`    | Checks for common exploits (e.g., SMBv1, exposed RDP).                     |
 | `email_head_tool.py`    | Analyzes email headers for SPF, DKIM, DMARC, and relay paths.              |
 | `password_spray.py`     | Performs password spray attacks (test environments only, using Hydra).     |
-| `markdown_html_gen.py`  | Generates clean Markdown and HTML summary reports.                         |
+| `markdown_gen.py`       | Generates clean Markdown summary reports.                                  |
 | `csv_json_export.py`    | Exports scan results and data in CSV and JSON formats.                     |
 
 ---
