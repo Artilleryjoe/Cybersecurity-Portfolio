@@ -1,1 +1,24 @@
+- name: Configure UFW firewall
+  hosts: all
+  become: yes
 
+  tasks:
+    - name: Ensure UFW is installed
+      ansible.builtin.package:
+        name: ufw
+        state: present
+
+    - name: Enable UFW (force yes)
+      ansible.builtin.shell: ufw --force enable
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Allow SSH port through firewall
+      ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+
+    - name: Set default incoming policy to deny
+      ufw:
+        direction: incoming
+        policy: deny
