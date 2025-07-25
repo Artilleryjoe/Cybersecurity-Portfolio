@@ -4,7 +4,7 @@ A collection of modular Python and Ansible-based scripts for reconnaissance, har
 
 ---
 
-## 🔐 Security Scripts Portfolio (Python)
+## Security Scripts Portfolio (Python)
 
 This section includes custom Python scripts for reconnaissance, scanning, and reporting. Developed for practical security testing in controlled environments.
 
