@@ -35,7 +35,7 @@ This section contains **Ansible playbooks** for automating system security harde
 
 | Playbook                | Description                                                                 |
 |-------------------------|-----------------------------------------------------------------------------|
-| `ssh.yml`               | Hardens SSH server settings: disables root login, enforces key-only auth, restarts SSH service. | `users.yml'             | Manages user accounts, groups, SSH keys, and permissions.                   |
+| `ssh.yml`               | Hardens SSH server settings: disables root login, enforces key-only auth, restarts SSH service.| |  `users.yml'           | Manages user accounts, groups, SSH keys, and permissions.                   |
 | `common.yml`            | Baseline OS hardening (users, firewall, updates).                           |
 | `audit.yml`             | Runs security compliance audits using `auditd`, `oscap`, or custom checks.  |
 
