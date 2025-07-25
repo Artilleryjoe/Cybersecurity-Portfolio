@@ -42,8 +42,7 @@ This section contains **Ansible playbooks** for automating system security harde
 ### Example Usage
 
 ```bash
-ansible-playbook -i hosts ssh.yml --ask-become-pass
-```
+ansible-playbook -i hosts ssh.yml --ask-become-pass```
 Uses inventory defined in hosts
 
 Requires sshpass if using password-based auth
