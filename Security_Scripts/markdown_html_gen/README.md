@@ -1,4 +1,4 @@
-# markdown_html_gen.py
+# markdown_gen.py
 ## Purpose
 This script generates a Markdown report from structured scan data and saves it as a .md file. It helps transform raw scan results into a readable Markdown format for easy review or further processing.
 
