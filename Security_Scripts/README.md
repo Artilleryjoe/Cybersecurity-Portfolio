@@ -79,17 +79,17 @@ pip install -r requirements.txt
 ## Tested Environments
 
 - Ubuntu 22.04 LTS
-- 
+  
 - Termux (Pixel 9a)
-- 
+  
 - Local and virtual test lab networks
 
 ## Disclaimer
 
 - Use these tools only on systems you own or have explicit written permission to test.
-- 
+  
 - Unauthorized use is illegal and unethical.
-- 
+  
 - This toolkit is intended for learning, research, and authorized security assessment only.
 
 ## Folder Structure
