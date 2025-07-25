@@ -42,12 +42,13 @@ This section contains **Ansible playbooks** for automating system security harde
 ### Example Usage
 
 ```bash
-ansible-playbook -i hosts ssh.yml --ask-become-pass```
-Uses inventory defined in hosts
+ansible-playbook -i hosts ssh.yml --ask-become-pass
+```
+- Uses inventory defined in hosts
 
-Requires sshpass if using password-based auth
+- Requires sshpass if using password-based auth
 
-Sudo password prompt appears unless SSH keys are configured with proper privileges
+- Sudo password prompt appears unless SSH keys are configured with proper privileges
 
 ## Requirements
 Python Scripts
