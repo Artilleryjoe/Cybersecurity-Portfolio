@@ -27,8 +27,9 @@ Run playbooks with:
 
 ```bash
 ansible-playbook -i inventory/hosts.yml playbooks/<playbook>.yml --ask-become-pass
-Replace <playbook> with the desired playbook filename.
 ```
+- Replace <playbook> with the desired playbook filename.
+
 ## Requirements
 Ansible 2.16+
 
