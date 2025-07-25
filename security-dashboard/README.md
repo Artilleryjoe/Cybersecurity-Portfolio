@@ -29,7 +29,7 @@ Elasticsearch: http://localhost:9200
 
 Kibana: http://localhost:5601
 
-Create the security-scans index with proper mapping (if needed).
+- Create the security-scans index with proper mapping (if needed).
 
 Ingest sample security scan data:
 
