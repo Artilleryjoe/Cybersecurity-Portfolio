@@ -1,0 +1,38 @@
+- name: Harden SSH settings
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Gather system facts
+      ansible.builtin.setup:
+
+    - name: Ensure OpenSSH server is installed
+      ansible.builtin.package:
+        name: openssh-server
+        state: present
+
+    - name: Backup current sshd_config
+      ansible.builtin.copy:
+        src: /etc/ssh/sshd_config
+        dest: /etc/ssh/sshd_config.bak
+        remote_src: yes
+        backup: yes
+
+    - name: Disable root login
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PermitRootLogin\s+.*'
+        line: 'PermitRootLogin no'
+        state: present
+
+    - name: Enforce key-based authentication
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PasswordAuthentication\s+.*'
+        line: 'PasswordAuthentication no'
+        state: present
+
+    - name: Restart SSH service
+      ansible.builtin.service:
+        name: ssh
+        state: restarted
