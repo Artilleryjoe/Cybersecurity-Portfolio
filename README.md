@@ -86,8 +86,7 @@ cd security-scripts-toolkit
 source venv/bin/activate
 ```
 # Install Python dependencies
-```pip install -r requirements.txt
-```
+```pip install -r requirements.txt```
 ## Tested on:
 
  - Ubuntu 22.04 LTS
