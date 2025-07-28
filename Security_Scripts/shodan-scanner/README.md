@@ -25,11 +25,7 @@ This script queries the Shodan API to retrieve information about IP addresses, i
 
 Install the required Python package:
 
-pip install shodan
-
-shell
-Copy
-Edit
+`pip install shodan
 
 ## Usage
 
