@@ -43,10 +43,6 @@ Install the required Python package:
 203.0.113.17
 192.0.2.88
 
-bash
-Copy
-Edit
-
 ## Example Output (truncated)
 
 ```json
