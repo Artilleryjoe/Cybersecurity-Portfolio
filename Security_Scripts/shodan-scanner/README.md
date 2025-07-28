@@ -33,11 +33,7 @@ Edit
 
 ## Usage
 
-python3 shodan-scanner.py -k YOUR_API_KEY -i targets.txt -o results.json
-
-markdown
-Copy
-Edit
+```python3 shodan-scanner.py -k YOUR_API_KEY -i targets.txt -o results.json
 
 Arguments:
 
