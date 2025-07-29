@@ -1,1 +1,12 @@
-
+[
+  {
+    "type": "dashboard",
+    "id": "basic-dashboard",
+    "attributes": {
+      "title": "Basic Security Dashboard",
+      "description": "Example dashboard layout",
+      "panelsJSON": "[]",
+      "timeRestore": false
+    }
+  }
+]

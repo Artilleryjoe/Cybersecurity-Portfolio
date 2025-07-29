@@ -1,1 +1,10 @@
-
+[
+  {
+    "type": "index-pattern",
+    "id": "security-scans",
+    "attributes": {
+      "title": "security-scans-*",
+      "timeFieldName": "timestamp"
+    }
+  }
+]
