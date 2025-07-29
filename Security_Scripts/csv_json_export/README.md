@@ -21,12 +21,13 @@ Python 3.x
 No external libraries required. Standard Python installation is sufficient.
 
 ## Usage
-```bash```
+```bash
 # Export both CSV and JSON from a file
 python3 csv_json_export.py -i recon_results.json -f both -o exported_data
 
 # Export only CSV, using stdin
 cat recon_results.json | python3 csv_json_export.py -f csv
+```
 
 ## Arguments
 -i, --input – Path to a JSON input file (optional if using stdin)
@@ -52,8 +53,6 @@ cat recon_results.json | python3 csv_json_export.py -f csv
 ```
 ## Example Output (CSV)
 ```csv
-Copy
-Edit
 ip,port,service
 192.168.1.1,80,http
 192.168.1.2,443,https
