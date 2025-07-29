@@ -1,10 +1,9 @@
-`dnspython`
-`markdown`
-`pdfminer.six`
-`python-docx`
-`requests`
-`shodan`
-`python-whois`
-`ipwhois`
-`placeholder`
+dnspython
+markdown
+pdfminer.six
+python-docx
+requests
+shodan
+python-whois
+ipwhois
 
