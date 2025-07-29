@@ -63,4 +63,28 @@ def main():
     parser.add_argument('-i', '--input', required=True, help="Raw email file (.eml) to analyze")
     args = parser.parse_args()
 
-    headers =
+    try:
+        headers = parse_email_headers(args.input)
+    except FileNotFoundError:
+        print(f"[-] File not found: {args.input}")
+        sys.exit(1)
+
+    spf_result = analyze_spf(headers)
+    dkim_result = analyze_dkim(headers)
+    dmarc_result = analyze_dmarc(headers)
+
+    print(f"SPF result: {spf_result}")
+    print(f"DKIM result: {dkim_result}")
+    print(f"DMARC result: {dmarc_result}\n")
+
+    print("## Key Headers:")
+    for key in ["From", "To", "Subject", "Date", "Message-ID", "Received"]:
+        value = headers.get(key)
+        if value:
+            print(f"{key}: {value}")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
