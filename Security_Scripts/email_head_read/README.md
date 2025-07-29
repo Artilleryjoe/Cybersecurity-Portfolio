@@ -27,12 +27,11 @@ Arguments
 -i, --input – Path to the raw email file (.eml) to analyze
 ```
 ## Example Output
-sql
-Copy
-Edit
+```text
 SPF result: pass
 DKIM result: fail
 DMARC result: pass
+```
 
 ## Key Headers:
 `From: attacker@example.com
