@@ -45,9 +45,10 @@ This section contains **Ansible playbooks** for automating system security harde
 ### Example Usage
 
 ```bash
-ansible-playbook -i hosts ssh.yml --ask-become-pass
+ansible-playbook -i ansible-hardening/inventory/hosts.yml ansible-hardening/playbooks/ssh.yml --ask-become-pass
 ```
-- Uses inventory defined in hosts
+- Uses the inventory file in `ansible-hardening/inventory/hosts.yml`
+- Edit this file to match your own server IP addresses
 
 - Requires sshpass if using password-based auth
 
