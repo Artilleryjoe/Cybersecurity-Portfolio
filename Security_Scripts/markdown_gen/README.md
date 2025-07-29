@@ -23,7 +23,7 @@ pip install markdown
 ```
 ## Usage
 ```bash
-python3 markdown_html_gen.py
+python3 markdown_gen.py
 ```
 By default, the script generates a sample report file named report.md.
 

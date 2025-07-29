@@ -1,4 +1,4 @@
-# markdown_html_gen.py
+# markdown_gen.py
 
 ## Purpose
 
@@ -23,12 +23,12 @@ No external libraries required.
 Run the script directly with embedded sample data:
 
 ```bash
-python3 markdown_html_gen.py
+python3 markdown_gen.py
 ```
 To use with your own data:
 
 ```python
-from markdown_html_gen import generate_markdown_report, save_report
+from markdown_gen import generate_markdown_report, save_report
 
 my_data = {
     "Host Info": {"IP": "10.0.0.1", "Hostname": "target.local"},
