@@ -1,1 +1,11 @@
-
+{
+  "mappings": {
+    "properties": {
+      "host": { "type": "keyword" },
+      "port": { "type": "integer" },
+      "service": { "type": "keyword" },
+      "vulnerability": { "type": "keyword" },
+      "timestamp": { "type": "date" }
+    }
+  }
+}
