@@ -31,7 +31,7 @@ Each script is designed to be modular, standalone, and easily extensible.
 | `exploit_checker.py`    | Checks for common misconfigurations (e.g., SMBv1, RDP exposure).           |
 | `email_head_tool.py`    | Analyzes email headers for SPF, DKIM, DMARC, and relay path insight.       |
 | `password_spray.py`     | Executes password spray attacks (test environments only) using Hydra.      |
-| `markdown_html_gen.py`  | Generates formatted Markdown and HTML reports from scan output.            |
+| `markdown_gen.py`       | Generates formatted Markdown and optional HTML reports from scan output.   |
 | `csv_json_export.py`    | Exports scan results to both `.csv` and `.json` formats.                   |
 
 ---
@@ -101,7 +101,7 @@ security-scripts-toolkit/
 ├── dns_enum.py
 ├── email_head_tool.py
 ├── exploit_checker.py
-├── markdown_html_gen.py
+├── markdown_gen.py
 ├── meta_extract.py
 ├── password_spray.py
 ├── port_scanner.py

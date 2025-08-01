@@ -1,7 +1,7 @@
 
 #!/usr/bin/env python3
 """
-markdown_html_gen.py
+markdown_gen.py
 Generate Markdown reports from structured scan data and optionally convert to HTML.
 """
 
