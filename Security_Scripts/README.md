@@ -28,7 +28,7 @@ Each script is designed to be modular, standalone, and easily extensible.
 | `cert_grabber.py`       | Fetches SSL/TLS certificate metadata (issuer, expiration, etc.).           |
 | `meta_extract.py`       | Extracts metadata from files (images, PDFs, Word documents).               |
 | `vuln_check.py`         | Matches open ports/services to known CVEs for vulnerability awareness.     |
-| `exploit_checker.py`    | Checks for common misconfigurations (e.g., SMBv1, RDP exposure).           |
+| `exploit_checker.py`    | Matches services and versions against known CVEs to flag exploitable paths.|
 | `email_head_tool.py`    | Analyzes email headers for SPF, DKIM, DMARC, and relay path insight.       |
 | `password_spray.py`     | Executes password spray attacks (test environments only) using Hydra.      |
 | `markdown_gen.py`       | Generates formatted Markdown and optional HTML reports from scan output.   |

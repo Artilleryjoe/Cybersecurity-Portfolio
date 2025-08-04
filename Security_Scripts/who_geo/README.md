@@ -1,4 +1,4 @@
-## who_geo.py
+# who_geo.py
 Performs a Whois lookup and GeoIP geolocation query for a given domain or IP address. Outputs the combined result as structured JSON.
 
 ## Usage
