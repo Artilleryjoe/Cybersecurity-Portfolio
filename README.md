@@ -1,6 +1,6 @@
 # Cybersecurity Portfolio
 
-This repository showcases several small projects for security automation, hardening, and monitoring. It combines Python utilities, Ansible playbooks, and a Kibana-based dashboard for visualizing scan data.
+This repository showcases several small projects for security automation, hardening, and monitoring. It combines Python utilities, Ansible playbooks, and a Kibana-based dashboard for visualizing scan data. More to come.
 
 ## Repository Overview
 
