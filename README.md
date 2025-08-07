@@ -25,27 +25,6 @@ Below are ten standout labs from my cybersecurity master's program:
 9. **Threat Hunting with SIEM** – Using log data and queries to uncover suspicious activity.
 10. **Wireless Security Assessment** – Auditing Wi-Fi networks and implementing mitigation strategies.
 
-## Quick Setup
-
-Clone the repository and prepare a Python environment for the scripts:
-
-```bash
-git clone https://github.com/yourusername/security-scripts-toolkit.git
-cd security-scripts-toolkit
-python3 -m venv venv
-source venv/bin/activate
-pip install -r Security_Scripts/requirements.txt
-```
-
-Launch the security dashboard:
-
-```bash
-cd security-dashboard
-docker-compose up -d
-```
-
-The Ansible playbooks require Ansible 2.10+ and SSH access to your hosts.
-
 ## Legal & Ethical Notice
 
 This portfolio is intended for educational use, authorized testing, and professional development only. Do not run these tools or playbooks on networks or systems without explicit written permission. Unauthorized use of security tools is illegal and unethical.
