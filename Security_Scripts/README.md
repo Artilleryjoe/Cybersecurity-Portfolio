@@ -55,15 +55,15 @@ These are required by specific scripts:
 ### Shodan API Key
 Set your Shodan API key as an environment variable:
 ```bash
-export SHODAN_API_KEY=your_api_key_here
+export SHODAN_API_KEY=<your_shodan_api_key>
 ```
 
 ## Setup
 
 Clone the repository:
 ```bash
-git clone https://github.com/your-username/security-scripts-toolkit.git
-cd security-scripts-toolkit
+git clone https://github.com/artilleryjoe/Cybersecurity-Portfolio.git
+cd Cybersecurity-Portfolio/Security_Scripts
 ```
 
 Create and activate a virtual environment:

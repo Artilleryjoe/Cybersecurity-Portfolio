@@ -4,17 +4,13 @@ This repository contains the foundational setup for a custom security dashboard 
 
 ## Components
 - Elasticsearch: Stores and indexes security scan documents
-
 - Kibana: Provides the visualization and dashboard interface
-
 - Index: security-scans with fields for host, port, service, vulnerability, and timestamp
 
 # Getting Started
 ## Prerequisites
 - Docker & Docker Compose installed
-
 - Basic familiarity with Elasticsearch and Kibana
-
 - curl or any HTTP client to ingest sample data
 
 ## Steps
@@ -23,6 +19,7 @@ Launch Elasticsearch and Kibana containers:
 ```bash
 docker-compose up -d
 ```
+
 ## Verify Elasticsearch and Kibana are running:
 
 Elasticsearch: http://localhost:9200
@@ -44,27 +41,17 @@ curl -X POST "localhost:9200/security-scans/_doc/" -H 'Content-Type: application
 }'
 ```
 - In Kibana, create a data view on security-scans and set timestamp as the time field.
-
 - Build visualizations and dashboards based on your scan data.
 
 ## Notes
 - Use .keyword fields for aggregation in visualizations (e.g., vulnerability.keyword).
-
 - Refresh the field list in Kibana if new fields aren’t showing.
-
 - This is a base setup; further ingestion automation and dashboards will be developed.
 
 ## Custom Security Dashboard
 
 ### Scope
-
 Real-time visualization of security events and metrics with a path toward enterprise-scale dashboards.
-=======
-
-Real-time visualization of security events and metrics with a path toward enterprise-scale dashboards.
-=======
-Real-time visualization of security events and metrics.
-
 
 ### Tools
 - Grafana
@@ -85,13 +72,9 @@ Real-time visualization of security events and metrics.
 - Automate data feeds
 - Configure alerts
 - Plan for enterprise-level scaling
-
 - Add Logstash and Beats pipelines for structured ingest
 - Enable TLS and role-based access control
 - Implement index lifecycle management and snapshots
-
-### Resources
-- [Grafana Docs](https://grafana.com/docs/)
 
 ### Professional ELK Stack Comparison
 
@@ -103,12 +86,8 @@ Real-time visualization of security events and metrics.
 | Management | Ad-hoc indices | Index lifecycle management and snapshot backups |
 | Monitoring | Manual checks | Centralized monitoring and alerting with X-Pack |
 
-This project starts with the base setup and is intended to grow toward the professional model over time.
-
-
 ### Resources
 - [Grafana Docs](https://grafana.com/docs/)
 
 ## License & Disclaimer
 This project is for educational and authorized professional use only. Do not use on unauthorized networks or systems.
-
