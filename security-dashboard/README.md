@@ -1,6 +1,6 @@
 # Security Dashboard - Base Setup
 ## Overview
-This repository contains the foundational setup for a custom security dashboard using the Elastic Stack (Elasticsearch and Kibana). It is designed for solo cybersecurity practitioners to visualize vulnerability scan data and network security metrics in an intuitive web interface.
+This repository contains the foundational setup for a custom security dashboard using the Elastic Stack (Elasticsearch and Kibana). It provides a minimal single-node environment, suitable for proofs of concept, to visualize vulnerability scan data and network security metrics in an intuitive web interface. In professional deployments, the stack typically runs across multiple nodes with security features enabled.
 
 ## Components
 - Elasticsearch: Stores and indexes security scan documents
@@ -60,6 +60,9 @@ curl -X POST "localhost:9200/security-scans/_doc/" -H 'Content-Type: application
 
 Real-time visualization of security events and metrics with a path toward enterprise-scale dashboards.
 =======
+
+Real-time visualization of security events and metrics with a path toward enterprise-scale dashboards.
+=======
 Real-time visualization of security events and metrics.
 
 
@@ -83,6 +86,26 @@ Real-time visualization of security events and metrics.
 - Configure alerts
 - Plan for enterprise-level scaling
 
+- Add Logstash and Beats pipelines for structured ingest
+- Enable TLS and role-based access control
+- Implement index lifecycle management and snapshots
+
+### Resources
+- [Grafana Docs](https://grafana.com/docs/)
+
+### Professional ELK Stack Comparison
+
+| Feature | Base Setup | Professional Deployment |
+|--------|------------|-------------------------|
+| Topology | Single-node Elasticsearch and Kibana | Multi-node clusters with load balancers |
+| Ingestion | Manual curl or custom scripts | Beats agents feeding Logstash pipelines |
+| Security | xpack security disabled | TLS encryption and role-based access control |
+| Management | Ad-hoc indices | Index lifecycle management and snapshot backups |
+| Monitoring | Manual checks | Centralized monitoring and alerting with X-Pack |
+
+This project starts with the base setup and is intended to grow toward the professional model over time.
+
+=======
 ### Resources
 - [Grafana Docs](https://grafana.com/docs/)
 
