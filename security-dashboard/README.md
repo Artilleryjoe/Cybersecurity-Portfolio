@@ -57,7 +57,14 @@ curl -X POST "localhost:9200/security-scans/_doc/" -H 'Content-Type: application
 ## Custom Security Dashboard
 
 ### Scope
+
 Real-time visualization of security events and metrics with a path toward enterprise-scale dashboards.
+=======
+
+Real-time visualization of security events and metrics with a path toward enterprise-scale dashboards.
+=======
+Real-time visualization of security events and metrics.
+
 
 ### Tools
 - Grafana
@@ -97,6 +104,10 @@ Real-time visualization of security events and metrics with a path toward enterp
 | Monitoring | Manual checks | Centralized monitoring and alerting with X-Pack |
 
 This project starts with the base setup and is intended to grow toward the professional model over time.
+
+=======
+### Resources
+- [Grafana Docs](https://grafana.com/docs/)
 
 ## License & Disclaimer
 This project is for educational and authorized professional use only. Do not use on unauthorized networks or systems.
