@@ -10,6 +10,10 @@ This repository showcases several small projects for security automation, harden
 
 See each directory's README for detailed usage.
 
+## Service Areas
+
+Iron Dillo Cybersecurity supports individuals, small businesses, and rural operations across East Texas, including communities like Lindale and Tyler.
+
 ## Top Master's Degree Labs
 
 Below are ten standout labs from my cybersecurity master's program:
