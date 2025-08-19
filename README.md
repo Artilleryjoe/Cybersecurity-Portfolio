@@ -40,6 +40,15 @@ Based in East Texas, Iron Dillo Cybersecurity proudly supports individuals, smal
 - **Resources:** [JADX](https://github.com/skylot/jadx)
 
 
+## Custom Intrusion Detection System (IDS)
+
+- **Scope:** Detect threats via custom network rules.
+- **Tools:** Snort, Suricata.
+- **Implementation:** Install and configure IDS, write custom rule sets, and simulate attack scenarios.
+- **Challenges:** Tuning false positives, managing high-volume traffic.
+- **Next Steps:** Integrate with SIEM, pair with anomaly detection.
+- **Resources:** [Snort Documentation](https://www.snort.org/documents)
+
 ## Upcoming Prototype
 
 ### Blockchain-Based Secure Logging System
