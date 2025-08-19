@@ -105,7 +105,7 @@ Real-time visualization of security events and metrics.
 
 This project starts with the base setup and is intended to grow toward the professional model over time.
 
-=======
+
 ### Resources
 - [Grafana Docs](https://grafana.com/docs/)
 
