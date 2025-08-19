@@ -3,16 +3,13 @@ package com.irondillo.securityawareness.vulns.network
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
-/**
- * Demonstrates using HTTPS for secure communication.
- */
 class SecureHttpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread {
-            URL("https://example.com").openConnection().getInputStream().use { }
-        }.start()
+        val url = URL("https://example.com")
+        val conn = url.openConnection() as HttpsURLConnection
+        conn.inputStream
     }
 }
-
