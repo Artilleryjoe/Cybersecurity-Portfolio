@@ -54,7 +54,34 @@ curl -X POST "localhost:9200/security-scans/_doc/" -H 'Content-Type: application
 
 - This is a base setup; further ingestion automation and dashboards will be developed.
 
+## Custom Security Dashboard
+
+### Scope
+Real-time visualization of security events and metrics with a path toward enterprise-scale dashboards.
+
+### Tools
+- Grafana
+- Kibana
+- Custom data sources
+
+### Implementation
+1. Install visualization tools.
+2. Connect to log and data streams.
+3. Build visualizations and alerting.
+
+### Challenges
+- Data parsing
+- Real-time ingestion
+- Uptime
+
+### Next Steps
+- Automate data feeds
+- Configure alerts
+- Plan for enterprise-level scaling
+
+### Resources
+- [Grafana Docs](https://grafana.com/docs/)
+
 ## License & Disclaimer
 This project is for educational and authorized professional use only. Do not use on unauthorized networks or systems.
-
 
