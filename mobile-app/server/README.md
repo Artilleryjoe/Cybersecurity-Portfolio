@@ -13,7 +13,7 @@ This folder contains a small Flask API with intentionally insecure endpoints for
 cd mobile-app/server
 python3 -m venv venv
 source venv/bin/activate
-pip install Flask
+pip install -r requirements.txt
 python app.py
 ```
 
