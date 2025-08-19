@@ -18,7 +18,19 @@ Based in East Texas, Iron Dillo Cybersecurity proudly supports individuals, smal
 
 - [User Guide](docs/UserGuide.md)
 - [Teacher Guide](docs/TeacherGuide.md)
-  
+
+
+## Upcoming Prototype
+
+### Blockchain-Based Secure Logging System
+
+- **Scope:** Build tamper-evident logs using blockchain.
+- **Tools:** Ganache, Python.
+- **Implementation:** Deploy a private blockchain and hash and commit logs as transactions.
+- **Challenges:** Throughput, blockchain bloat, long-term storage.
+- **Next Steps:** Integrate into systems and explore quantum-resilient chains.
+- **Resources:** [Ganache](https://www.trufflesuite.com/ganache)
+
 
 ## Top Master's Degree Labs
 
