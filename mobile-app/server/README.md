@@ -1,10 +1,10 @@
 # Mobile App Server
 
-This folder contains a small Flask API with intentionally insecure endpoints for demonstration purposes.
+This folder contains a small Flask API with intentionally insecure endpoints for demonstration purposes. A disclaimer screen requires acknowledgment before the vulnerable route can be accessed.
 
 ## Endpoints
 
-- `GET /insecure/search?name=<name>` – vulnerable SQL query built through string concatenation.
+- `GET /insecure/search?name=<name>` – vulnerable SQL query built through string concatenation (disabled when `ENABLE_VULNERABLE_ENDPOINTS=false`).
 - `GET /secure/search?name=<name>` – parameterized query protecting against SQL injection.
 
 ## Run Locally
@@ -17,7 +17,9 @@ pip install Flask
 python app.py
 ```
 
-The server listens on `http://localhost:8000`.
+The server listens on `http://localhost:8000`. When started with `ENABLE_VULNERABLE_ENDPOINTS=false`, the insecure route returns a 404.
+
+Before exercising `/insecure/search`, visit `POST /ack` (or submit the form at the root path) to acknowledge the disclaimer. The application logs a warning if a client repeatedly submits suspicious SQL-injection payloads.
 
 ## Sample Requests
 
