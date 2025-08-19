@@ -11,5 +11,15 @@ SecurityAwarenessApp is a Kotlin-based Android application that supports the Iro
    ```
 4. Run on an emulator or connected device running Android 8.0 (API 26) or newer.
 
+## OWASP Mobile Top 10 Mapping
+
+| Module | Vulnerability | OWASP Category |
+| --- | --- | --- |
+| `vulns.storage.InsecurePrefsActivity` | Plain-text SharedPreferences | M2: Insecure Data Storage |
+| `vulns.auth.WeakPasswordActivity` | Weak password validation | M4: Insecure Authentication |
+| `vulns.network.InsecureHttpActivity` | Clear-text HTTP communication | M3: Insecure Communication |
+
+Each module has a parallel `Secure*Activity` class that demonstrates a mitigation.
+
 ## Legal Notice
 This software is provided "as is" without warranty of any kind. Use at your own risk and ensure compliance with local laws and regulations.
