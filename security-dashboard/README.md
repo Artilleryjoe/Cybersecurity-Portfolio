@@ -57,7 +57,11 @@ curl -X POST "localhost:9200/security-scans/_doc/" -H 'Content-Type: application
 ## Custom Security Dashboard
 
 ### Scope
+
 Real-time visualization of security events and metrics with a path toward enterprise-scale dashboards.
+=======
+Real-time visualization of security events and metrics.
+
 
 ### Tools
 - Grafana
