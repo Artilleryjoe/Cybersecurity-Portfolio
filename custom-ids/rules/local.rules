@@ -1,0 +1,1 @@
+alert tcp any any -> any 23 (msg:"TELNET connection attempt"; sid:1000001; rev:1;)
