@@ -6,7 +6,7 @@ A collection of modular Ansible playbooks and inventory files to automate securi
 
 ## Inventory
 
-- `inventory/hosts.yml` — Defines target hosts and connection variables. Supports SSH key and sudo access. Includes a sample `[servers]` group with placeholder IPs; replace with your environment.
+- `inventory/hosts.yml` — Defines target hosts and connection variables. Supports SSH key and sudo access. Includes a sample `[servers]` group with Lindale and Tyler hosts; update with your own systems.
 
 ---
 
