@@ -10,6 +10,12 @@ This repository showcases several small projects for security automation, harden
 
 See each directory's README for detailed usage.
 
+## Documentation
+
+- [User Guide](docs/UserGuide.md)
+- [Teacher Guide](docs/TeacherGuide.md)
+
+
 ## Top Master's Degree Labs
 
 Below are ten standout labs from my cybersecurity master's program:
