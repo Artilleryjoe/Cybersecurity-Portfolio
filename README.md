@@ -1,6 +1,6 @@
-# Cybersecurity Portfolio
+# Iron Dillo Cybersecurity Portfolio
 
-This repository showcases several small projects for security automation, hardening, and monitoring. It combines Python utilities, Ansible playbooks, and a Kibana-based dashboard for visualizing scan data. More to come.
+Veteran-owned cybersecurity for East Texas small businesses, individuals, and rural operations. This repository showcases small projects for security automation, hardening, and monitoring, combining Python utilities, Ansible playbooks, and a Kibana-based dashboard for visualizing scan data.
 
 ## Repository Overview
 
@@ -10,11 +10,10 @@ This repository showcases several small projects for security automation, harden
 
 See each directory's README for detailed usage.
 
-
 ## Service Areas
 
-Iron Dillo Cybersecurity supports individuals, small businesses, and rural operations across East Texas, including communities like Lindale and Tyler.
-=======
+Based in East Texas, Iron Dillo Cybersecurity proudly supports individuals, small businesses, and rural operations with emphasis on the communities of **Lindale** and **Tyler**.
+
 ## Documentation
 
 - [User Guide](docs/UserGuide.md)
