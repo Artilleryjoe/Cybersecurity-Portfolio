@@ -30,6 +30,16 @@ Based in East Texas, Iron Dillo Cybersecurity proudly supports individuals, smal
 - **Resources:** [Metasploit Documentation](https://docs.metasploit.com/)
 
 
+## Mobile Security Analysis Tool for Android
+
+- **Scope:** Analyze APKs for static and dynamic flaws.
+- **Tools:** JADX, APKTool, Frida, Python.
+- **Implementation:** Decompile apps, write automated analysis scripts, perform live testing.
+- **Challenges:** Obfuscation, anti-debugging, code scalability.
+- **Next Steps:** Automate and chain analysis tasks; expand to iOS.
+- **Resources:** [JADX](https://github.com/skylot/jadx)
+
+
 ## Upcoming Prototype
 
 ### Blockchain-Based Secure Logging System
