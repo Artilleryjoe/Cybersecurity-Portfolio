@@ -16,10 +16,11 @@ SecurityAwarenessApp is a Kotlin-based Android application that supports the Iro
 | Module | Vulnerability | OWASP Category |
 | --- | --- | --- |
 | `vulns.storage.InsecurePrefsActivity` | Plain-text SharedPreferences | M2: Insecure Data Storage |
+| `vulns.storage.SecurePrefsActivity` | Hashed preference storage | M2: Insecure Data Storage |
 | `vulns.auth.WeakPasswordActivity` | Weak password validation | M4: Insecure Authentication |
+| `vulns.auth.SecurePasswordActivity` | Strong password requirements | M4: Insecure Authentication |
 | `vulns.network.InsecureHttpActivity` | Clear-text HTTP communication | M3: Insecure Communication |
-
-Each module has a parallel `Secure*Activity` class that demonstrates a mitigation.
+| `vulns.network.SecureHttpActivity` | HTTPS with certificate validation | M3: Insecure Communication |
 
 ## Legal Notice
 This software is provided "as is" without warranty of any kind. Use at your own risk and ensure compliance with local laws and regulations.
