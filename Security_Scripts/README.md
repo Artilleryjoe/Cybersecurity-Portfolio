@@ -33,6 +33,7 @@ Each script is designed to be modular, standalone, and easily extensible.
 | `password_spray.py`     | Executes password spray attacks (test environments only) using Hydra.      |
 | `markdown_gen.py`       | Generates formatted Markdown and optional HTML reports from scan output.   |
 | `csv_json_export.py`    | Exports scan results to both `.csv` and `.json` formats.                   |
+| `pentest_toolkit.py`    | Automates Metasploit attack patterns with random delays for stealth.      |
 
 ---
 
@@ -96,6 +97,8 @@ pip install -r requirements.txt
 
 ```
 security-scripts-toolkit/
+├── advanced-pentest-toolkit/
+│   └── pentest_toolkit.py
 ├── cert_grabber.py
 ├── csv_json_export.py
 ├── dns_enum.py

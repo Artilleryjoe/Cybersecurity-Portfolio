@@ -20,6 +20,16 @@ Based in East Texas, Iron Dillo Cybersecurity proudly supports individuals, smal
 - [Teacher Guide](docs/TeacherGuide.md)
 
 
+## Advanced Penetration Testing Toolkit
+
+- **Scope:** Automate and enhance exploit testing.
+- **Tools:** Python, Metasploit.
+- **Implementation:** Automate common attack patterns and integrate stealth and evasion techniques.
+- **Challenges:** Keeping the toolkit updated; ethical and legal considerations.
+- **Next Steps:** Add machine learning modules; design a GUI.
+- **Resources:** [Metasploit Documentation](https://docs.metasploit.com/)
+
+
 ## Upcoming Prototype
 
 ### Blockchain-Based Secure Logging System
