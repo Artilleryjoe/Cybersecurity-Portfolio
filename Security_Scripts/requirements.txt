@@ -7,3 +7,5 @@ shodan
 python-whois
 ipwhois
 
+numpy
+scikit-learn
