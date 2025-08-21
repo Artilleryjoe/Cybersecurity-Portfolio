@@ -7,7 +7,6 @@ Veteran-owned cybersecurity for East Texas small businesses, individuals, and ru
 - **Security_Scripts/** – Collection of Python tools for reconnaissance, vulnerability checks, and reporting.
 - **ansible-hardening/** – Modular Ansible playbooks to secure servers (SSH, users, firewall, Fail2Ban).
 - **security-dashboard/** – Dockerized Elastic Stack project exposing a Kibana security dashboard.
-- **mobile-app** – Now maintained in a separate repository: [YourOrg/mobile-app](https://github.com/YourOrg/mobile-app).
 
 See each directory's README for detailed usage.
 
