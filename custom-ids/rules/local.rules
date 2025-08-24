@@ -1,1 +1,14 @@
+# Detect TELNET connection attempts
 alert tcp any any -> any 23 (msg:"TELNET connection attempt"; sid:1000001; rev:1;)
+
+# Detect SSH connection attempts
+alert tcp any any -> any 22 (msg:"SSH connection attempt"; sid:1000002; rev:1;)
+
+# Detect RDP connection attempts
+alert tcp any any -> any 3389 (msg:"RDP connection attempt"; sid:1000003; rev:1;)
+
+# Detect HTTP requests to admin pages
+alert tcp any any -> any 80 (msg:"HTTP admin page access"; content:"/admin"; http_uri; sid:1000004; rev:1;)
+
+# Detect ICMP echo requests
+alert icmp any any -> any any (msg:"ICMP echo request"; itype:8; sid:1000005; rev:1;)
