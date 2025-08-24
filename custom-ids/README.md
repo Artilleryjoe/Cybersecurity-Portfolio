@@ -13,6 +13,16 @@ A lightweight lab for experimenting with Snort or Suricata to detect threats usi
 3. Start the IDS referencing the custom rule set.
 4. Generate or replay traffic to trigger alerts and verify detection.
 
+## Included Rules
+
+The `local.rules` file currently contains examples that generate alerts for common services and behaviors:
+
+- Telnet connection attempts
+- SSH connection attempts
+- Remote Desktop Protocol (RDP) connection attempts
+- HTTP requests for `/admin` pages
+- ICMP echo (ping) requests
+
 ## Notes
 - Tuning false positives and handling high-volume traffic require ongoing adjustment.
 - Future enhancements include SIEM integration and pairing with anomaly detection.
