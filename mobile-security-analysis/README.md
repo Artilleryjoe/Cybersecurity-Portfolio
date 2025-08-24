@@ -16,6 +16,15 @@ Analyze APKs for misconfigurations, insecure data handling, and runtime vulnerab
 2. Write automated analysis scripts.
 3. Perform live testing on emulators or devices.
 
+## Usage
+Run the Python helper script to decompile an APK with apktool and JADX:
+
+```bash
+python analyze_apk.py path/to/app.apk --out output_dir
+```
+
+Ensure `apktool` and `jadx` are installed and on your `PATH`.
+
 ## Challenges
 - Obfuscation
 - Anti-debugging techniques
