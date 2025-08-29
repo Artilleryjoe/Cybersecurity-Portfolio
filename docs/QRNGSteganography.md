@@ -1,8 +1,3 @@
----
-title: "QRNG-Based Steganography Experiment"
-description: "Demonstrating quantum-random image steganography for Iron Dillo clients in Lindale and Tyler, Texas."
----
-
 # QRNG-Based Steganography Experiment
 
 Using a quantum random number generator (QRNG) image as the cover, this experiment hides text within pixel least-significant bits and verifies recovery and stealth.
