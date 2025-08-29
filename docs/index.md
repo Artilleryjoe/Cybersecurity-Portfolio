@@ -15,3 +15,6 @@ Iron Dillo Cybersecurity serves individuals, small businesses, and rural operati
 
 We are developing a **Blockchain-Based Secure Logging System** that uses a private Ganache blockchain and Python scripts to hash and commit logs as transactions, providing tamper-evident audit trails.
 
+
+## Research & Experiments
+- [QRNG-Based Steganography](QRNGSteganography.md)
