@@ -10,6 +10,16 @@ Veteran-owned cybersecurity for East Texas small businesses, individuals, and ru
 
 See each directory's README for detailed usage.
 
+## Large Files
+
+PNG assets are tracked with Git LFS. To download these images after cloning, run:
+
+```bash
+git lfs install
+git lfs pull
+```
+
+
 ## Service Areas
 
 Based in East Texas, Iron Dillo Cybersecurity proudly supports individuals, small businesses, and rural operations with emphasis on the communities of **Lindale** and **Tyler**.
