@@ -19,6 +19,10 @@ Based in East Texas, Iron Dillo Cybersecurity proudly supports individuals, smal
 - [User Guide](docs/UserGuide.md)
 - [Teacher Guide](docs/TeacherGuide.md)
 
+## Research Projects
+
+- [QRNG-Based Steganography Experiment](docs/QRNGSteganography.md)
+
 
 ## Advanced Penetration Testing Toolkit
 
