@@ -10,6 +10,15 @@ Veteran-owned cybersecurity for East Texas small businesses, individuals, and ru
 
 See each directory's README for detailed usage.
 
+## Getting Started
+
+After cloning the repository, initialize Git LFS to fetch PNG assets and explore each project directory for setup details.
+
+```bash
+git lfs install
+git lfs pull
+```
+
 ## Large Files
 
 PNG assets are tracked with Git LFS. To download these images after cloning, run:
@@ -89,6 +98,10 @@ Below are ten standout labs from my cybersecurity master's program:
 8. **Network Intrusion Detection** – Building and tuning a Snort/Suricata-based IDS lab.
 9. **Threat Hunting with SIEM** – Using log data and queries to uncover suspicious activity.
 10. **Wireless Security Assessment** – Auditing Wi-Fi networks and implementing mitigation strategies.
+
+## Contributing
+
+Feedback and contributions are welcome. Open an issue or submit a pull request to help enhance these projects.
 
 ## Legal & Ethical Notice
 
