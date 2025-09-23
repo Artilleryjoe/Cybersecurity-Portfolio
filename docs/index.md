@@ -18,6 +18,6 @@ We are developing a **Blockchain-Based Secure Logging System** that uses a priva
 
 ## Research & Experiments
 
-- [QRNG-Based Steganography](Quantum%20Computing/QRNGSteganography.md)
-- [QAOA Max-Cut Optimization](Quantum%20Computing/QAOAMaxCut.md)
+- [QRNG-Based Steganography](../Quantum%20Computing/QRNGSteganography.md)
+- [QAOA Max-Cut Optimization](../Quantum%20Computing/QAOAMaxCut.md)
 

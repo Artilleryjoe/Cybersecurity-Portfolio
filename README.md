@@ -40,8 +40,10 @@ Based in East Texas, Iron Dillo Cybersecurity proudly supports individuals, smal
 
 ## Research Projects
 
-- [QRNG-Based Steganography Experiment](docs/Quantum%20Computing/QRNGSteganography.md)
-- [QAOA Max-Cut Optimization Tutorial](docs/Quantum%20Computing/QAOAMaxCut.md)
+
+- [Quantum Computing Experiments Overview](Quantum%20Computing/README.md)
+- [QRNG-Based Steganography Experiment](Quantum%20Computing/QRNGSteganography.md)
+- [QAOA Max-Cut Optimization Tutorial](Quantum%20Computing/QAOAMaxCut.md)
 
 
 
