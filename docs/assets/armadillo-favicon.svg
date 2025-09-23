@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Iron Dillo favicon">
+  <rect width="64" height="64" rx="12" fill="#1A1A1A" />
+  <path d="M10 42c1-12 12-24 26-24s25 12 26 24H10z" fill="#6B7B3C" />
+  <path d="M18 42c1-7 9-14 18-14s17 7 18 14H18z" fill="#55622F" opacity="0.85" />
+  <circle cx="46" cy="34" r="6" fill="#4A4A4A" />
+  <circle cx="48" cy="33" r="2" fill="#F8F9FA" />
+  <path d="M52 38c4 0 6 3 6 6 0 2-1 3-2 3-3 0-5-6-4-9z" fill="#6B7B3C" />
+  <rect x="20" y="42" width="6" height="7" rx="2" fill="#1A1A1A" />
+  <rect x="30" y="42" width="6" height="7" rx="2" fill="#1A1A1A" />
+</svg>

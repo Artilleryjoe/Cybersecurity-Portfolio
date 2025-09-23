@@ -1,113 +1,48 @@
 # Iron Dillo Cybersecurity Portfolio
 
-Veteran-owned cybersecurity for East Texas small businesses, individuals, and rural operations. This repository showcases small projects for security automation, hardening, and monitoring, combining Python utilities, Ansible playbooks, and a Kibana-based dashboard for visualizing scan data.
+Iron Dillo Cybersecurity is a veteran-owned partner protecting individuals, small businesses, and rural operations throughout East Texas. This repository powers the public website, showcases automation projects, and documents research that keeps our clients resilient.
 
-## Repository Overview
-
-- **Security_Scripts/** – Collection of Python tools for reconnaissance, vulnerability checks, and reporting.
-- **ansible-hardening/** – Modular Ansible playbooks to secure servers (SSH, users, firewall, Fail2Ban).
-- **security-dashboard/** – Dockerized Elastic Stack project exposing a Kibana security dashboard.
-
-See each directory's README for detailed usage.
-
-## Getting Started
-
-After cloning the repository, initialize Git LFS to fetch PNG assets and explore each project directory for setup details.
-
-```bash
-git lfs install
-git lfs pull
-```
-
-## Large Files
-
-PNG assets are tracked with Git LFS. To download these images after cloning, run:
-
-```bash
-git lfs install
-git lfs pull
-```
-
+## Mission
+- Deliver clarity, speed, and trustworthy cybersecurity support tailored to Lindale, Tyler, and neighboring communities.
+- Combine battle-tested processes with automation to harden systems, monitor threats, and lead confident response efforts.
+- Share open resources that help rural teams elevate their defenses without sacrificing uptime.
 
 ## Service Areas
+- **Individuals & Families** – Personal device hardening, identity protection, and safety coaching.
+- **Small Businesses** – Managed defense for retail, clinics, professional services, and makers.
+- **Rural Operations** – Security for farms, co-ops, utilities, and remote infrastructure.
 
-Based in East Texas, Iron Dillo Cybersecurity proudly supports individuals, small businesses, and rural operations with emphasis on the communities of **Lindale** and **Tyler**.
+## Repository Overview
+| Directory | Description |
+| --- | --- |
+| `docs/` | Source for the GitHub Pages site, including the Iron Dillo brand, services overview, and research highlights. |
+| `Security_Scripts/` | Python utilities for reconnaissance, vulnerability analysis, and reporting. |
+| `ansible-hardening/` | Modular Ansible roles and playbooks for SSH, user, firewall, and Fail2Ban hardening. |
+| `security-dashboard/` | Dockerized Elastic Stack deployment that powers our monitoring and visualization toolkit. |
+| `custom-ids/` | Experiments in intrusion detection rules and tuning. |
+| `mobile-security-analysis/` | Assets and notes supporting the Android security analysis toolkit. |
+| `Quantum Computing/` | Research artifacts exploring post-quantum and quantum-assisted security concepts. |
 
-## Documentation
+## Featured Resources
+- [User Guide](docs/UserGuide.md) – Learn how to explore the security scripts and mobile lab safely.
+- [Teacher Guide](docs/TeacherGuide.md) – Classroom facilitation notes for the included training modules.
+- [Blockchain-Based Secure Logging System](docs/BlockchainLogging.md) – Prototype for tamper-evident audit trails using a private Ganache chain.
+- [QRNG-Based Steganography Experiment](Quantum%20Computing/QRNGSteganography.md) – Research into quantum randomness for covert communication.
 
-- [User Guide](docs/UserGuide.md)
-- [Teacher Guide](docs/TeacherGuide.md)
+## Getting Started
+Most assets rely on standard Python, Docker, and Ansible tooling. After cloning the repository, install Git LFS to retrieve large PNG resources used in documentation:
 
-## Research Projects
+```bash
+git lfs install
+git lfs pull
+```
 
+Explore each project directory for specific setup instructions and usage notes.
 
-- [Quantum Computing Experiments Overview](Quantum%20Computing/README.md)
-- [QRNG-Based Steganography Experiment](Quantum%20Computing/QRNGSteganography.md)
-- [QAOA Max-Cut Optimization Tutorial](Quantum%20Computing/QAOAMaxCut.md)
-
-
-
-## Advanced Penetration Testing Toolkit
-
-- **Scope:** Automate and enhance exploit testing.
-- **Tools:** Python, Metasploit.
-- **Implementation:** Automate common attack patterns and integrate stealth and evasion techniques.
-- **Challenges:** Keeping the toolkit updated; ethical and legal considerations.
-- **Next Steps:** Add machine learning modules; design a GUI.
-- **Resources:** [Metasploit Documentation](https://docs.metasploit.com/)
-
-
-## Mobile Security Analysis Tool for Android
-
-- **Scope:** Analyze APKs for static and dynamic flaws.
-- **Tools:** JADX, APKTool, Frida, Python.
-- **Implementation:** Decompile apps, write automated analysis scripts, perform live testing.
-- **Challenges:** Obfuscation, anti-debugging, code scalability.
-- **Next Steps:** Automate and chain analysis tasks; expand to iOS.
-- **Resources:** [JADX](https://github.com/skylot/jadx)
-
-
-## Custom Intrusion Detection System (IDS)
-
-- **Scope:** Detect threats via custom network rules.
-- **Tools:** Snort, Suricata.
-- **Implementation:** Install and configure IDS, write custom rule sets, and simulate attack scenarios.
-- **Challenges:** Tuning false positives, managing high-volume traffic.
-- **Next Steps:** Integrate with SIEM, pair with anomaly detection.
-- **Resources:** [Snort Documentation](https://www.snort.org/documents)
-
-## Upcoming Prototype
-
-### Blockchain-Based Secure Logging System
-
-- **Scope:** Build tamper-evident logs using blockchain.
-- **Tools:** Ganache, Python.
-- **Implementation:** Deploy a private blockchain and hash and commit logs as transactions.
-- **Challenges:** Throughput, blockchain bloat, long-term storage.
-- **Next Steps:** Integrate into systems and explore quantum-resilient chains.
-- **Resources:** [Ganache](https://www.trufflesuite.com/ganache)
-
-
-## Top Master's Degree Labs
-
-Below are ten standout labs from my cybersecurity master's program:
-
-1. **Active Directory Security** – Hardening and attack simulation in a Windows AD environment.
-2. **Incident Response Workflow** – Coordinated triage and forensic analysis on compromised hosts.
-3. **Secure Coding Practices** – Remediating OWASP Top 10 vulnerabilities in sample applications.
-4. **Cloud Penetration Testing** – Assessing IAM and network configurations in popular cloud services.
-5. **Digital Forensics** – Disk and memory imaging, followed by artifact analysis.
-6. **Malware Analysis Fundamentals** – Static and dynamic analysis of real malware samples.
-7. **Web Application Attack & Defense** – Hands-on exploitation and patching of vulnerable web apps.
-8. **Network Intrusion Detection** – Building and tuning a Snort/Suricata-based IDS lab.
-9. **Threat Hunting with SIEM** – Using log data and queries to uncover suspicious activity.
-10. **Wireless Security Assessment** – Auditing Wi-Fi networks and implementing mitigation strategies.
-
-## Contributing
-
-Feedback and contributions are welcome. Open an issue or submit a pull request to help enhance these projects.
+## Contact
+- Website: [irondillocybersecurity.com](https://irondillocybersecurity.com)
+- Email: [security@irondillocyber.com](mailto:security@irondillocyber.com)
+- Phone: 903-555-1234 (East Texas response line)
 
 ## Legal & Ethical Notice
-
-This portfolio is intended for educational use, authorized testing, and professional development only. Do not run these tools or playbooks on networks or systems without explicit written permission. Unauthorized use of security tools is illegal and unethical.
-
+This portfolio is intended for authorized security research, education, and professional development. Only run the included tools and playbooks on systems you own or have explicit written permission to test. Unauthorized use is illegal and unethical.
