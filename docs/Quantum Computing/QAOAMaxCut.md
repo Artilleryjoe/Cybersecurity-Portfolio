@@ -106,9 +106,9 @@ draw_graph(graph, node_size=600, with_labels=True)
 
 2. Rewrite the optimization as a Hamiltonian whose ground state minimizes the cost function:
 
-   $$
-   H_C = \sum_{i j} Q_{ij} Z_i Z_j + \sum_i b_i Z_i.
-   $$
+    $$
+    H_C = \sum_{(i,j)\in E} Q_{ij} Z_i Z_j + \sum_i b_i Z_i
+    $$
 
    For unweighted Max-Cut, \(b_i = 0\) and \(Q_{ij} = 1\) for every edge.
 

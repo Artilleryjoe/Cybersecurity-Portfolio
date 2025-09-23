@@ -64,7 +64,7 @@ $$
 Let \(Q\) hold the quadratic coefficients from the minimization form. The QUBO lifts directly into a Pauli-Z based Hamiltonian whose ground state encodes the optimal cut:
 
 $$
-H_C = \sum_{i<j} Q_{ij} Z_i Z_j + \sum_i b_i Z_i.
+H_C = \sum_{(i,j)\in E} Q_{ij} Z_i Z_j + \sum_i b_i Z_i
 $$
 
 For the unweighted graphs used here, \(b_i = 0\) and each edge contributes a \(Z_i Z_j\) term with unit weight.
