@@ -7,7 +7,7 @@ Simulates a password spray attack using one password across many usernames, targ
 ## ⚠ Ethical and Legal Warning
 
 > This tool is for use only on systems you own or have explicit, written authorization to test.
-> Unauthorized use of this tool **may be illegal** and is against the policies of Iron Dillo Cybersecurity and responsible security testing practices.
+> Unauthorized use of this tool **may be illegal** and violates responsible security testing practices.
 
 By default, the script operates in `--dry-run` mode and **will not make real login attempts** unless explicitly allowed via `--live`.
 

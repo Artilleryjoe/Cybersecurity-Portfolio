@@ -17,11 +17,11 @@ Evaluate whether high-entropy QRNG noise can conceal data without introducing vi
 - **Security:** Keyed path prevents unauthorized extraction.
 
 ## Conclusions
-QRNG images provide an excellent steganographic carrier. Their inherent randomness masks modifications, offering a covert channel for East Texas partners and research efforts in **Lindale** and **Tyler**.
+QRNG images provide an excellent steganographic carrier. Their inherent randomness masks modifications, offering a covert channel for collaborative research efforts.
 
 ## Files
 - `embed.py`, `extract.py`
 - `embed_keyed.py`, `extract_keyed.py`
 - `qrng.png`, `stego.png`, `diff.png`, `secret.txt`
 
-These resources support Iron Dillo's mission of veteran-owned cybersecurity for individuals, small businesses, and rural operations across East Texas.
+These resources support ongoing cybersecurity research for individuals, small businesses, and security teams experimenting with emerging technology.

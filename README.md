@@ -1,6 +1,6 @@
-# Iron Dillo Cybersecurity Portfolio
+# Cybersecurity Portfolio
 
-Iron Dillo Cybersecurity is a veteran-owned security partner supporting individuals, small businesses, and rural operations throughout East Texas. This repository powers the public-facing site, documents research, and shares automation that keeps our clients resilient.
+This repository collects security automation, research experiments, and training resources that demonstrate practical approaches to protecting modern infrastructure. The projects are designed to be vendor-neutral so they can be adapted to a variety of teams and environments.
 
 ## Table of Contents
 - [Mission & Focus](#mission--focus)
@@ -12,14 +12,14 @@ Iron Dillo Cybersecurity is a veteran-owned security partner supporting individu
 - [Legal & Ethical Notice](#legal--ethical-notice)
 
 ## Mission & Focus
-- Deliver clarity, speed, and trustworthy cybersecurity support tailored to Lindale, Tyler, and neighboring communities.
-- Combine battle-tested processes with automation to harden systems, monitor threats, and lead confident response efforts.
-- Share open resources that help rural teams elevate their defenses without sacrificing uptime.
+- Share actionable resources that help defenders improve their security posture.
+- Combine repeatable processes with automation to harden systems, monitor threats, and support confident response efforts.
+- Provide open documentation that can be adapted for training, workshops, and professional services.
 
 ## Portfolio Highlights
 | Directory | Description |
 | --- | --- |
-| `docs/` | Source for the GitHub Pages site, including the Iron Dillo brand, services overview, and research highlights. |
+| `docs/` | Source for the GitHub Pages site, including service overviews, research highlights, and documentation assets. |
 | `Security_Scripts/` | Python utilities for reconnaissance, vulnerability analysis, and reporting. |
 | `ansible-hardening/` | Modular Ansible roles and playbooks for SSH, user, firewall, and Fail2Ban hardening. |
 | `security-dashboard/` | Dockerized Elastic Stack deployment that powers our monitoring and visualization toolkit. |
@@ -63,9 +63,6 @@ Explore each project directory for detailed setup instructions, runtime requirem
 - [User Guide](docs/UserGuide.md) – Learn how to explore the security scripts and mobile lab safely.
 - [Teacher Guide](docs/TeacherGuide.md) – Classroom facilitation notes for the included training modules.
 - [Blockchain-Based Secure Logging System](docs/BlockchainLogging.md) – Prototype for tamper-evident audit trails using a private Ganache chain.
-
-## Contact
-- Website: [irondillo.com](https://www.irondillo.com)
 
 ## Legal & Ethical Notice
 This portfolio is intended for authorized security research, education, and professional development. Only run the included tools and playbooks on systems you own or have explicit written permission to test. Unauthorized use is illegal and unethical.

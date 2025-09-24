@@ -1,6 +1,6 @@
 # Teacher Guide
 
-This guide helps instructors use the Iron Dillo portfolio to teach practical cybersecurity concepts to East Texas learners.
+This guide helps instructors use the cybersecurity portfolio to teach practical security concepts to learners.
 
 ## Lesson Plans
 
@@ -16,7 +16,7 @@ This guide helps instructors use the Iron Dillo portfolio to teach practical cyb
 
 ## Discussion Points
 - Why authorization and clear scope are vital before any assessment.
-- How small businesses in Lindale and Tyler can leverage these tools to improve security posture.
+- How small businesses and community organizations can leverage these tools to improve security posture.
 - Real‑world consequences of insecure storage, weak authentication, and clear‑text communication.
 
 ## Further Reading
@@ -26,4 +26,4 @@ This guide helps instructors use the Iron Dillo portfolio to teach practical cyb
 
 ---
 
-Encourage learners to apply these lessons responsibly, reinforcing Iron Dillo’s mission of veteran‑owned cybersecurity for East Texas small businesses, individuals, and rural operations.
+Encourage learners to apply these lessons responsibly, reinforcing a mission of ethical cybersecurity for small businesses, individuals, and community organizations.
