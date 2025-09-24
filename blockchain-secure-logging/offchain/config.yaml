@@ -1,0 +1,24 @@
+# Batch configuration for the Merkle log anchor pipeline.
+# Adjust batch sizing and cadence per environment.
+
+batch:
+  max_entries: 5000
+  window_seconds: 60
+  hash_algorithm: SHA-256
+  leaf_order: ts_asc_seq
+
+sources:
+  - name: authsvc
+    path: ../tests/sample_logs/authsvc.jsonl
+    source_id: authsvc
+
+chain:
+  rpc_url: http://127.0.0.1:8545
+  anchoring_pattern: contract   # options: contract, raw_tx
+  contract_address: 0x0000000000000000000000000000000000000000
+  contract_abi_path: ../onchain/abi/LogAnchor.json
+
+signing:
+  enabled: false
+  algorithm: ECDSA_secp256k1
+  private_key_path: ~/.config/blockchain-secure-logging/anchoring.key

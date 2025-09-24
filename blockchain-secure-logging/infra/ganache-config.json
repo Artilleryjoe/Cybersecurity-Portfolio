@@ -1,0 +1,10 @@
+{
+  "chainId": 1337,
+  "hardfork": "istanbul",
+  "mnemonic": "test test test test test test test test test test test junk",
+  "port": 8545,
+  "network_id": 1337,
+  "gasPrice": "0x0",
+  "default_balance_ether": 1000,
+  "allowUnlimitedContractSize": false
+}

@@ -1,0 +1,3 @@
+{"ts":"2025-09-23T18:00:00Z","source_id":"authsvc","level":"INFO","msg":"Service started","details":{"pid":1234}}
+{"ts":"2025-09-23T18:00:05Z","source_id":"authsvc","level":"INFO","msg":"User login","user":"alice"}
+{"ts":"2025-09-23T18:00:07Z","source_id":"authsvc","level":"WARN","msg":"Slow response","latency_ms":842}
