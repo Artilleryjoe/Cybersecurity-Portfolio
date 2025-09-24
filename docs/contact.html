@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact | Cybersecurity Portfolio</title>
+    <meta
+      name="description"
+      content="Connect with the Cybersecurity Portfolio team for collaboration, feedback, and security partnerships."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
+    <meta name="theme-color" content="#0f172a" />
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased font-[Inter]">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 bg-slate-900 text-slate-100 px-3 py-2 rounded-md shadow">Skip to content</a>
+    <div class="flex min-h-screen flex-col">
+      <header class="border-b border-white/10 bg-slate-950/95 backdrop-blur supports-[backdrop-filter]:bg-slate-950/80">
+        <div class="mx-auto flex max-w-4xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col">
+            <span class="text-xs font-semibold uppercase tracking-[0.4em] text-sky-300">Open Security</span>
+            <span class="text-lg font-semibold text-white">Cybersecurity Portfolio</span>
+          </div>
+          <a
+            href="index.html"
+            class="rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-white hover:bg-white/10"
+          >
+            Back to home
+          </a>
+        </div>
+      </header>
+
+      <main id="main" class="flex-1">
+        <section class="border-b border-white/10">
+          <div class="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
+            <span class="text-xs font-semibold uppercase tracking-[0.4em] text-sky-300">Contact</span>
+            <h1 class="mt-4 text-4xl font-bold text-white sm:text-5xl">Let's build resilient defenses together</h1>
+            <p class="mt-6 text-base text-slate-300">
+              Whether you have feedback on the labs, want to collaborate on a new experiment, or need tailored support, reach out directly. We aim to respond within two business days.
+            </p>
+          </div>
+        </section>
+
+        <section class="flex-1">
+          <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-8 text-left shadow-lg">
+              <h2 class="text-2xl font-semibold text-white">Primary contact</h2>
+              <p class="mt-4 text-base text-slate-300">
+                Email is the fastest way to reach the Irondillo security team. Share a brief description of your request along with any relevant timelines, and we will follow up quickly.
+              </p>
+              <div class="mt-6 text-base font-semibold">
+                <a href="mailto:contact@irondillo.com" class="text-blue-600 hover:text-blue-800">contact@irondillo.com</a>
+              </div>
+              <p class="mt-6 text-sm text-slate-400">
+                Prefer async collaboration? You can also open an issue on our
+                <a href="https://github.com/artilleryjoe" class="text-sky-300 hover:text-sky-200">GitHub profile</a>
+                to track ideas and feature requests.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="border-t border-white/10 bg-slate-950/80">
+        <div class="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 px-4 py-6 text-xs text-slate-400 sm:flex-row sm:px-6 lg:px-8">
+          <p>© <span id="year"></span> Cybersecurity Portfolio. All rights reserved.</p>
+          <p>Built with open-source tooling. Practice responsibly.</p>
+        </div>
+      </footer>
+    </div>
+    <script>
+      const yearEl = document.getElementById('year');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+    </script>
+  </body>
+</html>
