@@ -62,7 +62,7 @@ Explore each project directory for detailed setup instructions, runtime requirem
 ## Learning Resources
 - [User Guide](docs/UserGuide.md) – Learn how to explore the security scripts and mobile lab safely.
 - [Teacher Guide](docs/TeacherGuide.md) – Classroom facilitation notes for the included training modules.
-- [Blockchain-Based Secure Logging System](docs/BlockchainLogging.md) – Prototype for tamper-evident audit trails using a private Ganache chain.
+- [Blockchain-Based Secure Logging System](https://github.com/Artilleryjoe/Cybersecurity-Portfolio/tree/main/blockchain-secure-logging) – Prototype for tamper-evident audit trails using a private Ganache chain.
 
 ## Legal & Ethical Notice
 This portfolio is intended for authorized security research, education, and professional development. Only run the included tools and playbooks on systems you own or have explicit written permission to test. Unauthorized use is illegal and unethical.
