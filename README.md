@@ -65,7 +65,7 @@ Explore each project directory for detailed setup instructions, runtime requirem
 - [Blockchain-Based Secure Logging System](docs/BlockchainLogging.md) – Prototype for tamper-evident audit trails using a private Ganache chain.
 
 ## Contact
-- Website: [irondillocybersecurity.com](https://www.irondillo.com)
+- Website: [irondillo.com](https://www.irondillo.com)
 
 ## Legal & Ethical Notice
 This portfolio is intended for authorized security research, education, and professional development. Only run the included tools and playbooks on systems you own or have explicit written permission to test. Unauthorized use is illegal and unethical.
