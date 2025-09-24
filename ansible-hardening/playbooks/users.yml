@@ -1,4 +1,4 @@
-- name: Manage users on Iron Dillo servers
+- name: Manage users on fleet servers
   hosts: all
   become: yes
 

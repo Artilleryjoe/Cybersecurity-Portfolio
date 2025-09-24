@@ -1,6 +1,6 @@
 # Mobile Security Analysis Tool
 
-This project targets Android applications to uncover static and dynamic security flaws, aligning with Iron Dillo's mission of providing veteran-owned cybersecurity for East Texas small businesses, individuals, and rural operations.
+This project targets Android applications to uncover static and dynamic security flaws, supporting secure development practices for small teams and independent testers.
 
 ## Scope
 Analyze APKs for misconfigurations, insecure data handling, and runtime vulnerabilities.

@@ -1,12 +1,12 @@
-# Iron Dillo Ansible Toolkit
+# Ansible Hardening Toolkit
 
-A collection of modular Ansible playbooks and inventory files to automate security hardening and system management for Iron Dillo Cybersecurity.
+A collection of modular Ansible playbooks and inventory files to automate security hardening and system management for Linux hosts.
 
 ---
 
 ## Inventory
 
-- `inventory/hosts.yml` — Defines target hosts and connection variables. Supports SSH key and sudo access. Includes a sample `[servers]` group with Lindale and Tyler hosts; update with your own systems.
+- `inventory/hosts.yml` — Defines target hosts and connection variables. Supports SSH key and sudo access. Update the sample `[servers]` group with your own systems.
 
 ---
 

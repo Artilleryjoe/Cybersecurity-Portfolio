@@ -1,6 +1,6 @@
 # Quantum Computing Experiments
 
-Iron Dillo explores practical quantum workflows that can benefit small businesses, rural operators, and individuals across East Texas. The resources in this folder document hands-on experiments that translate emerging hardware and runtime services into approachable security capabilities.
+This folder explores practical quantum workflows that can benefit small businesses, rural operators, and individuals. The resources document hands-on experiments that translate emerging hardware and runtime services into approachable security capabilities.
 
 ## Included Projects
 
@@ -11,6 +11,6 @@ Iron Dillo explores practical quantum workflows that can benefit small businesse
 
 1. Review each experiment write-up for background, setup requirements, and code listings.
 2. Follow the guidance to replicate the experiments with IBM Quantum services or local simulators.
-3. Adapt the findings to inform cybersecurity strategies for Lindale, Tyler, and neighboring communities.
+3. Adapt the findings to inform cybersecurity strategies for the environments you support.
 
 For additional documentation, return to the [main portfolio README](../README.md).

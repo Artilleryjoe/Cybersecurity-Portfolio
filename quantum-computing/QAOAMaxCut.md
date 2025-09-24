@@ -1,10 +1,10 @@
 # QAOA Max-Cut on IBM Quantum: Implementation, Results, and Security Takeaways
 
-Adapted from an IBM Quantum Learning Lab tutorial on QAOA Max-Cut. I executed the workflow end-to-end, captured my own results, and added analysis for cybersecurity relevance in East Texas environments.
+Adapted from an IBM Quantum Learning Lab tutorial on QAOA Max-Cut. I executed the workflow end-to-end, captured my own results, and added analysis for cybersecurity relevance in mixed enterprise environments.
 
 _Parts of this write-up (conceptual framing and API patterns) are adapted from an IBM Quantum Learning Lab tutorial on QAOA Max-Cut. All experiments, parameter choices, figures, and analysis are my own._
 
-Iron Dillo Cybersecurity is a veteran-owned practice serving individuals, small businesses, and rural operations around Lindale and Tyler. This experiment explores how IBM Quantum® tooling can inform segmentation playbooks without compromising the minimalist, trustworthy posture our brand promises.
+This experiment explores how IBM Quantum® tooling can inform segmentation playbooks without compromising the minimalist, trustworthy posture that incident responders require.
 
 ---
 
@@ -37,7 +37,7 @@ Iron Dillo Cybersecurity is a veteran-owned practice serving individuals, small 
 
 ### What I changed
 
-- Focused the narrative on Iron Dillo use cases, trimmed redundant prose, and paraphrased all explanations while keeping the original math intact.
+- Focused the narrative on practical defensive use cases, trimmed redundant prose, and paraphrased all explanations while keeping the original math intact.
 - Measured real hardware performance, recorded optimizer traces, and summarized queue behavior specific to the `ibm_pittsburgh` backend.
 - Replaced long notebook dumps with curated snippets that highlight my parameter choices. Full workflow code is version-controlled in this repository’s [`Quantum Computing`](./) folder.
 
@@ -140,7 +140,7 @@ _Interpretation._ Even with a single QAOA layer, the hardware run surfaced cuts 
 
 ## Operational Takeaways
 
-- **Segmentation logic.** Mapping Max-Cut to zoning decisions mirrors how Iron Dillo separates operational technology from business IT networks for East Texas utilities.
+- **Segmentation logic.** Mapping Max-Cut to zoning decisions mirrors how many teams separate operational technology from business IT networks for regulated utilities.
 - **Five-node lesson.** Small instances confirm that runtime mitigation keeps results aligned with classical optima, making hybrid loops a trustworthy benchmark tool today.
 - **Scaling outlook.** The 100-node cut of 104 demonstrates early promise yet also shows sensitivity to noise—classical heuristics still win for production segmentation, but quantum runs provide a forward-looking comparison point.
 - **Risk management.** Classical solvers remain the default for urgent containment. Quantum workflows are currently best suited for R&D, model validation, and preparing staff for post-quantum transitions.

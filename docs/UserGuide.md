@@ -1,6 +1,6 @@
 # User Guide
 
-Iron Dillo delivers veteran‑owned cybersecurity for East Texas small businesses, individuals, and rural operations. This guide walks through each vulnerability module in the portfolio and explains how to explore them safely.
+This guide walks through each vulnerability module in the portfolio and explains how to explore them safely so the material can support training and defensive research.
 
 ## Security Scripts Toolkit
 
@@ -38,4 +38,4 @@ Run the mobile app, now available at [YourOrg/mobile-app](https://github.com/You
 
 ---
 
-By experimenting with these modules, learners gain practical insight into finding and mitigating vulnerabilities while preserving the safety and reputation of the communities we serve.
+By experimenting with these modules, learners gain practical insight into finding and mitigating vulnerabilities while preserving the safety and reputation of the organizations they support.

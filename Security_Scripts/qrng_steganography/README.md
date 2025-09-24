@@ -34,7 +34,7 @@ PY
 
 ### 3. Create a secret to hide
 ```bash
-echo "Iron Dillo test — $(date)" > secret.txt
+echo "Steganography test — $(date)" > secret.txt
 wc -c secret.txt
 ```
 Keep the secret below the image capacity:
