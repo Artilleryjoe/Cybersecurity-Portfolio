@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: Blockchain Secure Logging API
+  version: 0.1.0
+  description: |
+    Service endpoints that wrap the Merkle batching pipeline and blockchain anchoring
+    helpers exposed in this repository. The API is intentionally narrow and focused on
+    deterministic automation so it can be orchestrated from the IBM Immersion Lab runbooks.
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+paths:
+  /api/v1/batches:
+    post:
+      summary: Generate a Merkle batch from configured log sources
+      description: |
+        Gather log entries from the configured `.jsonl` sources, build a Merkle tree, persist
+        the manifest, and return batch metadata so the caller can anchor it on-chain.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                batch_id:
+                  type: string
+                  description: Unique identifier for the batch (e.g., timestamp + source code).
+                config_path:
+                  type: string
+                  description: Optional override for the batcher configuration file.
+                manifest_dir:
+                  type: string
+                  description: Directory where manifests should be persisted.
+              required:
+                - batch_id
+      responses:
+        '200':
+          description: Batch manifest persisted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  batch_id:
+                    type: string
+                  manifest_path:
+                    type: string
+                  root:
+                    type: string
+                  prev_merkle_root:
+                    type: string
+                    nullable: true
+                  count:
+                    type: integer
+        '400':
+          description: Invalid request payload.
+  /api/v1/anchors:
+    post:
+      summary: Anchor a Merkle root on the configured Ethereum-compatible chain
+      description: |
+        Submit an anchoring transaction either directly or via the optional LogAnchor contract.
+        The service records the transaction hash alongside the manifest for downstream auditors.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                batch_id:
+                  type: string
+                merkle_root:
+                  type: string
+                strategy:
+                  type: string
+                  enum: [contract, raw_tx]
+                  description: Anchoring approach the caller would like the service to use.
+              required:
+                - batch_id
+                - merkle_root
+      responses:
+        '200':
+          description: Anchor accepted for processing.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  batch_id:
+                    type: string
+                  tx_hash:
+                    type: string
+                  anchor_height:
+                    type: integer
+                    nullable: true
+        '409':
+          description: Conflicting anchor request detected.
+  /api/v1/verifications:
+    post:
+      summary: Verify a log entry against its anchored Merkle root
+      description: |
+        Recompute the leaf hash, rebuild the Merkle proof, and cross-check the stored
+        root on-chain to ensure the entry has not been tampered with.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                batch_id:
+                  type: string
+                log_entry:
+                  type: object
+                  description: Canonical JSON log entry to verify.
+                proof:
+                  type: array
+                  description: Sibling hashes that should reproduce the anchored root.
+                  items:
+                    type: string
+              required:
+                - batch_id
+                - log_entry
+      responses:
+        '200':
+          description: Verification results.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  batch_id:
+                    type: string
+                  verified:
+                    type: boolean
+                  merkle_root:
+                    type: string
+                  tx_hash:
+                    type: string
+                    nullable: true
+        '404':
+          description: Manifest or anchor data for the supplied batch could not be found.
+  /healthz:
+    get:
+      summary: Health probe endpoint
+      responses:
+        '200':
+          description: Service is available.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-API-Key
+      in: header
+security:
+  - ApiKeyAuth: []
