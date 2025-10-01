@@ -95,6 +95,7 @@ The repository ships with `tests/sample_logs/authsvc.jsonl`, a three-entry `.jso
 3. Extend the batcher to include ECDSA signatures today and PQC signatures (e.g., Dilithium) in future iterations.
 4. Integrate the verification workflow to detect tampering by recomputing Merkle proofs and checking on-chain anchors.
 
+
 ## IBM Immersion Lab End-to-End Demo
 
 The Immersion Lab scenario chains the local components into a deterministic rehearsal of the production flow:
@@ -109,6 +110,41 @@ Reference materials for facilitators:
 - Orchestration helper used in demos: [`api/orchestrate_stub.py`](api/orchestrate_stub.py)
 
 These assets mirror the flow exercised in the Immersion Lab labs—operators can swap in production credentials and change `infra/ganache-config.json` to point at a long-lived network when graduating beyond the stubbed environment.
+
+
+## Orchestrate Automation Stub
+
+The helper script at `offchain/orchestrate_stub.py` provides a lightweight integration point for Orchestrate or other
+automation tooling. It loads credentials/configuration, POSTs a demo batch to `/anchor_batch`, and immediately invokes
+`/verify` for the same `batch_id`, logging request/response bodies alongside simple assertions so the flow can double as an
+automated smoke test.
+
+### Configuration & Environment Variables
+
+The stub pulls its settings from environment variables and, optionally, an overridable YAML file referenced by
+`ORCHESTRATE_STUB_CONFIG_PATH`. At minimum you should define:
+
+- `ORCHESTRATE_API_BASE_URL` – Base URL (e.g., `http://127.0.0.1:8000`) hosting the `anchor_batch` and `verify` endpoints.
+- `GANACHE_RPC_URL` – RPC endpoint used by the verification metadata (defaults to `http://127.0.0.1:8545`).
+- `ORCHESTRATE_BATCH_ID` – Demo batch identifier used for both anchoring and verification.
+
+Optional overrides include:
+
+- `ORCHESTRATE_API_TOKEN` – Bearer token for authenticated APIs.
+- `ORCHESTRATE_MERKLE_ROOT` / `ORCHESTRATE_PREV_MERKLE_ROOT` / `ORCHESTRATE_NETWORK` – Override demo payload values.
+- `ORCHESTRATE_STUB_CONFIG_PATH` – Path to a YAML file that can define `api_base_url`, `anchor_payload`, `verify_params`, and
+  `ganache_rpc_url` defaults consumed by the stub.
+
+## Running the Off-chain API
+
+The off-chain components can also be orchestrated via a FastAPI service that batches logs, submits Merkle roots to Ganache, and verifies anchored entries. Start the development server with:
+
+```bash
+uvicorn offchain.api:app --reload --host 0.0.0.0 --port 8000
+```
+
+The API exposes `POST /anchor_batch` for building and anchoring new manifests and `GET /verify` for recomputing Merkle proofs against the on-chain root.
+
 
 ## Threat Model Snapshot
 

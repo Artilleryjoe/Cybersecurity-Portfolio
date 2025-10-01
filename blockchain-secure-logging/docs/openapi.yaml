@@ -1,0 +1,303 @@
+openapi: 3.0.3
+info:
+  title: Blockchain Secure Logging API
+  version: 1.0.0
+  description: |
+    REST interface for anchoring batched log manifests to a blockchain and verifying
+    Merkle proofs for individual entries.
+servers:
+  - url: https://api.secure-logging.local/v1
+paths:
+  /anchor_batch:
+    post:
+      operationId: anchorBatch
+      summary: Anchor a prepared log batch manifest
+      description: |
+        Accepts a deterministically generated manifest describing a batch of canonicalized log entries.
+        The service recomputes the Merkle root, persists the manifest, and submits an anchoring transaction
+        to the configured blockchain network.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnchorBatchRequest'
+      responses:
+        '201':
+          description: Batch manifest accepted and anchoring transaction submitted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnchorBatchResponse'
+        '400':
+          description: Manifest failed validation (e.g., inconsistent root or malformed proof data).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected error anchoring the batch.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /verify:
+    get:
+      operationId: verifyAnchor
+      summary: Verify a log entry against an anchored batch
+      description: |
+        Returns Merkle proof material and anchoring metadata for a previously anchored batch. Verification
+        succeeds when the supplied leaf hash and proof resolve to the stored Merkle root and the on-chain
+        anchor metadata matches what was recorded in the manifest.
+      parameters:
+        - name: batch_id
+          in: query
+          description: Identifier of the anchored batch to inspect.
+          required: true
+          schema:
+            type: string
+        - name: leaf_hash
+          in: query
+          description: Hex-encoded SHA-256 hash of the canonical log entry being validated.
+          required: false
+          schema:
+            type: string
+            pattern: '^0x[0-9a-fA-F]{64}$'
+      responses:
+        '200':
+          description: Verification outcome for the requested batch or entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationResponse'
+        '404':
+          description: Batch or manifest not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Verification failed because the proof did not reconstruct the anchored root.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationResponse'
+        '500':
+          description: Unexpected error while performing verification.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    AnchorBatchRequest:
+      type: object
+      required:
+        - batch
+        - leaves
+      properties:
+        batch:
+          $ref: '#/components/schemas/AnchorMetadata'
+        leaves:
+          type: array
+          description: Hex-encoded leaf hashes in canonical order.
+          minItems: 1
+          items:
+            type: string
+            pattern: '^[0-9a-fA-F]{64}$'
+        proofs:
+          type: object
+          description: >-
+            Optional map of log entry identifiers to Merkle proofs that can be re-used during verification.
+          additionalProperties:
+            $ref: '#/components/schemas/MerkleProof'
+    AnchorBatchResponse:
+      type: object
+      required:
+        - batch
+        - anchor_tx
+      properties:
+        batch:
+          $ref: '#/components/schemas/AnchorMetadata'
+        anchor_tx:
+          type: object
+          description: Details describing the blockchain transaction submitted to record the batch.
+          required:
+            - tx_hash
+            - chain_id
+            - status
+          properties:
+            tx_hash:
+              type: string
+              description: Transaction hash on the target blockchain network.
+              pattern: '^0x[0-9a-fA-F]{64}$'
+            chain_id:
+              type: integer
+              format: int64
+              description: Numeric chain identifier that processed the transaction.
+            block_number:
+              type: integer
+              format: int64
+              description: Block height containing the anchor transaction.
+              nullable: true
+            anchor_timestamp:
+              type: string
+              format: date-time
+              description: Timestamp when the anchor transaction was observed as finalized.
+              nullable: true
+            status:
+              type: string
+              description: Current state of the anchoring transaction (e.g., pending, confirmed, failed).
+            meta_cid:
+              type: string
+              description: Optional content identifier or URI pointing to extended batch metadata.
+              nullable: true
+    AnchorMetadata:
+      type: object
+      description: Metadata describing the anchored batch manifest.
+      required:
+        - batch_id
+        - count
+        - window_start
+        - window_end
+        - hash_alg
+        - leaf_order
+        - signer_alg
+      properties:
+        batch_id:
+          type: string
+          description: Deterministic identifier for the batch (e.g., timestamp plus source identifier).
+        count:
+          type: integer
+          format: int32
+          minimum: 0
+          description: Number of log entries included in the batch.
+        window_start:
+          type: string
+          format: date-time
+          description: Timestamp of the earliest log entry in the batch (UTC).
+        window_end:
+          type: string
+          format: date-time
+          description: Timestamp of the latest log entry in the batch (UTC).
+        hash_alg:
+          type: string
+          description: Hash algorithm applied to individual log entries.
+          default: SHA-256
+        leaf_order:
+          type: string
+          description: Deterministic ordering rule used when arranging leaves prior to hashing.
+          default: ts_asc_seq
+        signer_alg:
+          type: string
+          description: Signature scheme applied to the batch manifest.
+          default: ECDSA_secp256k1
+        signer_pub:
+          type: string
+          description: Optional signer public key encoded as PEM or multibase string.
+          nullable: true
+        prev_merkle_root:
+          type: string
+          description: Merkle root of the preceding batch to enforce append-only anchoring.
+          pattern: '^0x[0-9a-fA-F]{64}$'
+          nullable: true
+        root:
+          type: string
+          description: Merkle root hash for the current batch.
+          pattern: '^0x[0-9a-fA-F]{64}$'
+          nullable: true
+        sig:
+          type: string
+          description: Base64-encoded signature over the manifest payload.
+          nullable: true
+    MerkleProof:
+      type: object
+      description: Ordered set of sibling hashes needed to recompute a Merkle root.
+      required:
+        - path
+      properties:
+        path:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/MerkleProofNode'
+        leaf_index:
+          type: integer
+          format: int32
+          minimum: 0
+          description: Index of the leaf within the batch.
+          nullable: true
+    MerkleProofNode:
+      type: object
+      required:
+        - position
+        - hash
+      properties:
+        position:
+          type: string
+          description: Indicates whether the sibling was on the left or right side of the pair.
+          enum:
+            - left
+            - right
+        hash:
+          type: string
+          description: Hex-encoded SHA-256 hash of the sibling node.
+          pattern: '^0x[0-9a-fA-F]{64}$'
+    VerificationResponse:
+      type: object
+      required:
+        - batch
+        - verified
+      properties:
+        batch:
+          $ref: '#/components/schemas/AnchorMetadata'
+        verified:
+          type: boolean
+          description: Indicates whether the supplied leaf hash and proof reconstructed the anchored root.
+        leaf_hash:
+          type: string
+          description: Leaf hash that was evaluated, when provided.
+          pattern: '^0x[0-9a-fA-F]{64}$'
+          nullable: true
+        proof:
+          $ref: '#/components/schemas/MerkleProof'
+        anchor_tx:
+          type: object
+          description: Anchor transaction details returned for convenience during verification.
+          nullable: true
+          properties:
+            tx_hash:
+              type: string
+              pattern: '^0x[0-9a-fA-F]{64}$'
+            chain_id:
+              type: integer
+              format: int64
+            block_number:
+              type: integer
+              format: int64
+              nullable: true
+            anchor_timestamp:
+              type: string
+              format: date-time
+              nullable: true
+            status:
+              type: string
+        reason:
+          type: string
+          description: Explanation describing verification failure.
+          nullable: true
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Short machine-readable error code.
+        message:
+          type: string
+          description: Human-readable explanation of the error condition.
+        details:
+          type: object
+          description: Additional context describing validation issues.
+          nullable: true
