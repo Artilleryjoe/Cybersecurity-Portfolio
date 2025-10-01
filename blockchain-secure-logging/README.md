@@ -54,6 +54,16 @@ blockchain-secure-logging/
 3. Extend the batcher to include ECDSA signatures today and PQC signatures (e.g., Dilithium) in future iterations.
 4. Integrate the verification workflow to detect tampering by recomputing Merkle proofs and checking on-chain anchors.
 
+## Running the Off-chain API
+
+The off-chain components can also be orchestrated via a FastAPI service that batches logs, submits Merkle roots to Ganache, and verifies anchored entries. Start the development server with:
+
+```bash
+uvicorn offchain.api:app --reload --host 0.0.0.0 --port 8000
+```
+
+The API exposes `POST /anchor_batch` for building and anchoring new manifests and `GET /verify` for recomputing Merkle proofs against the on-chain root.
+
 ## Threat Model Snapshot
 
 - **Goal** – Detect unauthorized edits, deletions, or reordering of historical log entries.
