@@ -26,6 +26,43 @@ blockchain-secure-logging/
     └── test_tamper_evidence.md
 ```
 
+## Local Run
+
+Use this quickstart to exercise the scaffold end-to-end on a laptop or lab jump box.
+
+1. **Start Ganache** – launch the deterministic chain with the provided config so the Merkle anchor pipeline has a predictable target:
+
+   ```bash
+   npx ganache --config infra/ganache-config.json
+   ```
+
+2. **Create a Python environment** – install the lightweight tools the stubbed API and orchestration client require:
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install requests
+   ```
+
+3. **Launch the API service stub** – run the development server that exposes the batching, anchoring, and verification endpoints used by downstream demos:
+
+   ```bash
+   python api/service_stub.py
+   ```
+
+4. **Hit the endpoints** – either drive the workflow with raw `curl` or rely on the bundled orchestration helper:
+
+   ```bash
+   # Using curl
+   curl -X POST http://127.0.0.1:8000/api/v1/batches -H 'Content-Type: application/json' \
+     -d '{"batch_id": "2025-09-23T18:05Z_authsvc_demo"}'
+
+   # Using the stub agent
+   python api/orchestrate_stub.py 2025-09-23T18:05Z_authsvc_demo
+   ```
+
+   The stub agent walks the same sequence outlined in the IBM Immersion Lab runbooks: generate a batch, request an anchor, and ask the service to verify the result.
+
 ## High-Level Flow
 
 1. **Collect & Normalize Logs** – Log sources emit structured JSON that conforms to `offchain/schemas.LogEntry`.
@@ -47,12 +84,32 @@ blockchain-secure-logging/
 - **infra/** – Configuration for running a deterministic local chain (Ganache).
 - **tests/** – Manual and automated test plans plus sample logs for exercising the flow.
 
+### Sample Fixture Narrative
+
+The repository ships with `tests/sample_logs/authsvc.jsonl`, a three-entry `.jsonl` feed that simulates an authentication service inside a retail bank’s risk organization. The entries depict an orderly startup, a high-value user login, and a performance warning that would elevate the session’s fraud scoring if it persisted. Running the batcher against this file produces a single banking risk assessment batch whose Merkle root represents the tamper-evident snapshot auditors expect during IBM Immersion Lab exercises. 【F:blockchain-secure-logging/tests/sample_logs/authsvc.jsonl†L1-L4】
+
 ## Next Steps
 
 1. Create a Python virtual environment and install dependencies listed in `offchain/batcher.py` docstring.
 2. Populate `tests/sample_logs/` with `.jsonl` fixtures and run the batcher to produce a manifest and anchor transaction.
 3. Extend the batcher to include ECDSA signatures today and PQC signatures (e.g., Dilithium) in future iterations.
 4. Integrate the verification workflow to detect tampering by recomputing Merkle proofs and checking on-chain anchors.
+
+
+## IBM Immersion Lab End-to-End Demo
+
+The Immersion Lab scenario chains the local components into a deterministic rehearsal of the production flow:
+
+1. **Generate** – call the `POST /api/v1/batches` endpoint (or run `python api/orchestrate_stub.py <batch_id>`) to build a manifest from the current `.jsonl` fixtures.
+2. **Anchor** – instruct the service to anchor the new Merkle root on Ganache via `POST /api/v1/anchors`; Ganache provides instant block finality for workshop timelines.
+3. **Verify** – confirm integrity by invoking `POST /api/v1/verifications`, which recomputes the leaf and compares the root against the transaction recorded on the chain.
+
+Reference materials for facilitators:
+
+- Full API contract: [`api/openapi.yaml`](api/openapi.yaml)
+- Orchestration helper used in demos: [`api/orchestrate_stub.py`](api/orchestrate_stub.py)
+
+These assets mirror the flow exercised in the Immersion Lab labs—operators can swap in production credentials and change `infra/ganache-config.json` to point at a long-lived network when graduating beyond the stubbed environment.
 
 
 ## Orchestrate Automation Stub
