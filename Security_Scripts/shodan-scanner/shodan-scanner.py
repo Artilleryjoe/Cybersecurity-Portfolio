@@ -1,64 +1,136 @@
 #!/usr/bin/env python3
-"""
-shodan-scanner.py
-Uses the Shodan API to scan a list of IP addresses and retrieve service banners and vulnerability info.
-Requires a valid Shodan API key.
+"""Command line utility for querying the Shodan API.
+
+The original implementation executed API calls at import time which made the
+module impossible to reuse and difficult to test.  The code has been rewritten
+so that it now exposes small, testable functions and only performs network
+operations when ``main`` is invoked.  The script also accepts a configurable
+delay between API calls to help respect Shodan's rate limits.
 """
 
-import shodan
+from __future__ import annotations
+
 import argparse
 import json
 import time
-from typing import List
+from pathlib import Path
+from typing import Dict, Iterable, List
 
-# Initialize argument parser
-parser = argparse.ArgumentParser(description="Scan targets with Shodan API and retrieve exposed services.")
-parser.add_argument("-k", "--apikey", required=True, help="Your Shodan API key")
-parser.add_argument("-i", "--input", required=True, help="Path to file with list of target IPs")
-parser.add_argument("-o", "--output", required=False, help="Output JSON file", default="shodan_output.json")
+try:
+    import shodan
+except ModuleNotFoundError as exc:  # pragma: no cover - dependency guard
+    raise SystemExit(
+        "The 'shodan' package is required to run this script. Install it with 'pip install shodan'."
+    ) from exc
 
-args = parser.parse_args()
 
-# Initialize Shodan API
-api = shodan.Shodan(args.apikey)
+def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
+    """Return parsed command line arguments."""
 
-# Read target IPs
-with open(args.input, "r") as f:
-    targets = [line.strip() for line in f if line.strip()]
+    parser = argparse.ArgumentParser(
+        description="Scan targets with the Shodan API and retrieve exposed services."
+    )
+    parser.add_argument("-k", "--apikey", required=True, help="Your Shodan API key")
+    parser.add_argument("-i", "--input", required=True, help="Path to file with list of target IPs")
+    parser.add_argument(
+        "-o",
+        "--output",
+        default="shodan_output.json",
+        help="Output JSON file (default: shodan_output.json)",
+    )
+    parser.add_argument(
+        "--delay",
+        type=float,
+        default=1.0,
+        help="Delay between API calls in seconds (default: 1.0)",
+    )
+    parser.add_argument(
+        "--banner-length",
+        type=int,
+        default=100,
+        help="Maximum number of characters to store from each service banner",
+    )
+    return parser.parse_args(argv)
 
-results = {}
 
-for ip in targets:
-    try:
-        print(f"[+] Querying Shodan for {ip}...")
-        host = api.host(ip)
-        result = {
-            "ip": host.get("ip_str"),
-            "org": host.get("org", "N/A"),
-            "os": host.get("os", "N/A"),
-            "ports": host.get("ports", []),
-            "data": [],
-            "vulns": host.get("vulns", [])
-        }
+def load_targets(path: Path) -> List[str]:
+    """Load target IP addresses from a newline-delimited file."""
 
-        for item in host.get("data", []):
-            result["data"].append({
+    if not path.exists():
+        raise SystemExit(f"Input file '{path}' does not exist")
+    return [line.strip() for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def query_host(api: shodan.Shodan, ip: str, banner_length: int) -> Dict[str, object]:
+    """Retrieve host information from Shodan."""
+
+    host = api.host(ip)
+    result: Dict[str, object] = {
+        "ip": host.get("ip_str"),
+        "org": host.get("org", "N/A"),
+        "os": host.get("os", "N/A"),
+        "ports": host.get("ports", []),
+        "data": [],
+        "vulns": host.get("vulns", []),
+    }
+
+    for item in host.get("data", []):
+        banner = item.get("data", "") or ""
+        result["data"].append(
+            {
                 "port": item.get("port"),
                 "transport": item.get("transport"),
                 "product": item.get("product"),
                 "version": item.get("version"),
-                "banner": item.get("data", "")[:100]  # Limit banner size
-            })
+                "banner": banner[:banner_length],
+            }
+        )
 
-        results[ip] = result
-        time.sleep(1)  # Avoid hitting rate limits
+    return result
 
-    except shodan.APIError as e:
-        print(f"[-] Error retrieving data for {ip}: {e}")
-        results[ip] = {"error": str(e)}
 
-# Save results
-with open(args.output, "w") as out:
-    json.dump(results, out, indent=2)
+def scan_targets(
+    api: shodan.Shodan,
+    targets: Iterable[str],
+    *,
+    banner_length: int,
+    delay: float,
+) -> Dict[str, object]:
+    """Scan each target and return a mapping of results."""
 
-print(f"[+] Scan complete. Results saved to {args.output}")
+    results: Dict[str, object] = {}
+    for ip in targets:
+        try:
+            print(f"[+] Querying Shodan for {ip}...")
+            results[ip] = query_host(api, ip, banner_length)
+        except shodan.APIError as exc:
+            print(f"[-] Error retrieving data for {ip}: {exc}")
+            results[ip] = {"error": str(exc)}
+
+        if delay > 0:
+            time.sleep(delay)
+
+    return results
+
+
+def main(argv: Iterable[str] | None = None) -> None:
+    args = parse_args(argv)
+    targets = load_targets(Path(args.input))
+    if not targets:
+        raise SystemExit("No targets found in the input file")
+
+    api = shodan.Shodan(args.apikey)
+    results = scan_targets(
+        api,
+        targets,
+        banner_length=max(args.banner_length, 0),
+        delay=max(args.delay, 0.0),
+    )
+
+    output_path = Path(args.output)
+    output_path.write_text(json.dumps(results, indent=2, sort_keys=True), encoding="utf-8")
+    print(f"[+] Scan complete. Results saved to {output_path}")
+
+
+if __name__ == "__main__":
+    main()
