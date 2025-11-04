@@ -18,7 +18,7 @@ This experiment explores how IBM Quantum® tooling can inform segmentation playb
 
 ## My Run Details
 
-- **Environment.** Python 3.11, Qiskit SDK 1.0.2, qiskit-ibm-runtime 0.22.1, rustworkx 0.13, SciPy 1.11, Matplotlib 3.8.
+- **Environment.** Python 3.12, Qiskit SDK 2.2.0, qiskit-ibm-runtime 0.25.0, rustworkx 0.14.2, SciPy 1.13, Matplotlib 3.9.
 - **Backend.** `ibm_pittsburgh` (127 physical qubits, heavy-hex topology). Queue wait averaged 6 minutes; active runtime per job stayed under 9 minutes.
 - **Shots.** 1,000 shots per Estimator iteration; 10,000 shots for the final Sampler run.
 - **QAOA reps.** `reps=2` for the 5-node graph, `reps=1` for the 100-node experiment.
