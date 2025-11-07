@@ -6,6 +6,7 @@ This folder explores practical quantum workflows that can benefit small business
 
 - [QRNG-Based Steganography Experiment](./QRNGSteganography.md) — Demonstrates embedding payloads with quantum random numbers to improve secrecy and unpredictability when sharing sensitive data.
 - [QAOA Max-Cut Optimization Tutorial](./QAOAMaxCut.md) — Walks through deploying a Qiskit Runtime workflow that segments graphs with the Quantum Approximate Optimization Algorithm, highlighting how future quantum accelerators can support infrastructure planning and defense.
+- [CRYSTALS-Kyber Post-Quantum Key Exchange](./CRYSTALS-Kyber.md) — Explores implementing Kyber-based key establishment with liboqs/OpenSSL, logging performance, and planning hybrid migration paths.
 
 ## How to Use This Folder
 

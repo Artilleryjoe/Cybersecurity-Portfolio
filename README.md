@@ -57,7 +57,7 @@ Explore each project directory for detailed setup instructions, runtime requirem
 
 ### Research & Training
 - **`docs/`** – Source files for the GitHub Pages site, including service descriptions, methodology breakdowns, and downloadable assets.
-- **`quantum-computing/`** – Quantum security experiments such as [QRNG-Based Steganography](quantum-computing/QRNGSteganography.md) and the [QAOA Max-Cut tutorial](quantum-computing/QAOAMaxCut.md).
+- **`quantum-computing/`** – Quantum security experiments such as [QRNG-Based Steganography](quantum-computing/QRNGSteganography.md), the [QAOA Max-Cut tutorial](quantum-computing/QAOAMaxCut.md), and the new [CRYSTALS-Kyber key exchange lab](quantum-computing/CRYSTALS-Kyber.md).
 
 ## Learning Resources
 - [User Guide](docs/UserGuide.md) – Learn how to explore the security scripts and mobile lab safely.
