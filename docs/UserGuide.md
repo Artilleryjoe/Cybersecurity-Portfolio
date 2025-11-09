@@ -33,8 +33,6 @@ Use these scripts only on systems you own or have explicit written permission to
 - **Walkthrough:** Trigger a network call and monitor traffic to witness unencrypted HTTP requests.
 - **Learning Objective:** See why HTTPS is essential for protecting data in transit.
 
-### Safety Disclaimer
-Run the mobile app, now available at [YourOrg/mobile-app](https://github.com/YourOrg/mobile-app), in an isolated lab environment. Do not transmit real personal or business data through these modules.
 
 ---
 
