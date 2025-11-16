@@ -34,7 +34,7 @@ Each script is designed to be modular, standalone, and easily extensible.
 | `markdown_gen.py`       | Generates Markdown/HTML reports from arbitrary JSON scan data.             |
 | `csv_json_export.py`    | Exports scans with flattening, deduping, and field selection controls.     |
 | `pentest_toolkit.py`    | Automates Metasploit RPC with configurable delays and JSON logging.        |
-| `anomaly_detection.py`  | IsolationForest CLI that exports top anomalies for telemetry review.       |
+| `anomaly_detection.py`  | Enterprise IsolationForest pipeline with config-driven train/score/report. |
 | `qrng_steganography/`   | CLI-driven LSB embedding/extraction (keyed + unkeyed) with HKDF hardening.  |
 
 ---
