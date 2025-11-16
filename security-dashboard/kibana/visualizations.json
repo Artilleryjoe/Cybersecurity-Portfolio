@@ -1,11 +1,62 @@
 [
   {
     "type": "visualization",
-    "id": "vuln-count",
+    "id": "security-scans-trend",
     "attributes": {
-      "title": "Vulnerability Count",
-      "visState": "{}",
-      "uiStateJSON": "{}"
+      "title": "Security Script Findings by Severity",
+      "description": "Area visualization grouped by Security_Scripts finding severity over time.",
+      "index-pattern": "security-scans-*",
+      "suggestedPanels": ["count by severity", "top vulnerable hosts"]
+    }
+  },
+  {
+    "type": "visualization",
+    "id": "ids-alerts-buckets",
+    "attributes": {
+      "title": "Custom IDS Alerts",
+      "description": "Stacked bar showing Suricata rule matches (enterprise.rules) split by rule family.",
+      "index-pattern": "ids-alerts-*",
+      "suggestedPanels": ["rule_name.keyword", "severity"]
+    }
+  },
+  {
+    "type": "visualization",
+    "id": "ansible-compliance-status",
+    "attributes": {
+      "title": "Ansible Hardening Compliance",
+      "description": "Lens table summarizing pass/fail counts per CIS control produced by ansible-hardening/playbooks.",
+      "index-pattern": "ansible-compliance-*",
+      "suggestedPanels": ["status", "control.keyword", "host.keyword"]
+    }
+  },
+  {
+    "type": "visualization",
+    "id": "blockchain-audit-ledger",
+    "attributes": {
+      "title": "Blockchain Anchoring State",
+      "description": "Markdown / TSVB panel referencing blockchain-secure-logging anchoring status.",
+      "index-pattern": "blockchain-audit-*",
+      "suggestedPanels": ["status", "chain.keyword", "tx_id"]
+    }
+  },
+  {
+    "type": "visualization",
+    "id": "mobile-risk",
+    "attributes": {
+      "title": "Mobile Application Risk",
+      "description": "Scorecard for outputs produced by mobile-security-analysis/analyze_apk.py.",
+      "index-pattern": "mobile-findings-*",
+      "suggestedPanels": ["risk_score", "issues"]
+    }
+  },
+  {
+    "type": "visualization",
+    "id": "quantum-experiments",
+    "attributes": {
+      "title": "Quantum & Emerging Tech",
+      "description": "Timeline of entropy tests or Kyber experimentation stored under quantum-computing/.",
+      "index-pattern": "quantum-research-*",
+      "suggestedPanels": ["value", "experiment.keyword"]
     }
   }
 ]

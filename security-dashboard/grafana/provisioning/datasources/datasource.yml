@@ -1,0 +1,16 @@
+apiVersion: 1
+
+datasources:
+  - name: Elasticsearch-Security
+    type: elasticsearch
+    access: proxy
+    url: http://elasticsearch:9200
+    database: security-scans
+    basicAuth: false
+    isDefault: true
+    jsonData:
+      timeField: timestamp
+      interval: Daily
+      esVersion: 8.0.0
+      logMessageField: finding
+      logLevelField: severity
