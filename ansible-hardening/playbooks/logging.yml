@@ -1,0 +1,69 @@
+- name: Configure centralized logging and telemetry
+  hosts: all
+  become: yes
+
+  handlers:
+    - name: restart rsyslog
+      ansible.builtin.service:
+        name: rsyslog
+        state: restarted
+
+    - name: restart filebeat
+      ansible.builtin.service:
+        name: filebeat
+        state: restarted
+      failed_when: false
+      changed_when: false
+
+  tasks:
+    - name: Ensure rsyslog and filebeat packages are installed
+      ansible.builtin.package:
+        name:
+          - rsyslog
+          - filebeat
+        state: present
+
+    - name: Configure rsyslog remote forwarding
+      ansible.builtin.copy:
+        dest: /etc/rsyslog.d/90-remote.conf
+        owner: root
+        group: root
+        mode: '0644'
+        content: |
+          # Managed by Ansible
+          *.* @@{{ remote_log_server }}:{{ remote_log_port }};RSYSLOG_SyslogProtocol23Format
+      notify: restart rsyslog
+
+    - name: Ensure rsyslog listens over RELP when supported
+      ansible.builtin.lineinfile:
+        path: /etc/rsyslog.conf
+        regexp: '^#?module\(load="imrelp"'
+        line: 'module(load="imrelp")'
+        create: yes
+      notify: restart rsyslog
+
+    - name: Configure Filebeat modules
+      ansible.builtin.command: "/usr/bin/filebeat modules enable {{ item }}"
+      args:
+        creates: "/etc/filebeat/modules.d/{{ item }}.yml"
+      loop: "{{ filebeat_modules }}"
+      notify: restart filebeat
+      when: filebeat_modules | length > 0
+
+    - name: Ensure Filebeat output is set to Logstash
+      ansible.builtin.blockinfile:
+        path: /etc/filebeat/filebeat.yml
+        marker: "# {mark} ANSIBLE MANAGED LOGSTASH OUTPUT"
+        block: |
+          output.logstash:
+            hosts: ["{{ remote_log_server }}:5044"]
+      notify: restart filebeat
+
+    - name: Enable and start telemetry services
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop:
+        - rsyslog
+        - filebeat

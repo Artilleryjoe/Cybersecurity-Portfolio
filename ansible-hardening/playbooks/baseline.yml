@@ -1,0 +1,60 @@
+- name: Apply baseline system hardening
+  hosts: all
+  become: yes
+
+  pre_tasks:
+    - name: Gather facts
+      ansible.builtin.setup:
+
+  tasks:
+    - name: Install baseline security packages
+      ansible.builtin.package:
+        name: "{{ baseline_packages }}"
+        state: present
+      when: baseline_packages | length > 0
+
+    - name: Deploy security banner
+      ansible.builtin.copy:
+        dest: /etc/issue
+        content: "{{ security_banner }}\n"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Configure sysctl hardening parameters
+      ansible.builtin.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        sysctl_set: yes
+        state: present
+        reload: yes
+      loop: "{{ sysctl_tunables | dict2items }}"
+
+    - name: Disable unnecessary network services
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: stopped
+        enabled: no
+      loop: "{{ services_to_disable }}"
+      when: services_to_disable | length > 0
+      failed_when: false
+
+    - name: Ensure time synchronization service is enabled
+      ansible.builtin.service:
+        name: "{{ 'chronyd' if ansible_facts['os_family'] == 'RedHat' else 'chrony' }}"
+        state: started
+        enabled: yes
+
+    - name: Harden permissions on /etc/shadow
+      ansible.builtin.file:
+        path: /etc/shadow
+        owner: root
+        group: shadow
+        mode: '0640'
+
+    - name: Harden permissions on /etc/passwd
+      ansible.builtin.file:
+        path: /etc/passwd
+        owner: root
+        group: root
+        mode: '0644'

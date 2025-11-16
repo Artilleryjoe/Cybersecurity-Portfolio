@@ -1,0 +1,53 @@
+- name: Deploy host-based intrusion detection
+  hosts: all
+  become: yes
+
+  handlers:
+    - name: restart auditd
+      ansible.builtin.service:
+        name: auditd
+        state: restarted
+
+    - name: update aide database
+      ansible.builtin.command: /usr/sbin/aide --init
+      args:
+        creates: /var/lib/aide/aide.db.gz
+
+  tasks:
+    - name: Install monitoring packages
+      ansible.builtin.package:
+        name:
+          - auditd
+          - aide
+        state: present
+
+    - name: Deploy auditd rules
+      ansible.builtin.copy:
+        dest: /etc/audit/rules.d/hardening.rules
+        mode: '0640'
+        owner: root
+        group: root
+        content: |-
+          # Managed by Ansible
+          {{ auditd_rules | join('\n') }}
+      notify: restart auditd
+
+    - name: Ensure auditd service is enabled
+      ansible.builtin.service:
+        name: auditd
+        enabled: yes
+        state: started
+
+    - name: Initialize AIDE database when missing
+      ansible.builtin.command: /usr/sbin/aide --init
+      args:
+        creates: /var/lib/aide/aide.db.gz
+      notify: update aide database
+
+    - name: Schedule nightly AIDE check
+      ansible.builtin.cron:
+        name: "Nightly AIDE integrity check"
+        minute: 0
+        hour: 2
+        user: root
+        job: "/usr/sbin/aide --check --report>>/var/log/aide.log 2>&1"

@@ -2,20 +2,13 @@
   hosts: all
   become: yes
 
-  vars:
-    users_to_manage:
-      - username: jdillo
-        uid: 1001
-        groups: "sudo,docker"
-        shell: /bin/bash
-        ssh_key: "ssh-ed25519 AAAA...yourpublickey... user@host"
-      - username: secadmin
-        uid: 1002
-        groups: "sudo"
-        shell: /bin/bash
-        ssh_key: "ssh-ed25519 AAAA...anotherpublickey... user@host"
-
   tasks:
+    - name: Ensure at least one user is defined
+      ansible.builtin.assert:
+        that:
+          - users_to_manage | length > 0
+        fail_msg: "Define users_to_manage in group_vars or inventory before running this playbook."
+
     - name: Ensure users are present
       ansible.builtin.user:
         name: "{{ item.username }}"

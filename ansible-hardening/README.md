@@ -1,23 +1,30 @@
 # Ansible Hardening Toolkit
 
-A collection of modular Ansible playbooks and inventory files to automate security hardening and system management for Linux hosts.
+A collection of modular Ansible playbooks and inventory files to automate security hardening, monitoring, and lifecycle management for Linux hosts.
 
 ---
 
-## Inventory
+## Inventory & Configuration
 
-- `inventory/hosts.yml` — Defines target hosts and connection variables. Supports SSH key and sudo access. Update the sample `[servers]` group with your own systems.
+- `inventory/hosts.yml` — Defines target hosts grouped by platform (`linux_debian`, `linux_rhel`) and a `servers` parent group.
+- `group_vars/all.yml` — Centralizes opinionated defaults (users to provision, firewall rules, sysctl tunables, logging endpoints, etc.). Override as needed in environment-specific vars.
+- `ansible.cfg` — Sets sensible defaults such as inventory path, privilege escalation, and safe output formatting.
 
 ---
 
 ## Playbooks
 
-| Playbook         | Description                                            |
-|------------------|--------------------------------------------------------|
-| `users.yml`      | Manage users, groups, and SSH authorized keys.         |
-| `firewalls.yml`  | Configure UFW firewall rules.                           |
-| `ssh.yml`        | Harden SSH server configuration.                        |
-| `fail2ban.yml`   | Install and configure Fail2Ban with SSH jail.           |
+| Playbook           | Description                                                        |
+|--------------------|--------------------------------------------------------------------|
+| `baseline.yml`     | Applies core OS hardening (packages, sysctl, banners, services).    |
+| `users.yml`        | Manages privileged users, groups, and SSH authorized keys.          |
+| `firewalls.yml`    | Configures UFW policies/allow rules using structured variables.     |
+| `ssh.yml`          | Enforces hardened `sshd_config` parameters.                         |
+| `fail2ban.yml`     | Installs Fail2Ban and templates custom jails.                       |
+| `logging.yml`      | Sets up rsyslog forwarding and Filebeat telemetry.                  |
+| `monitoring.yml`   | Deploys auditd + AIDE for host-based intrusion detection.           |
+| `patching.yml`     | Executes controlled OS updates within a maintenance window.         |
+| `site.yml`         | Convenience wrapper that imports the full suite sequentially.       |
 
 ---
 
@@ -26,7 +33,10 @@ A collection of modular Ansible playbooks and inventory files to automate securi
 Run playbooks with:
 
 ```bash
-ansible-playbook -i inventory/hosts.yml playbooks/<playbook>.yml --ask-become-pass
+ansible-playbook playbooks/<playbook>.yml --ask-become-pass
+
+- Run `ansible-playbook playbooks/site.yml` to orchestrate the entire automation stack.
+- To use the firewall role, install the supporting collection once: `ansible-galaxy collection install community.general`.
 ```
 - Replace <playbook> with the desired playbook filename.
 
@@ -49,13 +59,21 @@ Use responsibly and only on systems you own or have explicit permission to manag
 ## Folder Structure
 ```
 ansible-hardening/
+├── ansible.cfg
+├── group_vars/
+│   └── all.yml
 ├── inventory/
 │   └── hosts.yml
 ├── playbooks/
-│   ├── users.yml
+│   ├── baseline.yml
+│   ├── fail2ban.yml
 │   ├── firewalls.yml
+│   ├── logging.yml
+│   ├── monitoring.yml
+│   ├── patching.yml
+│   ├── site.yml
 │   ├── ssh.yml
-│   └── fail2ban.yml
+│   └── users.yml
 └── README.md
 ```
 ## Author
