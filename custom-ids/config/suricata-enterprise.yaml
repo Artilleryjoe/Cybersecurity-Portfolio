@@ -1,0 +1,94 @@
+%YAML 1.1
+---
+# Production-focused Suricata configuration snippet
+vars:
+  address-groups:
+    HOME_NET: "[10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, fe80::/10]"
+    EXTERNAL_NET: "!$HOME_NET"
+  port-groups:
+    HTTP_PORTS: "[80, 443, 8080, 8443]"
+    FILE_DATA_PORTS: "[80, 443, 21, 22, 25, 110, 143, 445, 1433, 3306]"
+    SSH_PORTS: "[22, 2222, 3389]"
+    DNS_PORTS: "[53, 5353, 853]"
+
+affinity:
+  - interface: eth0
+    threads: 16
+    mode: auto
+    flow-hash-size: 1048576
+
+pcap:
+  - interface: eth0
+    checksum-checks: auto
+    cluster-id: 99
+    cluster-type: cluster_flow
+
+outputs:
+  - eve-log:
+      enabled: yes
+      type: file
+      filename: /var/log/suricata/eve.json
+      community-id: yes
+      community-id-seed: 0
+      filetype: regular
+      rotate-interval: 3600
+      compression: gzip
+      metadata: yes
+      extended: yes
+      xff:
+        enabled: yes
+        mode: extra-data
+        deployment: reverse
+      types:
+        - alert
+        - dns
+        - tls
+        - http
+        - stats
+        - flow
+        - fileinfo
+  - stats:
+      enabled: yes
+      filename: /var/log/suricata/suricata.stats
+      append: yes
+      totals: yes
+      threads: yes
+
+logging:
+  default-log-level: info
+  outputs:
+    - console:
+        enabled: yes
+    - file:
+        enabled: yes
+        filename: /var/log/suricata/suricata.log
+        level: info
+
+rule-files:
+  - /etc/suricata/rules/local.rules
+  - /etc/suricata/rules/enterprise.rules
+  - /etc/suricata/rules/et-open.rules
+
+app-layer:
+  protocols:
+    http:
+      enabled: yes
+      libhtp:
+        default-config:
+          personality: IDS
+          request-body-limit: 2000000
+          response-body-limit: 2000000
+          double-decode-path: yes
+          double-decode-query: yes
+    tls:
+      enabled: yes
+      ja3-fingerprints: yes
+      session-resumption: yes
+    smb:
+      enabled: yes
+    dns:
+      enabled: yes
+      request-flood-protection:
+        enabled: yes
+        per-flow: 20
+        global: 5000

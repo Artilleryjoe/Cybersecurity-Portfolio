@@ -1,0 +1,71 @@
+###############################################
+# Enterprise IDS Custom Rule Pack
+# Version: 1.0.0
+# Scope: MITRE ATT&CK® aligned detections
+###############################################
+
+var CORP_DNS_SERVERS [10.1.10.10/32]
+var CROWN_JEWEL_NET [10.200.0.0/24]
+
+###############################################
+# Reconnaissance / Scanning
+###############################################
+alert tcp $EXTERNAL_NET any -> $HOME_NET 445 (msg:"ETP RECON SMB scanning"; flags:S; threshold:type both, track by_src, count 20, seconds 60; classtype:attempted-recon; sid:2100001; rev:2;)
+alert icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"ETP RECON ICMP sweep"; itype:8; detection_filter:track by_src, count 30, seconds 10; classtype:attempted-recon; sid:2100002; rev:1;)
+
+###############################################
+# Credential Access / Brute Force
+###############################################
+alert tcp $HOME_NET any -> $EXTERNAL_NET 22 (msg:"ETP BRUTE Force outbound SSH"; flow:to_server,established; threshold:type both,track by_dst,count 15,seconds 120; classtype:attempted-admin; sid:2100100; rev:1;)
+alert tcp $EXTERNAL_NET any -> $HOME_NET 3389 (msg:"ETP BRUTE RDP password spray"; flow:to_server,established; detection_filter:track by_src,count 10,seconds 60; classtype:attempted-admin; sid:2100101; rev:1;)
+
+###############################################
+# Command & Control
+###############################################
+alert tls $HOME_NET any -> $EXTERNAL_NET any (msg:"ETP C2 Suspicious JA3 CobaltStrike"; ja3.hash; content:"a0e9f5d64349fb13191bc781f81f42e1"; classtype:trojan-activity; priority:1; sid:2100200; rev:1;)
+alert dns $HOME_NET any -> $EXTERNAL_NET $DNS_PORTS (msg:"ETP C2 DNS tunneling"; dns.query; content:"."; depth:1; pcre:"/^.{50,}\..{10,}$/"; detection_filter:track by_src,count 5,seconds 60; classtype:exfiltration; sid:2100201; rev:1;)
+alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"ETP C2 Slack user-agent beacon"; flow:to_server,established; http.user_agent; content:"Slackbot-LinkExpanding"; classtype:trojan-activity; sid:2100202; rev:1;)
+alert tls $HOME_NET any -> $EXTERNAL_NET any (msg:"ETP C2 long-lived TLS beacon"; flow:established; flowint:beacon,+,1; threshold:type threshold, track by_src, count 1, seconds 3600; flowbits:set,long_ttl_tls; sid:2100203; rev:1;)
+
+###############################################
+# Lateral Movement
+###############################################
+alert tcp $HOME_NET any -> $CROWN_JEWEL_NET 5985 (msg:"ETP LATERAL WinRM to crown jewels"; flow:to_server,established; classtype:attempted-admin; metadata:attack_target server,created_at 2024_05_01; sid:2100300; rev:2;)
+alert smb any any -> $CROWN_JEWEL_NET any (msg:"ETP LATERAL SMB exec to crown jewels"; flow:to_server,established; file_data; content:"|ff 53 4d 42 72|"; classtype:suspicious-filename-detect; sid:2100301; rev:2;)
+
+###############################################
+# Data Exfiltration
+###############################################
+alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"ETP EXFIL Rclone user-agent"; http.user_agent; content:"rclone"; nocase; classtype:policy-violation; sid:2100400; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET 443 (msg:"ETP EXFIL abnormal outbound volume"; flow:to_server,established; flowint:exfil,+,1; threshold:type threshold, track by_src, count 1, seconds 600; flowbits:set,exfil_candidate; classtype:exfiltration; sid:2100401; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET 443 (msg:"ETP EXFIL archive over TLS"; flowbits:isset,exfil_candidate; file_data; content:".7z"; within:4; classtype:exfiltration; sid:2100402; rev:1;)
+
+###############################################
+# SaaS / Cloud Abuse
+###############################################
+alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"ETP SAAS GitHub personal token exfil"; http.uri; content:"/login/oauth/access_token"; http.method; content:"POST"; classtype:policy-violation; sid:2100500; rev:1;)
+alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"ETP SAAS AWS secret access key leak"; file_data; pcre:"/(AKIA|ASIA)[0-9A-Z]{16}/"; classtype:data-loss; sid:2100501; rev:1;)
+
+###############################################
+# Critical Service Monitoring
+###############################################
+alert tcp $HOME_NET any -> $CORP_DNS_SERVERS 53 (msg:"ETP SERVICE unauthorized DNS zone transfer"; flags:S; flow:to_server,established; content:"|00 00 FC|"; depth:3; classtype:attempted-recon; sid:2100600; rev:2;)
+alert tcp $EXTERNAL_NET any -> $HOME_NET 27017 (msg:"ETP SERVICE MongoDB exposed"; flow:to_server; content:"MongoDB"; offset:0; depth:20; classtype:policy-violation; sid:2100601; rev:1;)
+
+###############################################
+# Insider Threat
+###############################################
+alert http $HOME_NET any -> $HOME_NET $HTTP_PORTS (msg:"ETP INSIDER admin panel access"; flow:to_server,established; http.uri; content:"/admin"; threshold:type threshold, track by_src,count 5,seconds 300; classtype:suspicious-login; metadata:policy after_hours_monitoring; sid:2100700; rev:2;)
+alert tcp $HOME_NET any -> $CROWN_JEWEL_NET 1433 (msg:"ETP INSIDER MSSQL bulk copy"; flow:to_server,established; file_data; content:"bcp"; nocase; classtype:data-loss; sid:2100701; rev:2;)
+
+###############################################
+# OT / ICS Visibility
+###############################################
+alert tcp $HOME_NET any -> 10.50.0.0/16 502 (msg:"ETP OT Modbus function code 90"; content:"|5a|"; offset:7; depth:1; classtype:attempted-user; sid:2100800; rev:1;)
+alert udp $HOME_NET any -> 10.60.0.0/16 47808 (msg:"ETP OT BACnet writeProperty"; content:"|0f|"; offset:15; depth:1; classtype:attempted-user; sid:2100801; rev:1;)
+
+###############################################
+# High Fidelity Threat Intel Overrides
+###############################################
+alert tls $HOME_NET any -> $EXTERNAL_NET any (msg:"ETP THREAT known malicious JA3S"; ja3.string; content:"771,4865-4866-4867-49195-49200,0-23-65281,29-23-24,0"; classtype:trojan-activity; sid:2100900; rev:1;)
+alert http $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"ETP THREAT suspicious PowerShell download"; flow:to_server,established; http.uri; content:"powershell.exe"; nocase; classtype:trojan-activity; sid:2100901; rev:1;)
