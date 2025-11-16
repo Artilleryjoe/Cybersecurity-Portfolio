@@ -5,7 +5,7 @@ info:
   description: |
     Service endpoints that wrap the Merkle batching pipeline and blockchain anchoring
     helpers exposed in this repository. The API is intentionally narrow and focused on
-    deterministic automation so it can be orchestrated from the IBM Immersion Lab runbooks.
+    deterministic automation so it can be orchestrated directly from this project's runbooks.
 servers:
   - url: http://localhost:8000
     description: Local development server
