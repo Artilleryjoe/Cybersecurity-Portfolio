@@ -12,13 +12,16 @@ and transport security issues.
 - [JADX](https://github.com/skylot/jadx)
 - APKTool
 - Python 3 (built-in IPA extraction and Info.plist parsing)
+- [Frida](https://frida.re) for dynamic Android instrumentation helpers
+- LLDB for iOS runtime debugging templates
 
 ## Implementation
 1. Decompile Android applications with apktool and JADX.
 2. Extract iOS payloads, summarize `Info.plist` metadata, enumerate URL schemes,
    and review App Transport Security (ATS) policies.
-3. Use the Python helper script to chain platform-specific analysis tasks and
-   collect artifacts in one workspace.
+3. Use the Python helper script to chain platform-specific analysis tasks,
+   collect artifacts in one workspace, and generate dynamic instrumentation
+   helpers (Frida for Android, LLDB for iOS).
 
 ## Usage
 Run the Python helper script to analyze an APK or IPA:
@@ -37,9 +40,23 @@ and on your `PATH` for Android targets.
 - Anti-debugging techniques
 - Cross-platform code scalability
 
+## Dynamic Instrumentation Helpers
+The pipeline now emits ready-to-use helper assets for common runtime tooling:
+
+- `analysis_output/frida_helper/` includes a JavaScript hook template and
+  launcher commands to bootstrap Frida against the decompiled package.
+- `analysis_output/lldb_helper/` provides LLDB command snippets and usage notes
+  for attaching to iOS targets and dumping runtime metadata quickly.
+
+## Reporting
+Each run produces `findings_report.json`, summarizing detected issues using a
+lightweight taxonomy and severity tags. Tasks (for example, ATS reviews and URL
+scheme enumeration) push structured findings into the report so teams can plug
+the data into downstream workflows.
+
 ## Next Steps
-- Integrate dynamic instrumentation helpers (Frida, LLDB).
-- Expand reporting to include findings taxonomy and severity tags.
+- Expand Android findings coverage (e.g., manifest hardening checks).
+- Correlate dynamic instrumentation observations back into the structured report.
 
 ## Legal Notice
 Use this tool only on applications you have explicit permission to analyze.
