@@ -88,6 +88,22 @@ Use this quickstart to exercise the scaffold end-to-end on a laptop or lab jump 
 
 The repository ships with `tests/sample_logs/authsvc.jsonl`, a three-entry `.jsonl` feed that simulates an authentication service inside a retail bank’s risk organization. The entries depict an orderly startup, a high-value user login, and a performance warning that would elevate the session’s fraud scoring if it persisted. Running the batcher against this file produces a single banking risk assessment batch whose Merkle root represents the tamper-evident snapshot auditors expect during IBM Immersion Lab exercises. 【F:blockchain-secure-logging/tests/sample_logs/authsvc.jsonl†L1-L4】
 
+### Automated Proof of Concept Checks
+
+To prove the concept quickly to stakeholders or interview panels, run the deterministic regression tests that back the sample narrative:
+
+```bash
+pytest tests/test_merkle_pipeline.py
+```
+
+The suite verifies three critical claims:
+
+1. JSON parsing folds arbitrary fields under `LogEntry.fields`, ensuring canonical hashing input.
+2. The Merkle root derived from `tests/sample_logs/authsvc.jsonl` always equals `0x5fbcb1b4c120926c62b1dd0550ce8288e7694bedda40740f0bf8480d2dc00dec`.
+3. Any mutation to a batched log entry invalidates the stored Merkle proof, demonstrating tamper evidence without having to spin up Ganache.
+
+Because the tests only rely on the standard library, they execute in restricted lab environments where `pip` access may be limited.
+
 ## Next Steps
 
 1. Create a Python virtual environment and install dependencies listed in `offchain/batcher.py` docstring.

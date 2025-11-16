@@ -8,7 +8,7 @@ Ensure that the Merkle batching and blockchain anchoring pipeline detects unauth
 | Test | Description | Expected Result |
 | ---- | ----------- | --------------- |
 | Deterministic Hashing | Hash the same log entry twice. | Identical leaf hash outputs. |
-| Merkle Root Stability | Build a Merkle tree from sample logs. | Root matches known value `0xf4b5…` (update after implementation). |
+| Merkle Root Stability | Build a Merkle tree from sample logs. | Root matches known value `0x5fbcb1b4c120926c62b1dd0550ce8288e7694bedda40740f0bf8480d2dc00dec`. |
 | E2E Happy Path | Run batcher on `sample_logs/authsvc.jsonl` and anchor the batch. | Manifest stored, root present on-chain. |
 | Mutation Detection | Modify one log field and re-run verification. | Merkle proof fails (hash mismatch). |
 | Deletion Detection | Remove a log entry and recompute. | Merkle proof fails due to missing leaf. |

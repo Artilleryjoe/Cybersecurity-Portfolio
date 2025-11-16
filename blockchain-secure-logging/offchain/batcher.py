@@ -23,7 +23,10 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Iterable, List, Sequence
 
-import yaml
+try:
+    import yaml
+except ImportError:  # pragma: no cover - dependency only needed for CLI usage
+    yaml = None
 
 from . import merkle
 from .schemas import BatchMeta, LogEntry
@@ -38,6 +41,8 @@ class BatchInputs:
 
 
 def load_config(path: pathlib.Path) -> dict:
+    if yaml is None:
+        raise RuntimeError("PyYAML is required to load configuration files")
     with path.open("r", encoding="utf-8") as handle:
         return yaml.safe_load(handle)
 
