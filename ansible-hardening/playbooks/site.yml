@@ -1,0 +1,9 @@
+---
+- import_playbook: baseline.yml
+- import_playbook: users.yml
+- import_playbook: firewalls.yml
+- import_playbook: ssh.yml
+- import_playbook: fail2ban.yml
+- import_playbook: logging.yml
+- import_playbook: monitoring.yml
+- import_playbook: patching.yml

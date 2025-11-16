@@ -1,0 +1,80 @@
+---
+# Global defaults for the cybersecurity automation suite.
+users_to_manage:
+  - username: jdillo
+    uid: 1001
+    groups: "sudo,docker"
+    shell: /bin/bash
+    ssh_key: "ssh-ed25519 AAAA...replace-with-your-key... user@host"
+  - username: secadmin
+    uid: 1002
+    groups: "sudo"
+    shell: /bin/bash
+    ssh_key: "ssh-ed25519 AAAA...replace-with-your-key... user@host"
+
+firewall_allowed_ports:
+  - { port: 22, proto: tcp, comment: "SSH" }
+  - { port: 443, proto: tcp, comment: "HTTPS" }
+firewall_default_incoming_policy: deny
+firewall_default_outgoing_policy: allow
+
+ssh_settings:
+  PermitRootLogin: "no"
+  PasswordAuthentication: "no"
+  ChallengeResponseAuthentication: "no"
+  X11Forwarding: "no"
+  AllowTcpForwarding: "no"
+  ClientAliveInterval: "300"
+  ClientAliveCountMax: "2"
+  MaxAuthTries: "3"
+
+fail2ban_settings:
+  bantime: 3600
+  findtime: 600
+  maxretry: 5
+  enabled_jails:
+    - name: sshd
+      port: ssh
+      logpath: "%(sshd_log)s"
+      backend: systemd
+
+remote_log_server: 192.0.2.50
+remote_log_port: 6514
+remote_log_protocol: tcp
+
+filebeat_modules:
+  - system
+  - auth
+
+auditd_rules:
+  - "-w /etc/shadow -p wa -k shadow"
+  - "-w /etc/sudoers -p wa -k scope"
+  - "-w /var/log/ -p wa -k logfiles"
+  - "-a always,exit -F arch=b64 -S execve -k exec"
+
+baseline_packages:
+  - chrony
+  - unattended-upgrades
+  - haveged
+
+services_to_disable:
+  - cups
+  - avahi-daemon
+
+sysctl_tunables:
+  net.ipv4.ip_forward: 0
+  net.ipv4.conf.all.accept_redirects: 0
+  net.ipv4.conf.all.send_redirects: 0
+  net.ipv4.conf.all.accept_source_route: 0
+  net.ipv6.conf.all.accept_redirects: 0
+  net.ipv4.tcp_syncookies: 1
+
+security_banner: |
+  ****************************************************
+  *  Authorized Use Only. Activity is monitored.     *
+  ****************************************************
+
+patch_window:
+  start_hour: 1
+  end_hour: 5
+reboot_after_patch: false

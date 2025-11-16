@@ -1,0 +1,53 @@
+- name: Apply operating system patches
+  hosts: all
+  become: yes
+
+  pre_tasks:
+    - name: Gather time facts
+      ansible.builtin.setup:
+        gather_subset:
+          - '!all'
+          - '!min'
+          - date_time
+
+    - name: Determine if current time is within maintenance window
+      ansible.builtin.set_fact:
+        maintenance_window_open: >-
+          {{ (ansible_date_time.hour | int) >= (patch_window.start_hour | int) and (ansible_date_time.hour | int) < (patch_window.end_hour | int) }}
+
+    - name: Validate maintenance window
+      ansible.builtin.assert:
+        that: maintenance_window_open | bool
+        fail_msg: "Current time is outside the defined maintenance window"
+
+  tasks:
+    - name: Refresh package metadata (Debian)
+      ansible.builtin.apt:
+        update_cache: yes
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Apply security updates (Debian)
+      ansible.builtin.apt:
+        upgrade: dist
+        state: present
+      register: debian_patch
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Refresh package metadata (RedHat)
+      ansible.builtin.dnf:
+        update_cache: yes
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Apply security updates (RedHat)
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
+      register: rhel_patch
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Reboot if required
+      ansible.builtin.reboot:
+        msg: "Ansible triggered reboot after patching"
+        connect_timeout: 5
+        reboot_timeout: 600
+      when: reboot_after_patch | bool

@@ -18,19 +18,13 @@
         remote_src: yes
         backup: yes
 
-    - name: Disable root login
+    - name: Apply hardened SSH parameters
       ansible.builtin.lineinfile:
         path: /etc/ssh/sshd_config
-        regexp: '^#?PermitRootLogin\s+.*'
-        line: 'PermitRootLogin no'
+        regexp: '^#?{{ item.key }}\s+.*'
+        line: '{{ item.key }} {{ item.value }}'
         state: present
-
-    - name: Enforce key-based authentication
-      ansible.builtin.lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: '^#?PasswordAuthentication\s+.*'
-        line: 'PasswordAuthentication no'
-        state: present
+      loop: "{{ ssh_settings | dict2items }}"
 
     - name: Restart SSH service
       ansible.builtin.service:
