@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 
 services:
   elasticsearch:
@@ -31,6 +31,21 @@ services:
       - esdata:/usr/share/elasticsearch/data
       - snapshots:/usr/share/elasticsearch/snapshots
       - ./certs:/usr/share/elasticsearch/config/certs:ro
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.8.2
+    container_name: logstash
+    environment:
+      - LS_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.monitoring.enabled=false
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5044:5044
+      - 9600:9600
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - ./data/ingest:/usr/share/logstash/pipeline/data
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.8.2
@@ -78,6 +93,21 @@ services:
       - ./beats/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./data/feeds:/var/log/feeds
       - ./certs:/usr/share/filebeat/certs:ro
+
+  grafana:
+    image: grafana/grafana:10.2.3
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=changeme
+    ports:
+      - 3000:3000
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - grafanadata:/var/lib/grafana
 
 volumes:
   esdata:

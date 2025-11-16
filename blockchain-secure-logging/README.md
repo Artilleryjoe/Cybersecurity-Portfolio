@@ -61,7 +61,7 @@ Use this quickstart to exercise the scaffold end-to-end on a laptop or lab jump 
    python api/orchestrate_stub.py 2025-09-23T18:05Z_authsvc_demo
    ```
 
-   The stub agent walks the same sequence outlined in the IBM Immersion Lab runbooks: generate a batch, request an anchor, and ask the service to verify the result.
+   The stub agent walks the same sequence outlined in the accompanying runbooks for this project: generate a batch, request an anchor, and ask the service to verify the result.
 
 ## High-Level Flow
 
@@ -86,7 +86,7 @@ Use this quickstart to exercise the scaffold end-to-end on a laptop or lab jump 
 
 ### Sample Fixture Narrative
 
-The repository ships with `tests/sample_logs/authsvc.jsonl`, a three-entry `.jsonl` feed that simulates an authentication service inside a retail bank’s risk organization. The entries depict an orderly startup, a high-value user login, and a performance warning that would elevate the session’s fraud scoring if it persisted. Running the batcher against this file produces a single banking risk assessment batch whose Merkle root represents the tamper-evident snapshot auditors expect during IBM Immersion Lab exercises. 【F:blockchain-secure-logging/tests/sample_logs/authsvc.jsonl†L1-L4】
+The repository ships with `tests/sample_logs/authsvc.jsonl`, a three-entry `.jsonl` feed that simulates an authentication service inside a retail bank’s risk organization. The entries depict an orderly startup, a high-value user login, and a performance warning that would elevate the session’s fraud scoring if it persisted. Running the batcher against this file produces a single banking risk assessment batch whose Merkle root represents the tamper-evident snapshot auditors expect when evaluating this project end-to-end. 【F:blockchain-secure-logging/tests/sample_logs/authsvc.jsonl†L1-L4】
 
 ### Automated Proof of Concept Checks
 
@@ -112,20 +112,20 @@ Because the tests only rely on the standard library, they execute in restricted 
 4. Integrate the verification workflow to detect tampering by recomputing Merkle proofs and checking on-chain anchors.
 
 
-## IBM Immersion Lab End-to-End Demo
+## End-to-End Demo Scenario
 
-The Immersion Lab scenario chains the local components into a deterministic rehearsal of the production flow:
+The default demo chains the local components into a deterministic rehearsal of a production flow tailored for this repository:
 
 1. **Generate** – call the `POST /api/v1/batches` endpoint (or run `python api/orchestrate_stub.py <batch_id>`) to build a manifest from the current `.jsonl` fixtures.
 2. **Anchor** – instruct the service to anchor the new Merkle root on Ganache via `POST /api/v1/anchors`; Ganache provides instant block finality for workshop timelines.
 3. **Verify** – confirm integrity by invoking `POST /api/v1/verifications`, which recomputes the leaf and compares the root against the transaction recorded on the chain.
 
-Reference materials for facilitators:
+Reference materials for running the scenario:
 
 - Full API contract: [`api/openapi.yaml`](api/openapi.yaml)
 - Orchestration helper used in demos: [`api/orchestrate_stub.py`](api/orchestrate_stub.py)
 
-These assets mirror the flow exercised in the Immersion Lab labs—operators can swap in production credentials and change `infra/ganache-config.json` to point at a long-lived network when graduating beyond the stubbed environment.
+These assets mirror the flow exercised when showcasing this project—operators can swap in production credentials and change `infra/ganache-config.json` to point at a long-lived network when graduating beyond the stubbed environment.
 
 
 ## Orchestrate Automation Stub

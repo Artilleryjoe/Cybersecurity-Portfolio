@@ -1,0 +1,42 @@
+{
+  "dashboard": {
+    "title": "Enterprise SOC Overview",
+    "refresh": "30s",
+    "time": {"from": "now-24h", "to": "now"},
+    "panels": [
+      {
+        "type": "stat",
+        "title": "Critical IDS Alerts",
+        "datasource": {"type": "elasticsearch", "uid": "-"},
+        "targets": [
+          {
+            "refId": "A",
+            "metrics": [
+              {"type": "count", "id": "1"},
+              {"field": "severity.keyword", "id": "2", "type": "filters", "settings": {"filters": ["critical"]}}
+            ],
+            "query": "severity:critical",
+            "timeField": "timestamp",
+            "bucketAggs": []
+          }
+        ]
+      },
+      {
+        "type": "timeseries",
+        "title": "Security Script Findings",
+        "datasource": {"type": "elasticsearch", "uid": "-"},
+        "targets": [
+          {
+            "refId": "A",
+            "metrics": [{"id": "1", "type": "count"}],
+            "bucketAggs": [
+              {"id": "2", "type": "date_histogram", "field": "timestamp", "settings": {"interval": "10m"}},
+              {"id": "3", "type": "terms", "field": "severity.keyword", "settings": {"size": 5}}
+            ],
+            "query": "*"
+          }
+        ]
+      }
+    ]
+  }
+}

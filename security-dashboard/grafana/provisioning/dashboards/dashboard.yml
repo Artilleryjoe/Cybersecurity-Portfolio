@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: Enterprise SOC Dashboards
+    orgId: 1
+    folder: Enterprise SOC
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 60
+    options:
+      path: /var/lib/grafana/dashboards

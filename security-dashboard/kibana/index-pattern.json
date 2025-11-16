@@ -1,10 +1,9 @@
 [
-  {
-    "type": "index-pattern",
-    "id": "security-scans",
-    "attributes": {
-      "title": "security-scans-*",
-      "timeFieldName": "timestamp"
-    }
-  }
+  {"type": "index-pattern", "id": "security-scans", "attributes": {"title": "security-scans-*", "timeFieldName": "timestamp"}},
+  {"type": "index-pattern", "id": "ids-alerts", "attributes": {"title": "ids-alerts-*", "timeFieldName": "timestamp"}},
+  {"type": "index-pattern", "id": "ansible-compliance", "attributes": {"title": "ansible-compliance-*", "timeFieldName": "timestamp"}},
+  {"type": "index-pattern", "id": "blockchain-audit", "attributes": {"title": "blockchain-audit-*", "timeFieldName": "timestamp"}},
+  {"type": "index-pattern", "id": "mobile-findings", "attributes": {"title": "mobile-findings-*", "timeFieldName": "timestamp"}},
+  {"type": "index-pattern", "id": "quantum-research", "attributes": {"title": "quantum-research-*", "timeFieldName": "timestamp"}},
+  {"type": "index-pattern", "id": "platform-inventory", "attributes": {"title": "platform-inventory-*", "timeFieldName": "timestamp"}}
 ]
