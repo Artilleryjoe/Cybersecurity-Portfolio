@@ -1,33 +1,39 @@
-# Enterprise Security Dashboard Architecture
+# Security Dashboard Architecture & Scaling Plan
 
-## High-level flow
-1. **Producers** – Every capability inside `Cybersecurity-Portfolio/` emits JSON (newline delimited).  Examples include:
-   - `Security_Scripts/port-scanner` and `Security_Scripts/vuln_check` exporting recon results.
-   - `custom-ids/` Suricata deployments forwarding EVE JSON that references the curated `enterprise.rules` pack.
-   - `ansible-hardening/playbooks` summarizing CIS control status.
-   - `blockchain-secure-logging/` reporting anchoring transactions.
-   - `mobile-security-analysis/analyze_apk.py` rating APKs.
-   - Research notes under `quantum-computing/` for QRNG or post-quantum experiments.
-2. **Landing zone (`data/ingest/`)** – Tools drop JSON Lines artifacts in the shared folder.  Field names follow the schema used in `scripts/build_enterprise_dataset.py` so that Logstash can route to the proper index.
-3. **Logstash** – The pipeline defined in `logstash/pipeline/logstash.conf` ingests the JSON Lines files and accepts Beats streams on port `5044`.  It adds `@metadata.target_index` from the `target_index` field and ships the documents to Elasticsearch.
-4. **Elasticsearch** – Stores time-series indices per capability (`security-scans-*`, `ids-alerts-*`, `ansible-compliance-*`, `blockchain-audit-*`, `mobile-findings-*`, `quantum-research-*`, and `platform-inventory-*`).
-5. **Visualization** – Kibana consumes the indices through the saved objects in `kibana/`.  Grafana connects via the provisioned datasource in `grafana/provisioning/datasources/datasource.yml` to power SRE dashboards.
+## Current Footprint
+- Single Elasticsearch node used for storage and search
+- Kibana for visualization
+- Optional Logstash + Filebeat tier for normalized ingest
 
-## Index mapping strategy
-- **security-scans** – Recon/vulnerability data. Key fields: `host`, `port`, `tool`, `vulnerability`, `severity`, `tags`.
-- **ids-alerts** – Suricata/Snort alerts tied to `custom-ids/rules`. Key fields: `rule_id`, `rule_name`, `sensor`, `src_ip`, `dest_ip`, `severity`.
-- **ansible-compliance** – Outputs from CIS playbooks. Key fields: `host`, `control`, `status`, `severity`, `playbook`.
-- **blockchain-audit** – Anchor confirmations produced by `blockchain-secure-logging`. Key fields: `tx_id`, `chain`, `status`, `hash`.
-- **mobile-findings** – APK analysis metadata. Key fields: `application`, `risk_score`, `issues`, `severity`.
-- **quantum-research** – Research telemetry from `quantum-computing/`. Key fields: `experiment`, `metric`, `value`, `notes`.
-- **platform-inventory** – Automatically generated inventory of repository assets (script counts, rule counts, etc.) to monitor coverage.
+## Automated Data Feeds
+1. Filebeat tails `data/feeds/security-events.log` and forwards data over TLS to Logstash.
+2. Logstash enforces schema, adds metadata, and writes into `security-scans-*` indices.
+3. `scripts/automate_feeds.py` produces continuous synthetic data to simulate scanner output or can be wired to existing scanners by replacing the event generator.
 
-## Deployment considerations
-- **Scale-out** – Pin each component to a dedicated node or orchestrator pod.  Enable Elasticsearch snapshots, configure ILM policies, and attach security realms.
-- **Data onboarding** – Replace the file input with Kafka, HTTP, or S3 modules once telemetry volume exceeds the sample dataset.  Beats agents can ship EVE JSON directly to Logstash by targeting port `5044`.
-- **Automation hooks** –
-  - Extend CI jobs for `Security_Scripts/` to emit JSON Lines into `data/ingest/` whenever scans finish.
-  - Add a post-task handler to the `ansible-hardening` playbooks that posts compliance status to the Beats port using `uri`.
-  - Chain `blockchain-secure-logging/offchain` workers so every notarized batch is surfaced in the `blockchain-audit-*` index.
-- **Dashboards** – Use Kibana Lens or Grafana panels to plot severity trends, MITRE ATT&CK® coverage, compliance drift, and ledger confirmation latency.  The blueprint JSON files included here describe panel placement and the metrics required from each index.
+## Alerting Strategy
+- Kibana Detection Rules for severity thresholds and frequency of findings.
+- Watcher (see `scripts/alerts/critical-vulnerability-watcher.json`) for SLA-style alerting integrated with ticketing webhooks.
+- Use the HTTP input on Logstash to accept alert enrichment payloads from SOAR platforms.
 
+## Enterprise-Scale Roadmap
+1. **Data Tier**
+   - Promote Elasticsearch to a 3 master / 2 data node cluster with dedicated ingest nodes for heavy parsing.
+   - Enable cross-cluster replication for DR and search.
+   - Use hot/warm/cold architecture that aligns with ILM policy defined in `scripts/ilm_and_snapshots.sh`.
+2. **Ingest Tier**
+   - Horizontal scale Logstash with a load balancer in front of Beats traffic.
+   - Introduce Kafka between Beats and Logstash for burst absorption and replay.
+3. **Security**
+   - Mandatory TLS everywhere using certificate authority stored in HashiCorp Vault.
+   - RBAC enforced via Elastic built-in roles plus SAML/LDAP federation for analysts.
+4. **Observability**
+   - Use Elastic Fleet for Beat lifecycle management and to track agent health.
+   - Ship Elastic metrics into Prometheus/Grafana for SLO dashboards.
+5. **Resilience**
+   - Hourly snapshots to an object storage repository (S3, GCS, or MinIO) with retention policy managed by ILM.
+   - Test snapshot restore quarterly using automation pipeline.
+
+## Deployment Guardrails
+- All secrets supplied via `.env` or an orchestrator such as Kubernetes secrets.
+- Terraform or Ansible should manage infrastructure for repeatability.
+- GitOps workflow keeps configuration-as-code in this repository to enable reviews.
