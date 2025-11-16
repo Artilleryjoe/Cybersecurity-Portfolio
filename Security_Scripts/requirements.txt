@@ -8,4 +8,5 @@ python-whois==0.9.4
 ipwhois==1.2.0
 numpy==2.1.2
 scikit-learn==1.5.2
+cryptography==43.0.3
 

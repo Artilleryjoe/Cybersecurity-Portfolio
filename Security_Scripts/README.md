@@ -22,18 +22,20 @@ Each script is designed to be modular, standalone, and easily extensible.
 | Script Name             | Description                                                                 |
 |-------------------------|-----------------------------------------------------------------------------|
 | `shodan-scanner.py`     | Uses Shodan API to scan hosts for exposed services and grab banners.       |
-| `port_scanner.py`       | Custom TCP port scanner targeting specified IPs and port ranges.           |
+| `port_scanner.py`       | Threaded TCP scanner with optional banner grabbing and top-port presets.   |
 | `dns_enum.py`           | Enumerates DNS records and attempts AXFR zone transfers.                   |
-| `who_geo.py`            | Performs Whois lookups and GeoIP geolocation queries.                      |
-| `cert_grabber.py`       | Fetches SSL/TLS certificate metadata (issuer, expiration, etc.).           |
-| `meta_extract.py`       | Extracts metadata from files (images, PDFs, Word documents).               |
-| `vuln_check.py`         | Matches open ports/services to known CVEs for vulnerability awareness.     |
-| `exploit_checker.py`    | Matches services and versions against known CVEs to flag exploitable paths.|
-| `email_head_tool.py`    | Analyzes email headers for SPF, DKIM, DMARC, and relay path insight.       |
-| `password_spray.py`     | Executes password spray attacks (test environments only) using Hydra.      |
-| `markdown_gen.py`       | Generates formatted Markdown and optional HTML reports from scan output.   |
-| `csv_json_export.py`    | Exports scan results to both `.csv` and `.json` formats.                   |
-| `pentest_toolkit.py`    | Automates Metasploit attack patterns with random delays for stealth.      |
+| `who_geo.py`            | Performs Whois+RDAP lookups with ASN intelligence summaries.               |
+| `cert_grabber.py`       | Fetches SSL/TLS metadata including SANs, cipher suites, and expiry.        |
+| `meta_extract.py`       | Extracts metadata, hashes, and sensitive indicators from supplied files.   |
+| `vuln_check.py`         | Maps open ports/services to curated KEV signatures with MITRE tagging.     |
+| `exploit_checker.py`    | Matches services/versions against a CVE dataset with CVSS filtering.       |
+| `email_head_tool.py`    | Analyzes SPF/DKIM/DMARC and reconstructs Received chains for anomalies.    |
+| `password_spray.py`     | Adds throttling, multi-password rotation, and response heuristics.         |
+| `markdown_gen.py`       | Generates Markdown/HTML reports from arbitrary JSON scan data.             |
+| `csv_json_export.py`    | Exports scans with flattening, deduping, and field selection controls.     |
+| `pentest_toolkit.py`    | Automates Metasploit RPC with configurable delays and JSON logging.        |
+| `anomaly_detection.py`  | IsolationForest CLI that exports top anomalies for telemetry review.       |
+| `qrng_steganography/`   | CLI-driven LSB embedding/extraction (keyed + unkeyed) with HKDF hardening.  |
 
 ---
 

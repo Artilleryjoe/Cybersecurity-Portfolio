@@ -7,16 +7,22 @@ Outputs results in structured JSON format.
 """
 
 import argparse
+import ipaddress
 import json
 import socket
+
 from ipwhois import IPWhois
 import whois
 
 def resolve_domain(target):
     try:
-        return socket.gethostbyname(target)
-    except socket.gaierror:
-        return None
+        ipaddress.ip_address(target)
+        return target
+    except ValueError:
+        try:
+            return socket.gethostbyname(target)
+        except socket.gaierror:
+            return None
 
 def get_geoip_info(ip):
     try:
@@ -29,6 +35,9 @@ def get_geoip_info(ip):
             "country": res.get("network", {}).get("country"),
             "network_name": res.get("network", {}).get("name"),
             "registry": res.get("network", {}).get("rir"),
+            "cidr": res.get("network", {}).get("cidr"),
+            "abuse_contacts": res.get("objects", {}).get(res.get("asn", ""), {}).get("contact", {}),
+            "reverse_dns": reverse_dns(ip),
         }
     except Exception as e:
         return {"error": f"GeoIP lookup failed: {str(e)}"}
@@ -46,6 +55,32 @@ def get_whois_info(domain):
         }
     except Exception as e:
         return {"error": f"Whois lookup failed: {str(e)}"}
+
+
+def reverse_dns(ip: str) -> str | None:
+    try:
+        host, *_ = socket.gethostbyaddr(ip)
+        return host
+    except Exception:
+        return None
+
+
+def print_summary(info: dict) -> None:
+    whois_data = info.get("whois", {})
+    geo = info.get("geoip", {})
+    if "error" in whois_data:
+        print(f"Whois: {whois_data['error']}")
+    else:
+        print(f"Registrar: {whois_data.get('registrar')}")
+        print(f"Created : {whois_data.get('creation_date')} | Expires: {whois_data.get('expiration_date')}")
+    if "error" in geo:
+        print(f"GeoIP: {geo['error']}")
+    else:
+        print(f"ASN: {geo.get('asn')} ({geo.get('asn_description')})")
+        print(f"Network: {geo.get('cidr')} in {geo.get('country')} via {geo.get('registry')}")
+        reverse = geo.get('reverse_dns')
+        if reverse:
+            print(f"Reverse DNS: {reverse}")
 
 def main():
     parser = argparse.ArgumentParser(description="Perform Whois and GeoIP lookups.")
@@ -66,6 +101,7 @@ def main():
         json.dump(result, f, indent=2)
 
     print(f"[+] Results saved to {args.output}")
+    print_summary(result)
 
 if __name__ == "__main__":
     main()

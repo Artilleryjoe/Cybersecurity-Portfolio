@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import json
 import time
+from collections import Counter
 from pathlib import Path
 from typing import Dict, Iterable, List
 
@@ -50,6 +51,17 @@ def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
         default=100,
         help="Maximum number of characters to store from each service banner",
     )
+    parser.add_argument(
+        "--port-filter",
+        type=int,
+        nargs="*",
+        help="Only retain service entries for these ports",
+    )
+    parser.add_argument(
+        "--summary",
+        action="store_true",
+        help="Print a high-level exposure summary after scanning",
+    )
     return parser.parse_args(argv)
 
 
@@ -61,7 +73,7 @@ def load_targets(path: Path) -> List[str]:
     return [line.strip() for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def query_host(api: shodan.Shodan, ip: str, banner_length: int) -> Dict[str, object]:
+def query_host(api: shodan.Shodan, ip: str, banner_length: int, port_filter: List[int] | None) -> Dict[str, object]:
     """Retrieve host information from Shodan."""
 
     host = api.host(ip)
@@ -75,6 +87,8 @@ def query_host(api: shodan.Shodan, ip: str, banner_length: int) -> Dict[str, obj
     }
 
     for item in host.get("data", []):
+        if port_filter and item.get("port") not in port_filter:
+            continue
         banner = item.get("data", "") or ""
         result["data"].append(
             {
@@ -95,6 +109,7 @@ def scan_targets(
     *,
     banner_length: int,
     delay: float,
+    port_filter: List[int] | None,
 ) -> Dict[str, object]:
     """Scan each target and return a mapping of results."""
 
@@ -102,7 +117,7 @@ def scan_targets(
     for ip in targets:
         try:
             print(f"[+] Querying Shodan for {ip}...")
-            results[ip] = query_host(api, ip, banner_length)
+            results[ip] = query_host(api, ip, banner_length, port_filter)
         except shodan.APIError as exc:
             print(f"[-] Error retrieving data for {ip}: {exc}")
             results[ip] = {"error": str(exc)}
@@ -111,6 +126,26 @@ def scan_targets(
             time.sleep(delay)
 
     return results
+
+
+def summarize_results(results: Dict[str, object]) -> Dict[str, object]:
+    total_hosts = len(results)
+    hosts_with_vulns = 0
+    exposed_ports = Counter()
+    for data in results.values():
+        host_data = data if isinstance(data, dict) else {}
+        if host_data.get("vulns"):
+            hosts_with_vulns += 1
+        for service in host_data.get("data", []):
+            port = service.get("port")
+            if port:
+                exposed_ports[port] += 1
+    top_ports = exposed_ports.most_common(5)
+    return {
+        "total_hosts": total_hosts,
+        "hosts_with_vulns": hosts_with_vulns,
+        "top_exposed_ports": top_ports,
+    }
 
 
 def main(argv: Iterable[str] | None = None) -> None:
@@ -125,11 +160,16 @@ def main(argv: Iterable[str] | None = None) -> None:
         targets,
         banner_length=max(args.banner_length, 0),
         delay=max(args.delay, 0.0),
+        port_filter=args.port_filter,
     )
 
     output_path = Path(args.output)
     output_path.write_text(json.dumps(results, indent=2, sort_keys=True), encoding="utf-8")
     print(f"[+] Scan complete. Results saved to {output_path}")
+
+    if args.summary:
+        summary = summarize_results(results)
+        print(json.dumps(summary, indent=2))
 
 
 if __name__ == "__main__":
