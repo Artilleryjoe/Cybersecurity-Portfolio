@@ -8,7 +8,10 @@ A DNS enumeration tool that queries common DNS records and attempts AXFR zone tr
 
 - Queries DNS records: A, AAAA, MX, NS, TXT, CNAME, SOA.
 - Attempts DNS zone transfer (AXFR) on each nameserver.
-- Outputs results in JSON format.
+- Detects wildcard DNS behavior and reports DNSSEC material availability.
+- Optional subdomain brute forcing from a newline-delimited wordlist.
+- Configurable resolver timeout, custom nameservers, and rate limiting to avoid noisy scans.
+- Outputs structured JSON to disk and optionally echoes it to stdout for piping.
 
 ## Requirements
 
@@ -21,12 +24,30 @@ Install the required Python package:
   ```pip install dnspython```
 
 ## Usage
-python3 dns_enum.py -d example.com -o dns_results.json
+
+```bash
+python3 dns_enum.py \
+  --domain example.com \
+  --output dns_results.json \
+  --subdomains wordlist.txt \
+  --nameserver 1.1.1.1 --nameserver 8.8.8.8 \
+  --timeout 5 --rate-limit 0.25 --print
+```
 
 ## Arguments:
 -d, --domain: Target domain to enumerate (required).
 
 -o, --output: Output JSON file path (default: dns_enum_results.json).
+
+--subdomains: Optional newline-delimited wordlist used for passive brute forcing.
+
+--nameserver: Override the resolver's nameserver list. Repeatable.
+
+--timeout: DNS resolver timeout (seconds).
+
+--rate-limit: Seconds to sleep between individual queries to reduce traffic bursts.
+
+--print: Also echo the JSON output to stdout.
 
 ## Example Output (dns_results.json)
 ```json

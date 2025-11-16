@@ -104,11 +104,14 @@ Real-time visualization of security events and metrics with a path toward enterp
 Use the included Python helper to generate normalized events that Filebeat can forward to Logstash.
 
 ```bash
-python3 scripts/automate_feeds.py --batch 25 --interval 3 \\
+python3 scripts/automate_feeds.py \\
+  --batch 25 --interval 3 --max-cycles 5 \\
+  --stdout --seed 42 \\
   --logstash-endpoint https://localhost:9601
 ```
 
-- The script appends newline-delimited JSON to `data/feeds/security-events.log`.
+- The script appends newline-delimited JSON to `data/feeds/security-events.log` and can mirror events to stdout with `--stdout`.
+- Use `--max-cycles` for deterministic CI runs and `--seed` to reproduce specific datasets.
 - Filebeat (configured in `beats/filebeat.yml`) tails the file and sends events over TLS to Logstash.
 - If the optional `--logstash-endpoint` is set, events are also pushed to the HTTPS Logstash input for SOAR integrations.
 
