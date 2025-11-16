@@ -1,0 +1,10 @@
+http.host: "0.0.0.0"
+config.reload.automatic: true
+queue.type: persisted
+xpack.monitoring.enabled: true
+xpack.monitoring.elasticsearch:
+  hosts: ["https://elasticsearch:9200"]
+  username: "${ELASTIC_USER}"
+  password: "${ELASTIC_PASSWORD}"
+  ssl:
+    certificate_authority: "/usr/share/logstash/certs/ca.crt"

@@ -1,0 +1,26 @@
+filebeat.inputs:
+  - type: filestream
+    id: automated-security-feed
+    enabled: true
+    paths:
+      - /var/log/feeds/security-events.log
+    fields:
+      datasource: automated-feed
+      severity: low
+    fields_under_root: true
+    parsers:
+      - ndjson:
+          overwrite_keys: true
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+
+setup.ilm.enabled: false
+output.logstash:
+  hosts: ["logstash:5044"]
+  ssl:
+    certificate_authorities: ["/usr/share/filebeat/certs/ca.crt"]
+    certificate: "/usr/share/filebeat/certs/filebeat.crt"
+    key: "/usr/share/filebeat/certs/filebeat.key"
+    verification_mode: full

@@ -69,12 +69,81 @@ Real-time visualization of security events and metrics with a path toward enterp
 - Uptime
 
 ### Next Steps
-- Automate data feeds
-- Configure alerts
-- Plan for enterprise-level scaling
-- Add Logstash and Beats pipelines for structured ingest
-- Enable TLS and role-based access control
-- Implement index lifecycle management and snapshots
+- Automate data feeds ✅
+- Configure alerts ✅
+- Plan for enterprise-level scaling ✅
+- Add Logstash and Beats pipelines for structured ingest ✅
+- Enable TLS and role-based access control ✅
+- Implement index lifecycle management and snapshots ✅
+
+## Automated Data Feeds
+Use the included Python helper to generate normalized events that Filebeat can forward to Logstash.
+
+```bash
+python3 scripts/automate_feeds.py --batch 25 --interval 3 \\
+  --logstash-endpoint https://localhost:9601
+```
+
+- The script appends newline-delimited JSON to `data/feeds/security-events.log`.
+- Filebeat (configured in `beats/filebeat.yml`) tails the file and sends events over TLS to Logstash.
+- If the optional `--logstash-endpoint` is set, events are also pushed to the HTTPS Logstash input for SOAR integrations.
+
+## Logstash and Beats Pipelines
+- `logstash/pipeline/security.conf` normalizes timestamps, adds metadata, and writes into `security-scans-*` indices.
+- `logstash/config/logstash.yml` enables persistent queues plus TLS-secured monitoring against Elasticsearch.
+- `beats/filebeat.yml` defines a filestream input and disables ILM so Logstash/Elasticsearch manage lifecycle policies.
+- Update Filebeat fields or add new inputs for additional scanners while keeping the same Logstash output stanza.
+
+## TLS and Role-Based Access Control
+TLS is now required between every component. Generate certificates before starting Docker Compose by following `certs/README.md`.
+
+1. Create `.env` with stack credentials:
+
+```
+ELASTIC_PASSWORD=changeme
+ELASTIC_USER=elastic
+LOGSTASH_USER=logstash_writer
+LOGSTASH_PASSWORD=logstash_writer_password
+```
+
+2. Bootstrap users and roles once Elasticsearch is up:
+
+```bash
+curl -u elastic:$ELASTIC_PASSWORD --cacert certs/ca.crt \\
+  -X POST https://localhost:9200/_security/role/logstash_writer -H 'Content-Type: application/json' -d '{
+    "cluster": ["monitor", "manage_index_templates", "manage_ilm"],
+    "indices": [{"names": ["security-scans-*"], "privileges": ["write", "create_index"]}]
+  }'
+
+curl -u elastic:$ELASTIC_PASSWORD --cacert certs/ca.crt \\
+  -X POST https://localhost:9200/_security/user/logstash_writer -H 'Content-Type: application/json' -d '{
+    "password": "'$LOGSTASH_PASSWORD'",
+    "roles": ["logstash_writer"],
+    "full_name": "Logstash Output"
+  }'
+```
+
+3. Kibana enforces TLS for the UI (`https://localhost:5601`). Use the built-in `elastic` superuser for bootstrap, then create analyst roles scoped to required data views.
+
+## Alerting
+- Import `scripts/alerts/critical-vulnerability-watcher.json` in **Stack Management → Watcher** to log when critical findings arrive.
+- Kibana Security Solution detection rules can also be created to send email/Webhook/PagerDuty notifications.
+- Because Logstash exposes an HTTPS HTTP input on port `9601`, external SOAR tooling can push enrichment data using mutual TLS.
+
+## Index Lifecycle Management & Snapshots
+`scripts/ilm_and_snapshots.sh` creates an ILM policy, index template, snapshot repository, and an initial snapshot.
+
+```bash
+chmod +x scripts/ilm_and_snapshots.sh
+ES_PASS=$ELASTIC_PASSWORD ./scripts/ilm_and_snapshots.sh \
+  ES_URL=https://localhost:9200 ES_USER=elastic CACERT=certs/ca.crt
+```
+
+- ILM stages follow a hot/warm/cold/delete progression (7/30/90 days by default).
+- Snapshots write to the `snapshots` Docker volume (`/usr/share/elasticsearch/snapshots`). Point this to an object store in production.
+
+## Enterprise-Level Scaling
+See `scripts/architecture.md` for a detailed roadmap that covers ingest horizontal scaling, Kafka buffering, RBAC, observability, and DR patterns.
 
 ### Professional ELK Stack Comparison
 

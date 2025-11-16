@@ -1,0 +1,9 @@
+elasticsearch:
+  dns: ["elasticsearch", "localhost"]
+  ip: ["127.0.0.1"]
+kibana:
+  dns: ["kibana", "localhost"]
+logstash:
+  dns: ["logstash", "localhost"]
+filebeat:
+  dns: ["filebeat", "localhost"]
