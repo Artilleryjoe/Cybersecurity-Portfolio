@@ -1,12 +1,20 @@
 [
   {
     "type": "dashboard",
-    "id": "basic-dashboard",
+    "id": "enterprise-security-operations",
     "attributes": {
-      "title": "Basic Security Dashboard",
-      "description": "Example dashboard layout",
-      "panelsJSON": "[]",
-      "timeRestore": false
+      "title": "Enterprise Security Operations",
+      "description": "Blueprint dashboard combining every capability in the Cybersecurity-Portfolio repository.",
+      "panelsJSON": [
+        {"panelRefName": "panel_security_scans", "gridData": {"w": 24, "h": 10, "x": 0, "y": 0}, "visualization": "security-scans-trend"},
+        {"panelRefName": "panel_ids_alerts", "gridData": {"w": 24, "h": 10, "x": 24, "y": 0}, "visualization": "ids-alerts-buckets"},
+        {"panelRefName": "panel_ansible", "gridData": {"w": 24, "h": 9, "x": 0, "y": 10}, "visualization": "ansible-compliance-status"},
+        {"panelRefName": "panel_blockchain", "gridData": {"w": 12, "h": 9, "x": 24, "y": 10}, "visualization": "blockchain-audit-ledger"},
+        {"panelRefName": "panel_mobile", "gridData": {"w": 12, "h": 9, "x": 36, "y": 10}, "visualization": "mobile-risk"},
+        {"panelRefName": "panel_quantum", "gridData": {"w": 24, "h": 8, "x": 0, "y": 19}, "visualization": "quantum-experiments"}
+      ],
+      "timeRestore": true,
+      "timeRange": {"from": "now-24h", "to": "now"}
     }
   }
 ]

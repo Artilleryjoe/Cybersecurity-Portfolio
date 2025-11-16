@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 
 services:
   elasticsearch:
@@ -6,18 +6,33 @@ services:
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
       - xpack.security.enabled=false
       - xpack.monitoring.collection.enabled=true
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 1g
+    mem_limit: 2g
     ports:
       - 9200:9200
     volumes:
       - esdata:/usr/share/elasticsearch/data
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.8.2
+    container_name: logstash
+    environment:
+      - LS_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.monitoring.enabled=false
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5044:5044
+      - 9600:9600
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - ./data/ingest:/usr/share/logstash/pipeline/data
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.8.2
@@ -27,5 +42,21 @@ services:
     depends_on:
       - elasticsearch
 
+  grafana:
+    image: grafana/grafana:10.2.3
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=changeme
+    ports:
+      - 3000:3000
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - grafanadata:/var/lib/grafana
+
 volumes:
   esdata:
+  grafanadata:
