@@ -12,18 +12,30 @@ from typing import Iterable, List
 TOP_PORTS = [80, 443, 22, 21, 25, 110, 143, 3389, 8080, 8443, 5900, 445, 139, 53, 123]
 
 
+def _validate_port(port: int) -> int:
+    if not 1 <= port <= 65535:
+        raise ValueError(f"Invalid port {port}: must be in range 1-65535")
+    return port
+
+
 def parse_ports(port_spec: str) -> Iterable[int]:
     port_spec = port_spec.strip()
     if port_spec.lower() == "top100":
         return TOP_PORTS
     if "-" in port_spec:
-        start_port, end_port = map(int, port_spec.split("-"))
+        parts = [p.strip() for p in port_spec.split("-")]
+        if len(parts) != 2:
+            raise ValueError(f"Invalid port range: {port_spec}")
+        start_port, end_port = (_validate_port(int(p)) for p in parts)
         if start_port > end_port:
             start_port, end_port = end_port, start_port
         return range(start_port, end_port + 1)
     if "," in port_spec:
-        return [int(p) for p in port_spec.split(",")]
-    return [int(port_spec)]
+        ports = [_validate_port(int(p.strip())) for p in port_spec.split(",") if p.strip()]
+        if not ports:
+            raise ValueError("No ports provided")
+        return ports
+    return [_validate_port(int(port_spec))]
 
 
 def identify_service(port: int) -> str:
