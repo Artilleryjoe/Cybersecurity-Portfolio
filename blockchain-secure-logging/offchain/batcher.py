@@ -47,8 +47,12 @@ class BatchInputs:
 def load_config(path: pathlib.Path) -> dict:
     if yaml is None:
         raise RuntimeError("PyYAML is required to load configuration files")
-    with path.open("r", encoding="utf-8") as handle:
-        return yaml.safe_load(handle)
+
+    resolved_path = path.resolve()
+    with resolved_path.open("r", encoding="utf-8") as handle:
+        config = yaml.safe_load(handle) or {}
+    config["_base_dir"] = str(resolved_path.parent)
+    return config
 
 
 def read_jsonl(path: pathlib.Path) -> Iterable[LogEntry]:
@@ -59,10 +63,18 @@ def read_jsonl(path: pathlib.Path) -> Iterable[LogEntry]:
             yield LogEntry.parse_raw(line)
 
 
+def _resolve_config_path(path_value: str, base_dir: pathlib.Path | None) -> pathlib.Path:
+    path = pathlib.Path(path_value).expanduser()
+    if path.is_absolute() or base_dir is None:
+        return path
+    return (base_dir / path).resolve()
+
+
 def gather_entries(config: dict) -> BatchInputs:
     entries: List[LogEntry] = []
+    base_dir = pathlib.Path(config["_base_dir"]) if config.get("_base_dir") else None
     for source in config.get("sources", []):
-        source_path = pathlib.Path(source["path"])
+        source_path = _resolve_config_path(source["path"], base_dir)
         entries.extend(read_jsonl(source_path))
     prev_root = config.get("state", {}).get("prev_merkle_root")
     entries.sort(key=lambda e: e.ts)
