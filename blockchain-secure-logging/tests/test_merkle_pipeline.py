@@ -10,6 +10,8 @@ import pathlib
 
 import sys
 
+import pytest
+
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
@@ -35,6 +37,20 @@ def test_log_entry_parsing_merges_dynamic_fields() -> None:
     entries = _load_entries()
     assert entries[0].fields["details"] == {"pid": 1234}
     assert entries[1].fields["user"] == "alice"
+
+
+def test_canonical_leaf_rejects_reserved_field_overrides() -> None:
+    entries = _load_entries()
+    malicious = LogEntry(
+        ts=entries[0].ts,
+        source_id=entries[0].source_id,
+        level=entries[0].level,
+        msg=entries[0].msg,
+        fields={"msg": "forged message"},
+    )
+
+    with pytest.raises(ValueError, match="reserved keys: msg"):
+        merkle.canonical_leaf(malicious)
 
 
 def test_merkle_root_matches_known_value() -> None:
