@@ -77,12 +77,13 @@ def build_manifest(batch_id: str, entries: Sequence[LogEntry], prev_root: str | 
         root="0x" + root.hex(),
     )
 
+    all_proofs = merkle.merkle_proofs(leaves)
     proofs = {
         str(index): [
             {"direction": direction, "hash": "0x" + sibling.hex()}
-            for direction, sibling in merkle.merkle_proof(index, leaves)
+            for direction, sibling in proof
         ]
-        for index in range(len(leaves))
+        for index, proof in enumerate(all_proofs)
     }
 
     manifest = {

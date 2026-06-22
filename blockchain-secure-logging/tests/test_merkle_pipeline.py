@@ -79,6 +79,27 @@ def test_merkle_proof_detects_tampering() -> None:
     assert not merkle.verify_proof(tampered_leaf, proof, root)
 
 
+def test_cached_merkle_proofs_match_single_proof_generation() -> None:
+    entries = _load_entries()
+    leaves = [merkle.leaf_hash(entry) for entry in entries]
+
+    cached_proofs = merkle.merkle_proofs(leaves)
+
+    assert cached_proofs == [merkle.merkle_proof(index, leaves) for index in range(len(leaves))]
+
+
+def test_manifest_build_uses_cached_proof_generation(monkeypatch: pytest.MonkeyPatch) -> None:
+    entries = _load_entries()
+
+    def fail_single_proof_generation(index: int, leaves: list[bytes]) -> list[tuple[str, bytes]]:
+        raise AssertionError("build_manifest should serialize cached proofs instead")
+
+    monkeypatch.setattr(merkle, "merkle_proof", fail_single_proof_generation)
+    manifest = build_manifest("2025-09-23T18:05Z_authsvc_demo", entries, EXPECTED_ROOT)
+
+    assert set(manifest["proofs"]) == {str(index) for index in range(len(entries))}
+
+
 def test_manifest_build_is_deterministic(tmp_path: pathlib.Path) -> None:
     entries = _load_entries()
     manifest = build_manifest("2025-09-23T18:05Z_authsvc_demo", entries, EXPECTED_ROOT)
