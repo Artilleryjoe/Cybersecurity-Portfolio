@@ -1,5 +1,5 @@
-fastapi>=0.110,<0.116
-uvicorn>=0.24,<0.32
-requests>=2.31,<3
-web3>=6.5,<7
-PyYAML>=6.0,<7
+fastapi>=0.138,<0.139
+uvicorn>=0.49,<0.50
+requests>=2.34,<3
+web3>=7.16,<8
+PyYAML>=6.0.3,<7
