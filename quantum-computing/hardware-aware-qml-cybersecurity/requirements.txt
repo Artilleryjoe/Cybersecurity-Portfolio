@@ -1,7 +1,7 @@
-numpy
-pandas
-scikit-learn
-qiskit
-qiskit-aer
-qiskit-machine-learning
-matplotlib
+numpy==2.5.0
+pandas==3.0.3
+scikit-learn==1.9.0
+qiskit==2.4.2
+qiskit-aer==0.17.2
+qiskit-machine-learning==0.9.0
+matplotlib==3.11.0
