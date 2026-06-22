@@ -148,7 +148,10 @@ def _bytes32(value: Optional[str]) -> bytes:
     stripped = value[2:] if value.startswith("0x") else value
     if len(stripped) != 64:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, f"Expected 32-byte hex value, got {value}")
-    return bytes.fromhex(stripped)
+    try:
+        return bytes.fromhex(stripped)
+    except ValueError as exc:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, f"Expected 32-byte hex value, got {value}") from exc
 
 
 def _resolve_manifest_dir(config: Dict[str, Any], override: Optional[str]) -> pathlib.Path:
