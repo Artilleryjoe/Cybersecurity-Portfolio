@@ -28,6 +28,10 @@ try:
 except ImportError:  # pragma: no cover - dependency only needed for CLI usage
     yaml = None
 
+if __package__ in {None, ""}:  # pragma: no cover - exercised via subprocess CLI test
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+    __package__ = "offchain"
+
 from . import merkle
 from .schemas import BatchMeta, LogEntry
 
