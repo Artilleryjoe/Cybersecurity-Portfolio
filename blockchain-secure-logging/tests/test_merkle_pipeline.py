@@ -87,4 +87,20 @@ def test_manifest_build_is_deterministic(tmp_path: pathlib.Path) -> None:
     assert manifest["batch"]["count"] == len(entries)
     assert manifest["batch"]["root"] == EXPECTED_ROOT
     assert manifest["batch"]["prev_merkle_root"] == EXPECTED_ROOT
+    assert len(manifest["leaves"]) == len(entries)
+    assert all(leaf.startswith("0x") for leaf in manifest["leaves"])
+    assert set(manifest["proofs"]) == {str(index) for index in range(len(entries))}
+
+
+def test_manifest_includes_verifiable_proofs_for_each_leaf() -> None:
+    entries = _load_entries()
+    manifest = build_manifest("2025-09-23T18:05Z_authsvc_demo", entries, EXPECTED_ROOT)
+    expected_root = bytes.fromhex(manifest["batch"]["root"][2:])
+
+    for index, leaf_hex in enumerate(manifest["leaves"]):
+        proof = [
+            (item["direction"], bytes.fromhex(item["hash"][2:]))
+            for item in manifest["proofs"][str(index)]
+        ]
+        assert merkle.verify_proof(bytes.fromhex(leaf_hex[2:]), proof, expected_root)
 

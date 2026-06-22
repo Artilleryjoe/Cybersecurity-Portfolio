@@ -77,10 +77,18 @@ def build_manifest(batch_id: str, entries: Sequence[LogEntry], prev_root: str | 
         root="0x" + root.hex(),
     )
 
+    proofs = {
+        str(index): [
+            {"direction": direction, "hash": "0x" + sibling.hex()}
+            for direction, sibling in merkle.merkle_proof(index, leaves)
+        ]
+        for index in range(len(leaves))
+    }
+
     manifest = {
         "batch": json.loads(batch_meta.json()),
-        "leaves": [leaf.hex() for leaf in leaves],
-        "proofs": {},
+        "leaves": ["0x" + leaf.hex() for leaf in leaves],
+        "proofs": proofs,
     }
     return manifest
 
