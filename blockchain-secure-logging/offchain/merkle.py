@@ -19,6 +19,10 @@ def canonical_leaf(entry: LogEntry) -> bytes:
         "msg": entry.msg,
     }
     if entry.fields:
+        reserved_keys = payload.keys() & entry.fields.keys()
+        if reserved_keys:
+            reserved = ", ".join(sorted(reserved_keys))
+            raise ValueError(f"Log entry fields cannot override reserved keys: {reserved}")
         payload.update(entry.fields)
 
     return json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
